@@ -86,8 +86,7 @@ private:
     void        checkSettings();
 
     MainWindow* m_mainWindow = nullptr;
-    EditMode*   m_editMode   = nullptr;
-    //Locator *m_locator = nullptr;
+    EditMode *m_editMode = nullptr;
     ReaperPrivate m_reaper;
 };
 

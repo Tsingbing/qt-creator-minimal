@@ -25,7 +25,6 @@
 
 #include "commandsfile.h"
 #include "command_p.h"
-#include <coreplugin/dialogs/shortcutsettings.h>
 #include <coreplugin/icore.h>
 
 #include <app/app_version.h>
@@ -122,45 +121,6 @@ QMap<QString, QKeySequence> CommandsFile::importCommands() const
     } // while !atEnd
     file.close();
     return result;
-}
-
-/*!
-    \internal
-*/
-
-bool CommandsFile::exportCommands(const QList<ShortcutItem *> &items)
-{
-    Utils::FileSaver saver(m_filename, QIODevice::Text);
-    if (!saver.hasError()) {
-        const Context ctx;
-        QXmlStreamWriter w(saver.file());
-        w.setAutoFormatting(true);
-        w.setAutoFormattingIndent(1); // Historical, used to be QDom.
-        w.writeStartDocument();
-        w.writeDTD(QLatin1String("<!DOCTYPE KeyboardMappingScheme>"));
-        w.writeComment(QString::fromLatin1(" Written by %1, %2. ").
-                       arg(ICore::versionString(),
-                           QDateTime::currentDateTime().toString(Qt::ISODate)));
-        w.writeStartElement(ctx.mappingElement);
-        foreach (const ShortcutItem *item, items) {
-            const Id id = item->m_cmd->id();
-            if (item->m_key.isEmpty()) {
-                w.writeEmptyElement(ctx.shortCutElement);
-                w.writeAttribute(ctx.idAttribute, id.toString());
-            } else {
-                w.writeStartElement(ctx.shortCutElement);
-                w.writeAttribute(ctx.idAttribute, id.toString());
-                w.writeEmptyElement(ctx.keyElement);
-                w.writeAttribute(ctx.valueAttribute, item->m_key.toString());
-                w.writeEndElement(); // Shortcut
-            }
-        }
-        w.writeEndElement();
-        w.writeEndDocument();
-
-        saver.setResult(&w);
-    }
-    return saver.finalize();
 }
 
 } // namespace Internal

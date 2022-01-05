@@ -50,7 +50,6 @@ class InfoBar;
 class JsExpander;
 class MessageManager;
 class ModeManager;
-class ProgressManager;
 class NavigationWidget;
 enum class Side;
 class RightPaneWidget;
@@ -61,10 +60,7 @@ namespace Internal {
 
 class FancyTabWidget;
 class GeneralSettings;
-class ProgressManagerPrivate;
-class ShortcutSettings;
 class ToolSettings;
-class MimeTypeSettings;
 class VersionDialog;
 class WindowSupport;
 class SystemEditor;
@@ -153,7 +149,7 @@ private:
     EditorManager *m_editorManager = nullptr;
     ExternalToolManager *m_externalToolManager = nullptr;
     MessageManager *m_messageManager = nullptr;
-    ProgressManagerPrivate *m_progressManager = nullptr;
+
     JsExpander *m_jsExpander = nullptr;
     VcsManager *m_vcsManager = nullptr;
     ModeManager *m_modeManager = nullptr;
@@ -168,10 +164,7 @@ private:
     QMap<QWidget *, IContext *> m_contextWidgets;
 
     GeneralSettings *m_generalSettings = nullptr;
-    SystemSettings *m_systemSettings = nullptr;
-    ShortcutSettings *m_shortcutSettings = nullptr;
     ToolSettings *m_toolSettings = nullptr;
-    MimeTypeSettings *m_mimeTypeSettings = nullptr;
     SystemEditor *m_systemEditor = nullptr;
 
     // actions

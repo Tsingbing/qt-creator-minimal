@@ -28,7 +28,6 @@
 #include "vcsoutputwindow.h"
 
 #include <coreplugin/editormanager/editormanager.h>
-#include <coreplugin/progressmanager/progressmanager.h>
 #include <utils/runextensions.h>
 
 #include <QStandardItemModel>
@@ -249,13 +248,6 @@ bool CleanDialog::promptToDelete()
                               QMessageBox::Yes|QMessageBox::No, QMessageBox::Yes) != QMessageBox::Yes)
         return false;
 
-    // Remove in background
-    QFuture<void> task = Utils::runAsync(Internal::runCleanFiles, d->m_workingDirectory,
-                                         selectedFiles, Internal::handleError);
-
-    const QString taskName = tr("Cleaning \"%1\"").
-                             arg(QDir::toNativeSeparators(d->m_workingDirectory));
-    Core::ProgressManager::addTask(task, taskName, "VcsBase.cleanRepository");
     return true;
 }
 

@@ -90,7 +90,7 @@ CorePlugin::~CorePlugin()
     //Find::destroy();
 
     //delete m_locator;
-    //delete m_editMode;
+    delete m_editMode;
 
     DesignMode::destroyModeIfRequired();
 
@@ -165,8 +165,8 @@ bool CorePlugin::initialize(const QStringList& arguments, QString* errorMessage)
     //m_locator = new Locator;
     std::srand(unsigned(QDateTime::currentDateTime().toSecsSinceEpoch()));
     m_mainWindow->init();
-    //m_editMode = new EditMode;
-    //ModeManager::activateMode(m_editMode->id());
+    m_editMode = new EditMode;
+    ModeManager::activateMode(m_editMode->id());
 
     IWizardFactory::initialize();
 

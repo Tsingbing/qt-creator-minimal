@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 Brian McGillion and Hugues Delorme
 ** Contact: https://www.qt.io/licensing/
@@ -27,30 +27,26 @@
 
 #include "core_global.h"
 
-#include "progressmanager/futureprogress.h"
-
 #include <utils/shellcommand.h>
 
 #include <QPointer>
 
-namespace Core {
+namespace Core
+{
 
 class CORE_EXPORT ShellCommand : public Utils::ShellCommand
 {
     Q_OBJECT
 
 public:
-    ShellCommand(const QString &workingDirectory, const QProcessEnvironment &environment);
-
-    FutureProgress *futureProgress() const;
+    ShellCommand(const QString& workingDirectory, const QProcessEnvironment& environment);
 
 protected:
-    void addTask(QFuture<void> &future) override;
+    void addTask(QFuture<void>& future) override;
 
     virtual void coreAboutToClose();
 
 private:
-    QPointer<FutureProgress> m_progress;
 };
 
 } // namespace Core

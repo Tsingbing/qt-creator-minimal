@@ -26,8 +26,6 @@
 #include "commandmappings.h"
 #include "commandsfile.h"
 
-#include <coreplugin/dialogs/shortcutsettings.h>
-
 #include <utils/headerviewstretcher.h>
 #include <utils/fancylineedit.h>
 #include <utils/qtcassert.h>
@@ -41,7 +39,7 @@
 #include <QTreeWidgetItem>
 #include <QVBoxLayout>
 
-Q_DECLARE_METATYPE(Core::Internal::ShortcutItem*)
+//Q_DECLARE_METATYPE(Core::Internal::ShortcutItem*)
 
 using namespace Utils;
 

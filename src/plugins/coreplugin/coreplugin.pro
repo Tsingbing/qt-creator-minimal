@@ -48,13 +48,9 @@ SOURCES += corejsextensions.cpp \
     dialogs/newdialog.cpp \
     dialogs/settingsdialog.cpp \
     actionmanager/commandmappings.cpp \
-    dialogs/shortcutsettings.cpp \
+    #dialogs/shortcutsettings.cpp \
     dialogs/readonlyfilesdialog.cpp \
     dialogs/openwithdialog.cpp \
-    progressmanager/progressmanager.cpp \
-    progressmanager/progressview.cpp \
-    progressmanager/progressbar.cpp \
-    progressmanager/futureprogress.cpp \
     reaper.cpp \
     coreplugin.cpp \
     modemanager.cpp \
@@ -89,8 +85,8 @@ SOURCES += corejsextensions.cpp \
     dialogs/externaltoolconfig.cpp \
     dialogs/filepropertiesdialog.cpp \
     variablechooser.cpp \
-    mimetypemagicdialog.cpp \
-    mimetypesettings.cpp \
+    #mimetypemagicdialog.cpp \
+    #mimetypesettings.cpp \
     dialogs/promptoverwritedialog.cpp \
     fileutils.cpp \
     featureprovider.cpp \
@@ -108,7 +104,7 @@ SOURCES += corejsextensions.cpp \
     messagebox.cpp \
     iwelcomepage.cpp \
     externaltoolmanager.cpp \
-    systemsettings.cpp \
+    #systemsettings.cpp \
     coreicons.cpp \
     diffservice.cpp \
     #menubarfilter.cpp \
@@ -155,14 +151,9 @@ HEADERS += corejsextensions.h \
     dialogs/settingsdialog.h \
     actionmanager/commandmappings.h \
     dialogs/readonlyfilesdialog.h \
-    dialogs/shortcutsettings.h \
+    #dialogs/shortcutsettings.h \
     dialogs/openwithdialog.h \
     dialogs/ioptionspage.h \
-    progressmanager/progressmanager_p.h \
-    progressmanager/progressview.h \
-    progressmanager/progressbar.h \
-    progressmanager/futureprogress.h \
-    progressmanager/progressmanager.h \
     reaper.h \
     reaper_p.h \
     icontext.h \
@@ -204,8 +195,8 @@ HEADERS += corejsextensions.h \
     dialogs/externaltoolconfig.h \
     dialogs/filepropertiesdialog.h \
     variablechooser.h \
-    mimetypemagicdialog.h \
-    mimetypesettings.h \
+    #mimetypemagicdialog.h \
+    #mimetypesettings.h \
     dialogs/promptoverwritedialog.h \
     fileutils.h \
     externaltoolmanager.h \
@@ -222,7 +213,7 @@ HEADERS += corejsextensions.h \
     opendocumentstreeview.h \
     messagebox.h \
     iwelcomepage.h \
-    systemsettings.h \
+    #systemsettings.h \
     coreicons.h \
     editormanager/documentmodel_p.h \
     diffservice.h \
@@ -237,10 +228,10 @@ FORMS += dialogs/newdialog.ui \
     generalsettings.ui \
     dialogs/externaltoolconfig.ui \
     dialogs/filepropertiesdialog.ui \
-    mimetypesettingspage.ui \
-    mimetypemagicdialog.ui \
+    #mimetypesettingspage.ui \
+    #mimetypemagicdialog.ui \
     dialogs/addtovcsdialog.ui \
-    systemsettings.ui
+    #systemsettings.ui
 
 RESOURCES += core.qrc \
     fancyactionbar.qrc
@@ -249,17 +240,14 @@ RESOURCES += core.qrc \
 #include(locator/locator.pri)
 
 win32 {
-    SOURCES += progressmanager/progressmanager_win.cpp
     QT += gui-private # Uses QPlatformNativeInterface.
     LIBS += -lole32 -luser32
 }
 else:macx {
     OBJECTIVE_SOURCES += \
-        progressmanager/progressmanager_mac.mm
     LIBS += -framework AppKit
 }
 else:unix {
-    SOURCES += progressmanager/progressmanager_x11.cpp
 
     IMAGE_SIZE_LIST = 16 24 32 48 64 128 256 512
 

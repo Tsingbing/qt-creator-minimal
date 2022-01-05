@@ -28,7 +28,6 @@
 #include "vcsbaseclientsettings.h"
 
 #include <coreplugin/editormanager/editormanager.h>
-#include <coreplugin/progressmanager/progressmanager.h>
 #include <diffeditor/diffutils.h>
 #include <utils/qtcassert.h>
 #include <utils/runextensions.h>
@@ -163,9 +162,6 @@ void VcsBaseDiffEditorControllerPrivate::processDiff(const QString &patch)
                      [this] () { processingFinished(); } );
 
     m_processWatcher->setFuture(Utils::runAsync(&readPatch, patch));
-
-    ProgressManager::addTask(m_processWatcher->future(),
-                             VcsBaseDiffEditorController::tr("Processing diff"), "DiffEditor");
 }
 
 void VcsBaseDiffEditorControllerPrivate::cancelReload()

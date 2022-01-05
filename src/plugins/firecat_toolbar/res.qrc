@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/mode_calc.png</file>
+        <file>image/mode_calc_mask.png</file>
+        <file>image/mode_debug.png</file>
+        <file>image/mode_debug_mask.png</file>
+        <file>image/mode_run.png</file>
+        <file>image/mode_run_mask.png</file>
+    </qresource>
+</RCC>

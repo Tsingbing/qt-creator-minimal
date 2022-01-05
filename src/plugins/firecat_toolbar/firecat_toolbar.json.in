@@ -1,0 +1,13 @@
+{
+    \"Name\" : \"firecat_toolbar\",
+    \"Version\" : \"$$QTCREATOR_VERSION\",
+    \"CompatVersion\" : \"$$QTCREATOR_COMPAT_VERSION\",
+    \"DisabledByDefault\" : false,
+    \"HiddenByDefault\" : false,
+    \"Vendor\" : \"The Qt Company Ltd\",
+    \"Copyright\" : \"(C) $$QTCREATOR_COPYRIGHT_YEAR The Qt Company Ltd\",
+    \"License\" : \"null\",
+    \"Description\" : \"firecat sample plugin\",
+    \"Url\" : \"http://www.qt.io\",
+    $$dependencyList
+}

@@ -47,7 +47,7 @@ SOURCES += corejsextensions.cpp \
     dialogs/newdialog.cpp \
     dialogs/settingsdialog.cpp \
     actionmanager/commandmappings.cpp \
-    dialogs/readonlyfilesdialog.cpp \
+    #dialogs/readonlyfilesdialog.cpp \
     dialogs/openwithdialog.cpp \
     reaper.cpp \
     coreplugin.cpp \
@@ -142,7 +142,7 @@ HEADERS += corejsextensions.h \
     dialogs/newdialog.h \
     dialogs/settingsdialog.h \
     actionmanager/commandmappings.h \
-    dialogs/readonlyfilesdialog.h \
+    #dialogs/readonlyfilesdialog.h \
     dialogs/openwithdialog.h \
     dialogs/ioptionspage.h \
     reaper.h \
@@ -209,7 +209,7 @@ HEADERS += corejsextensions.h \
 
 FORMS += dialogs/newdialog.ui \
     dialogs/saveitemsdialog.ui \
-    dialogs/readonlyfilesdialog.ui \
+    #dialogs/readonlyfilesdialog.ui \
     dialogs/openwithdialog.ui \
     generalsettings.ui \
     dialogs/externaltoolconfig.ui \

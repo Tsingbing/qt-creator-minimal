@@ -32,7 +32,7 @@
 
 #include <coreplugin/diffservice.h>
 #include <coreplugin/dialogs/filepropertiesdialog.h>
-#include <coreplugin/dialogs/readonlyfilesdialog.h>
+//#include <coreplugin/dialogs/readonlyfilesdialog.h>
 #include <coreplugin/dialogs/saveitemsdialog.h>
 #include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/editormanager/editormanager_p.h>
@@ -688,6 +688,7 @@ static bool saveModifiedFilesHelper(const QList<IDocument *> &documents,
                 roDocuments << document;
         }
         if (!roDocuments.isEmpty()) {
+            /*
             ReadOnlyFilesDialog roDialog(roDocuments, ICore::dialogParent());
             roDialog.setShowFailWarning(true, DocumentManager::tr(
                                             "Could not save the files.",
@@ -698,7 +699,7 @@ static bool saveModifiedFilesHelper(const QList<IDocument *> &documents,
                 if (failedToSave)
                     (*failedToSave) = modifiedDocuments;
                 return false;
-            }
+            }*/
         }
         foreach (IDocument *document, documentsToSave) {
             if (!EditorManagerPrivate::saveDocument(document)) {

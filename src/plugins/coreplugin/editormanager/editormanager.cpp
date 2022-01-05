@@ -40,7 +40,7 @@
 #include <coreplugin/actionmanager/actionmanager.h>
 #include <coreplugin/actionmanager/command.h>
 #include <coreplugin/dialogs/openwithdialog.h>
-#include <coreplugin/dialogs/readonlyfilesdialog.h>
+//#include <coreplugin/dialogs/readonlyfilesdialog.h>
 #include <coreplugin/diffservice.h>
 #include <coreplugin/documentmanager.h>
 #include <coreplugin/editormanager/ieditorfactory.h>
@@ -904,20 +904,23 @@ EditorView* EditorManagerPrivate::viewForEditor(IEditor* editor)
 
 MakeWritableResult EditorManagerPrivate::makeFileWritable(IDocument* document)
 {
-    if (!document)
-        return Failed;
+    //if (!document)
+    return Failed;
     // TODO: dialog parent is wrong
+        /*
     ReadOnlyFilesDialog roDialog(document, ICore::mainWindow(), document->isSaveAsAllowed());
     switch (roDialog.exec())
     {
+    
         case ReadOnlyFilesDialog::RO_MakeWritable:
         case ReadOnlyFilesDialog::RO_OpenVCS:
             return MadeWritable;
         case ReadOnlyFilesDialog::RO_SaveAs:
             return SavedAs;
-        default:
-            return Failed;
-    }
+        
+    default:
+        return Failed;
+    }*/
 }
 
 /*!

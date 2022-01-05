@@ -54,7 +54,6 @@ class NavigationWidget;
 enum class Side;
 class RightPaneWidget;
 class SettingsDatabase;
-class VcsManager;
 
 namespace Internal {
 
@@ -64,7 +63,6 @@ class ToolSettings;
 class VersionDialog;
 class WindowSupport;
 class SystemEditor;
-class SystemSettings;
 
 class MainWindow : public Utils::AppMainWindow
 {
@@ -151,7 +149,6 @@ private:
     MessageManager *m_messageManager = nullptr;
 
     JsExpander *m_jsExpander = nullptr;
-    VcsManager *m_vcsManager = nullptr;
     ModeManager *m_modeManager = nullptr;
     FancyTabWidget *m_modeStack = nullptr;
     NavigationWidget *m_leftNavigationWidget = nullptr;

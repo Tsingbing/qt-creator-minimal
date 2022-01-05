@@ -53,13 +53,13 @@
 #include <coreplugin/icore.h>
 #include <coreplugin/imode.h>
 #include <coreplugin/infobar.h>
-#include <coreplugin/iversioncontrol.h>
+//#include <coreplugin/iversioncontrol.h>
 #include <coreplugin/modemanager.h>
 #include <coreplugin/outputpane.h>
 #include <coreplugin/outputpanemanager.h>
 #include <coreplugin/rightpane.h>
 #include <coreplugin/settingsdatabase.h>
-#include <coreplugin/vcsmanager.h>
+//#include <coreplugin/vcsmanager.h>
 
 #include <extensionsystem/pluginmanager.h>
 
@@ -1942,6 +1942,7 @@ void EditorManagerPrivate::updateAutoSave()
 
 void EditorManagerPrivate::updateMakeWritableWarning()
 {
+    /*
     IDocument* document = EditorManager::currentDocument();
     QTC_ASSERT(document, return );
     bool ww = document->isModified() && document->isFileReadOnly();
@@ -1990,7 +1991,7 @@ void EditorManagerPrivate::updateMakeWritableWarning()
         {
             document->infoBar()->removeInfo(Id(kMakeWritableWarning));
         }
-    }
+    }*/
 }
 
 void EditorManagerPrivate::setupSaveActions(IDocument* document, QAction* saveAction,
@@ -2225,6 +2226,7 @@ QString EditorManagerPrivate::placeholderText()
 
 void EditorManagerPrivate::vcsOpenCurrentEditor()
 {
+    /*
     IDocument* document = EditorManager::currentDocument();
     if (!document)
         return;
@@ -2239,7 +2241,7 @@ void EditorManagerPrivate::vcsOpenCurrentEditor()
         // TODO: wrong dialog parent
         QMessageBox::warning(ICore::mainWindow(), tr("Cannot Open File"),
                              tr("Cannot open the file for editing with VCS."));
-    }
+    }*/
 }
 
 void EditorManagerPrivate::handleDocumentStateChange()

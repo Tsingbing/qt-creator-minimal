@@ -45,7 +45,7 @@
 #include "plugindialog.h"
 #include "rightpane.h"
 #include "statusbarmanager.h"
-#include "vcsmanager.h"
+
 #include "versiondialog.h"
 #include "windowsupport.h"
 
@@ -110,7 +110,6 @@ MainWindow::MainWindow()
                                QLatin1String(Constants::IDE_CASED_ID),
                                this))
     , m_jsExpander(JsExpander::createGlobalJsExpander())
-    , m_vcsManager(new VcsManager)
     , m_modeStack(new FancyTabWidget(this))
     , m_generalSettings(new GeneralSettings)
     , m_toolSettings(new ToolSettings)
@@ -123,6 +122,8 @@ MainWindow::MainWindow()
     HistoryCompleter::setSettings(PluginManager::settings());
 
     setWindowTitle(Constants::IDE_DISPLAY_NAME);
+    //Remove title box
+    //setWindowFlags(Qt::FramelessWindowHint);
     if (HostOsInfo::isLinuxHost())
         QApplication::setWindowIcon(Icons::QTCREATORLOGO_BIG.icon());
     QString baseName = QApplication::style()->objectName();
@@ -246,8 +247,7 @@ MainWindow::~MainWindow()
     m_systemEditor = nullptr;
     delete m_printer;
     m_printer = nullptr;
-    delete m_vcsManager;
-    m_vcsManager = nullptr;
+
     //we need to delete editormanager and statusbarmanager explicitly before the end of the destructor,
     //because they might trigger stuff that tries to access data from editorwindow, like removeContextWidget
 
@@ -287,7 +287,6 @@ void MainWindow::extensionsInitialized()
     m_windowSupport = new WindowSupport(this, Context("Core.MainWindow"));
     m_windowSupport->setCloseActionEnabled(false);
     OutputPaneManager::create();
-    m_vcsManager->extensionsInitialized();
     m_leftNavigationWidget->setFactories(INavigationWidgetFactory::allNavigationFactories());
     m_rightNavigationWidget->setFactories(INavigationWidgetFactory::allNavigationFactories());
 

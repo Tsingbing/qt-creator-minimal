@@ -27,7 +27,6 @@ SOURCES += corejsextensions.cpp \
     messageoutputwindow.cpp \
     outputpane.cpp \
     outputwindow.cpp \
-    vcsmanager.cpp \
     statusbarmanager.cpp \
     versiondialog.cpp \
     editormanager/editorarea.cpp \
@@ -48,7 +47,6 @@ SOURCES += corejsextensions.cpp \
     dialogs/newdialog.cpp \
     dialogs/settingsdialog.cpp \
     actionmanager/commandmappings.cpp \
-    #dialogs/shortcutsettings.cpp \
     dialogs/readonlyfilesdialog.cpp \
     dialogs/openwithdialog.cpp \
     reaper.cpp \
@@ -63,7 +61,6 @@ SOURCES += corejsextensions.cpp \
     manhattanstyle.cpp \
     minisplitter.cpp \
     styleanimator.cpp \
-    #findplaceholder.cpp \
     rightpane.cpp \
     sidebar.cpp \
     fileiconprovider.cpp \
@@ -85,8 +82,6 @@ SOURCES += corejsextensions.cpp \
     dialogs/externaltoolconfig.cpp \
     dialogs/filepropertiesdialog.cpp \
     variablechooser.cpp \
-    #mimetypemagicdialog.cpp \
-    #mimetypesettings.cpp \
     dialogs/promptoverwritedialog.cpp \
     fileutils.cpp \
     featureprovider.cpp \
@@ -94,7 +89,7 @@ SOURCES += corejsextensions.cpp \
     idocumentfactory.cpp \
     textdocument.cpp \
     documentmanager.cpp \
-    iversioncontrol.cpp \
+    #iversioncontrol.cpp \
     dialogs/addtovcsdialog.cpp \
     dialogs/restartdialog.cpp \
     ioutputpane.cpp \
@@ -104,10 +99,8 @@ SOURCES += corejsextensions.cpp \
     messagebox.cpp \
     iwelcomepage.cpp \
     externaltoolmanager.cpp \
-    #systemsettings.cpp \
     coreicons.cpp \
     diffservice.cpp \
-    #menubarfilter.cpp \
     welcomepagehelper.cpp
 
 HEADERS += corejsextensions.h \
@@ -125,7 +118,6 @@ HEADERS += corejsextensions.h \
     messageoutputwindow.h \
     outputpane.h \
     outputwindow.h \
-    vcsmanager.h \
     statusbarmanager.h \
     editormanager/editorarea.h \
     editormanager/editormanager.h \
@@ -151,7 +143,6 @@ HEADERS += corejsextensions.h \
     dialogs/settingsdialog.h \
     actionmanager/commandmappings.h \
     dialogs/readonlyfilesdialog.h \
-    #dialogs/shortcutsettings.h \
     dialogs/openwithdialog.h \
     dialogs/ioptionspage.h \
     reaper.h \
@@ -162,7 +153,7 @@ HEADERS += corejsextensions.h \
     imode.h \
     ioutputpane.h \
     coreconstants.h \
-    iversioncontrol.h \
+    #iversioncontrol.h \
     ifilewizardextension.h \
     versiondialog.h \
     core_global.h \
@@ -177,7 +168,6 @@ HEADERS += corejsextensions.h \
     manhattanstyle.h \
     minisplitter.h \
     styleanimator.h \
-    #findplaceholder.h \
     rightpane.h \
     sidebar.h \
     fileiconprovider.h \
@@ -195,8 +185,6 @@ HEADERS += corejsextensions.h \
     dialogs/externaltoolconfig.h \
     dialogs/filepropertiesdialog.h \
     variablechooser.h \
-    #mimetypemagicdialog.h \
-    #mimetypesettings.h \
     dialogs/promptoverwritedialog.h \
     fileutils.h \
     externaltoolmanager.h \
@@ -213,11 +201,9 @@ HEADERS += corejsextensions.h \
     opendocumentstreeview.h \
     messagebox.h \
     iwelcomepage.h \
-    #systemsettings.h \
     coreicons.h \
     editormanager/documentmodel_p.h \
     diffservice.h \
-    #menubarfilter.h \
     editormanager/ieditorfactory_p.h \
     welcomepagehelper.h
 
@@ -228,16 +214,10 @@ FORMS += dialogs/newdialog.ui \
     generalsettings.ui \
     dialogs/externaltoolconfig.ui \
     dialogs/filepropertiesdialog.ui \
-    #mimetypesettingspage.ui \
-    #mimetypemagicdialog.ui \
     dialogs/addtovcsdialog.ui \
-    #systemsettings.ui
 
 RESOURCES += core.qrc \
     fancyactionbar.qrc
-
-#include(find/find.pri)
-#include(locator/locator.pri)
 
 win32 {
     QT += gui-private # Uses QPlatformNativeInterface.

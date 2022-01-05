@@ -245,7 +245,7 @@ FORMS += dialogs/newdialog.ui \
 RESOURCES += core.qrc \
     fancyactionbar.qrc
 
-#include(find/find.pri)
+include(find/find.pri)
 #include(locator/locator.pri)
 
 win32 {

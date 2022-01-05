@@ -15,7 +15,7 @@
 *.orig
 *.prl
 *.qm
-*.rc
+#*.rc
 *.rej
 *.res
 *_pch.h.cpp

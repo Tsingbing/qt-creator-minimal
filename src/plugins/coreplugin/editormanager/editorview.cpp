@@ -37,7 +37,7 @@
 #include <coreplugin/locator/locatorconstants.h>
 #include <coreplugin/minisplitter.h>
 #include <coreplugin/editormanager/ieditor.h>
-#include <coreplugin/findplaceholder.h>
+//#include <coreplugin/findplaceholder.h>
 #include <utils/qtcassert.h>
 #include <utils/theme/theme.h>
 #include <utils/utilsicons.h>
@@ -96,7 +96,7 @@ EditorView::EditorView(SplitterOrView *parentSplitterOrView, QWidget *parent) :
 
     tl->addWidget(m_container);
 
-    tl->addWidget(new FindToolBarPlaceHolder(this));
+    //tl->addWidget(new FindToolBarPlaceHolder(this));
 
     {
         m_statusHLine->setFrameStyle(QFrame::HLine);

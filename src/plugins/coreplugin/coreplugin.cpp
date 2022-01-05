@@ -41,8 +41,8 @@
 #include <coreplugin/documentmanager.h>
 #include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/fileutils.h>
-#include <coreplugin/find/findplugin.h>
-#include <coreplugin/find/searchresultwindow.h>
+//#include <coreplugin/find/findplugin.h>
+//#include <coreplugin/find/searchresultwindow.h>
 //#include <coreplugin/locator/locator.h>
 
 #include <app/app_version.h>
@@ -78,7 +78,7 @@ static CorePlugin* m_instance = nullptr;
 CorePlugin::CorePlugin()
 {
     qRegisterMetaType<Id>();
-    qRegisterMetaType<Core::Search::TextPosition>();
+    //qRegisterMetaType<Core::Search::TextPosition>();
     qRegisterMetaType<Utils::CommandLine>();
     qRegisterMetaType<Utils::FilePath>();
     m_instance = this;
@@ -87,7 +87,7 @@ CorePlugin::CorePlugin()
 CorePlugin::~CorePlugin()
 {
     IWizardFactory::destroyFeatureProvider();
-    Find::destroy();
+    //Find::destroy();
 
     //delete m_locator;
     //delete m_editMode;
@@ -173,7 +173,7 @@ bool CorePlugin::initialize(const QStringList& arguments, QString* errorMessage)
     // Make sure we respect the process's umask when creating new files
     SaveFile::initializeUmask();
 
-    Find::initialize();
+    //Find::initialize();
     //m_locator->initialize();
 
     MacroExpander* expander = Utils::globalMacroExpander();
@@ -233,7 +233,7 @@ bool CorePlugin::initialize(const QStringList& arguments, QString* errorMessage)
 void CorePlugin::extensionsInitialized()
 {
     DesignMode::createModeIfRequired();
-    Find::extensionsInitialized();
+    //Find::extensionsInitialized();
     //m_locator->extensionsInitialized();
     m_mainWindow->extensionsInitialized();
     if (ExtensionSystem::PluginManager::hasError())
@@ -349,7 +349,7 @@ void CorePlugin::checkSettings()
 
 ExtensionSystem::IPlugin::ShutdownFlag CorePlugin::aboutToShutdown()
 {
-    Find::aboutToShutdown();
+    //Find::aboutToShutdown();
     m_mainWindow->aboutToShutdown();
     return SynchronousShutdown;
 }

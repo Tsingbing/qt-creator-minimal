@@ -67,7 +67,7 @@ SOURCES += corejsextensions.cpp \
     manhattanstyle.cpp \
     minisplitter.cpp \
     styleanimator.cpp \
-    findplaceholder.cpp \
+    #findplaceholder.cpp \
     rightpane.cpp \
     sidebar.cpp \
     fileiconprovider.cpp \
@@ -186,7 +186,7 @@ HEADERS += corejsextensions.h \
     manhattanstyle.h \
     minisplitter.h \
     styleanimator.h \
-    findplaceholder.h \
+    #findplaceholder.h \
     rightpane.h \
     sidebar.h \
     fileiconprovider.h \
@@ -245,7 +245,7 @@ FORMS += dialogs/newdialog.ui \
 RESOURCES += core.qrc \
     fancyactionbar.qrc
 
-include(find/find.pri)
+#include(find/find.pri)
 #include(locator/locator.pri)
 
 win32 {

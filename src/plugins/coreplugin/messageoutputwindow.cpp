@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -24,10 +24,10 @@
 ****************************************************************************/
 
 #include "messageoutputwindow.h"
-#include "outputwindow.h"
-#include "icontext.h"
 #include "coreconstants.h"
-#include "find/basetextfind.h"
+#include "icontext.h"
+#include "outputwindow.h"
+//#include "find/basetextfind.h"
 
 #include <aggregation/aggregate.h>
 #include <coreplugin/icore.h>
@@ -36,8 +36,10 @@
 #include <QFont>
 #include <QToolButton>
 
-namespace Core {
-namespace Internal {
+namespace Core
+{
+namespace Internal
+{
 
 const char zoomSettingsKey[] = "Core/MessageOutput/Zoom";
 
@@ -47,8 +49,8 @@ MessageOutputWindow::MessageOutputWindow()
     m_widget->setReadOnly(true);
     // Let selected text be colored as if the text edit was editable,
     // otherwise the highlight for searching is too light
-    QPalette p = m_widget->palette();
-    QColor activeHighlight = p.color(QPalette::Active, QPalette::Highlight);
+    QPalette p               = m_widget->palette();
+    QColor   activeHighlight = p.color(QPalette::Active, QPalette::Highlight);
     p.setColor(QPalette::Highlight, activeHighlight);
     QColor activeHighlightedText = p.color(QPalette::Active, QPalette::HighlightedText);
     p.setColor(QPalette::HighlightedText, activeHighlightedText);
@@ -62,7 +64,7 @@ MessageOutputWindow::MessageOutputWindow()
 
     auto agg = new Aggregation::Aggregate;
     agg->add(m_widget);
-    agg->add(new BaseTextFind(m_widget));
+    //agg->add(new BaseTextFind(m_widget));
 
     setupFilterUi("MessageOutputPane.Filter");
     setFilteringEnabled(true);
@@ -94,7 +96,7 @@ void MessageOutputWindow::clearContents()
     m_widget->clear();
 }
 
-QWidget *MessageOutputWindow::outputWidget(QWidget *parent)
+QWidget* MessageOutputWindow::outputWidget(QWidget* parent)
 {
     m_widget->setParent(parent);
     return m_widget;
@@ -109,7 +111,7 @@ void MessageOutputWindow::visibilityChanged(bool /*b*/)
 {
 }
 
-void MessageOutputWindow::append(const QString &text)
+void MessageOutputWindow::append(const QString& text)
 {
     m_widget->appendText(text);
 }
@@ -131,12 +133,10 @@ bool MessageOutputWindow::canPrevious() const
 
 void MessageOutputWindow::goToNext()
 {
-
 }
 
 void MessageOutputWindow::goToPrev()
 {
-
 }
 
 bool MessageOutputWindow::canNavigate() const

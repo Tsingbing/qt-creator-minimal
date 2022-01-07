@@ -11,8 +11,7 @@ isEmpty(QTC_SHOW_BUILD_DATE): QTC_SHOW_BUILD_DATE = $$(QTC_SHOW_BUILD_DATE)
 
 include(../../qtcreatorplugin.pri)
 msvc: QMAKE_CXXFLAGS += -wd4251 -wd4290 -wd4250
-SOURCES += corejsextensions.cpp \
-    mainwindow.cpp \
+SOURCES += mainwindow.cpp \
     shellcommand.cpp \
     editmode.cpp \
     iwizardfactory.cpp \
@@ -22,7 +21,6 @@ SOURCES += corejsextensions.cpp \
     themechooser.cpp \
     id.cpp \
     icontext.cpp \
-    jsexpander.cpp \
     messagemanager.cpp \
     messageoutputwindow.cpp \
     outputpane.cpp \
@@ -43,12 +41,10 @@ SOURCES += corejsextensions.cpp \
     actionmanager/commandbutton.cpp \
     actionmanager/actioncontainer.cpp \
     actionmanager/commandsfile.cpp \
-    dialogs/saveitemsdialog.cpp \
     dialogs/newdialog.cpp \
     dialogs/settingsdialog.cpp \
     actionmanager/commandmappings.cpp \
     #dialogs/readonlyfilesdialog.cpp \
-    dialogs/openwithdialog.cpp \
     reaper.cpp \
     coreplugin.cpp \
     modemanager.cpp \
@@ -80,7 +76,6 @@ SOURCES += corejsextensions.cpp \
     sidebarwidget.cpp \
     externaltool.cpp \
     dialogs/externaltoolconfig.cpp \
-    dialogs/filepropertiesdialog.cpp \
     variablechooser.cpp \
     dialogs/promptoverwritedialog.cpp \
     fileutils.cpp \
@@ -89,11 +84,8 @@ SOURCES += corejsextensions.cpp \
     idocumentfactory.cpp \
     textdocument.cpp \
     documentmanager.cpp \
-    #iversioncontrol.cpp \
-    dialogs/addtovcsdialog.cpp \
     dialogs/restartdialog.cpp \
     ioutputpane.cpp \
-    patchtool.cpp \
     windowsupport.cpp \
     opendocumentstreeview.cpp \
     messagebox.cpp \
@@ -103,8 +95,7 @@ SOURCES += corejsextensions.cpp \
     diffservice.cpp \
     welcomepagehelper.cpp
 
-HEADERS += corejsextensions.h \
-    mainwindow.h \
+HEADERS += mainwindow.h \
     shellcommand.h \
     editmode.h \
     iwizardfactory.h \
@@ -113,7 +104,6 @@ HEADERS += corejsextensions.h \
     generalsettings.h \
     themechooser.h \
     id.h \
-    jsexpander.h \
     messagemanager.h \
     messageoutputwindow.h \
     outputpane.h \
@@ -138,12 +128,9 @@ HEADERS += corejsextensions.h \
     actionmanager/command_p.h \
     actionmanager/actioncontainer_p.h \
     actionmanager/commandsfile.h \
-    dialogs/saveitemsdialog.h \
     dialogs/newdialog.h \
     dialogs/settingsdialog.h \
     actionmanager/commandmappings.h \
-    #dialogs/readonlyfilesdialog.h \
-    dialogs/openwithdialog.h \
     dialogs/ioptionspage.h \
     reaper.h \
     reaper_p.h \
@@ -153,7 +140,6 @@ HEADERS += corejsextensions.h \
     imode.h \
     ioutputpane.h \
     coreconstants.h \
-    #iversioncontrol.h \
     ifilewizardextension.h \
     versiondialog.h \
     core_global.h \
@@ -183,7 +169,6 @@ HEADERS += corejsextensions.h \
     sidebarwidget.h \
     externaltool.h \
     dialogs/externaltoolconfig.h \
-    dialogs/filepropertiesdialog.h \
     variablechooser.h \
     dialogs/promptoverwritedialog.h \
     fileutils.h \
@@ -194,9 +179,7 @@ HEADERS += corejsextensions.h \
     idocumentfactory.h \
     textdocument.h \
     documentmanager.h \
-    dialogs/addtovcsdialog.h \
     dialogs/restartdialog.h \
-    patchtool.h \
     windowsupport.h \
     opendocumentstreeview.h \
     messagebox.h \
@@ -208,13 +191,9 @@ HEADERS += corejsextensions.h \
     welcomepagehelper.h
 
 FORMS += dialogs/newdialog.ui \
-    dialogs/saveitemsdialog.ui \
-    #dialogs/readonlyfilesdialog.ui \
-    dialogs/openwithdialog.ui \
     generalsettings.ui \
     dialogs/externaltoolconfig.ui \
-    dialogs/filepropertiesdialog.ui \
-    dialogs/addtovcsdialog.ui \
+
 
 RESOURCES += core.qrc \
     fancyactionbar.qrc

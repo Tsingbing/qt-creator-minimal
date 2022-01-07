@@ -39,8 +39,6 @@
 #include <coreplugin/actionmanager/actioncontainer.h>
 #include <coreplugin/actionmanager/actionmanager.h>
 #include <coreplugin/actionmanager/command.h>
-#include <coreplugin/dialogs/openwithdialog.h>
-//#include <coreplugin/dialogs/readonlyfilesdialog.h>
 #include <coreplugin/diffservice.h>
 #include <coreplugin/documentmanager.h>
 #include <coreplugin/editormanager/ieditorfactory.h>
@@ -48,18 +46,14 @@
 #include <coreplugin/editormanager/iexternaleditor.h>
 #include <coreplugin/editortoolbar.h>
 #include <coreplugin/fileutils.h>
-//#include <coreplugin/findplaceholder.h>
-//#include <coreplugin/find/searchresultitem.h>
 #include <coreplugin/icore.h>
 #include <coreplugin/imode.h>
 #include <coreplugin/infobar.h>
-//#include <coreplugin/iversioncontrol.h>
 #include <coreplugin/modemanager.h>
 #include <coreplugin/outputpane.h>
 #include <coreplugin/outputpanemanager.h>
 #include <coreplugin/rightpane.h>
 #include <coreplugin/settingsdatabase.h>
-//#include <coreplugin/vcsmanager.h>
 
 #include <extensionsystem/pluginmanager.h>
 
@@ -424,11 +418,6 @@ void EditorManagerPrivate::init()
     connect(m_openTerminalAction, &QAction::triggered, this, &EditorManagerPrivate::openTerminal);
     connect(m_findInDirectoryAction, &QAction::triggered,
             this, &EditorManagerPrivate::findInDirectory);
-    connect(m_filePropertiesAction, &QAction::triggered, this, []() {
-        if (!d->m_contextMenuEntry || d->m_contextMenuEntry->fileName().isEmpty())
-            return;
-        DocumentManager::showFilePropertiesDialog(d->m_contextMenuEntry->fileName());
-    });
     connect(m_pinAction, &QAction::triggered, this, &EditorManagerPrivate::togglePinned);
 
     // Goto Previous In History Action
@@ -907,7 +896,7 @@ MakeWritableResult EditorManagerPrivate::makeFileWritable(IDocument* document)
     //if (!document)
     return Failed;
     // TODO: dialog parent is wrong
-        /*
+    /*
     ReadOnlyFilesDialog roDialog(document, ICore::mainWindow(), document->isSaveAsAllowed());
     switch (roDialog.exec())
     {
@@ -1064,47 +1053,6 @@ void EditorManagerPrivate::showPopupOrSelectDocument()
     }
 }
 
-// Run the OpenWithDialog and return the editor id
-// selected by the user.
-Id EditorManagerPrivate::getOpenWithEditorId(const QString& fileName, bool* isExternalEditor)
-{
-    // Collect editors that can open the file
-    QList<Id>   allEditorIds;
-    QStringList allEditorDisplayNames;
-    QList<Id>   externalEditorIds;
-    // Built-in
-    const EditorFactoryList editors = IEditorFactory::preferredEditorFactories(fileName);
-    const int               size    = editors.size();
-    allEditorDisplayNames.reserve(size);
-    for (int i = 0; i < size; i++)
-    {
-        allEditorIds.push_back(editors.at(i)->id());
-        allEditorDisplayNames.push_back(editors.at(i)->displayName());
-    }
-    // External editors
-    const Utils::MimeType    mt        = Utils::mimeTypeForFile(fileName);
-    const ExternalEditorList exEditors = IExternalEditor::externalEditors(mt);
-    const int                esize     = exEditors.size();
-    for (int i = 0; i < esize; i++)
-    {
-        externalEditorIds.push_back(exEditors.at(i)->id());
-        allEditorIds.push_back(exEditors.at(i)->id());
-        allEditorDisplayNames.push_back(exEditors.at(i)->displayName());
-    }
-    if (allEditorIds.empty())
-        return Id();
-    QTC_ASSERT(allEditorIds.size() == allEditorDisplayNames.size(), return Id());
-    // Run dialog.
-    OpenWithDialog dialog(fileName, ICore::mainWindow());
-    dialog.setEditors(allEditorDisplayNames);
-    dialog.setCurrentEditor(0);
-    if (dialog.exec() != QDialog::Accepted)
-        return Id();
-    const Id selectedId = allEditorIds.at(dialog.editor());
-    if (isExternalEditor)
-        *isExternalEditor = externalEditorIds.contains(selectedId);
-    return selectedId;
-}
 
 static QMap<QString, QVariant> toMap(const QHash<Utils::MimeType, IEditorFactory*>& hash)
 {

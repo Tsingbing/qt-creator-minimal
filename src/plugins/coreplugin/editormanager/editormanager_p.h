@@ -108,7 +108,6 @@ public:
     static MakeWritableResult makeFileWritable(IDocument *document);
     static void doEscapeKeyFocusMoveMagic();
 
-    static Id getOpenWithEditorId(const QString &fileName, bool *isExternalEditor = nullptr);
 
     static void saveSettings();
     static void readSettings();

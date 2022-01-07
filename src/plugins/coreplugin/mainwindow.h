@@ -47,7 +47,6 @@ class EditorManager;
 class ExternalToolManager;
 class IDocument;
 class InfoBar;
-class JsExpander;
 class MessageManager;
 class ModeManager;
 class NavigationWidget;
@@ -105,7 +104,6 @@ public:
     void restart();
 
 public slots:
-    void openFileWith();
     void exit();
 
 protected:
@@ -148,7 +146,6 @@ private:
     ExternalToolManager *m_externalToolManager = nullptr;
     MessageManager *m_messageManager = nullptr;
 
-    JsExpander *m_jsExpander = nullptr;
     ModeManager *m_modeManager = nullptr;
     FancyTabWidget *m_modeStack = nullptr;
     NavigationWidget *m_leftNavigationWidget = nullptr;

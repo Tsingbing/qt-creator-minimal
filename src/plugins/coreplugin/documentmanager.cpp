@@ -31,9 +31,6 @@
 #include "coreconstants.h"
 
 #include <coreplugin/diffservice.h>
-#include <coreplugin/dialogs/filepropertiesdialog.h>
-//#include <coreplugin/dialogs/readonlyfilesdialog.h>
-#include <coreplugin/dialogs/saveitemsdialog.h>
 #include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/editormanager/editormanager_p.h>
 #include <coreplugin/editormanager/editorview.h>
@@ -657,29 +654,9 @@ static bool saveModifiedFilesHelper(const QList<IDocument *> &documents,
         QList<IDocument *> documentsToSave;
         if (silently) {
             documentsToSave = modifiedDocuments;
-        } else {
-            SaveItemsDialog dia(ICore::dialogParent(), modifiedDocuments);
-            if (!message.isEmpty())
-                dia.setMessage(message);
-            if (!alwaysSaveMessage.isNull())
-                dia.setAlwaysSaveMessage(alwaysSaveMessage);
-            if (dia.exec() != QDialog::Accepted) {
-                if (cancelled)
-                    (*cancelled) = true;
-                if (alwaysSave)
-                    (*alwaysSave) = dia.alwaysSaveChecked();
-                if (failedToSave)
-                    (*failedToSave) = modifiedDocuments;
-                const QStringList filesToDiff = dia.filesToDiff();
-                if (!filesToDiff.isEmpty()) {
-                    if (auto diffService = DiffService::instance())
-                        diffService->diffModifiedFiles(filesToDiff);
-                }
-                return false;
-            }
-            if (alwaysSave)
-                *alwaysSave = dia.alwaysSaveChecked();
-            documentsToSave = dia.itemsToSave();
+        }
+        else
+        {
         }
         // Check for files without write permissions.
         QList<IDocument *> roDocuments;
@@ -993,12 +970,6 @@ bool DocumentManager::saveModifiedDocument(IDocument *document, const QString &m
 {
     return saveModifiedDocuments({document}, message, canceled,
                                  alwaysSaveMessage, alwaysSave, failedToClose);
-}
-
-void DocumentManager::showFilePropertiesDialog(const FilePath &filePath)
-{
-    FilePropertiesDialog properties(filePath);
-    properties.exec();
 }
 
 /*!

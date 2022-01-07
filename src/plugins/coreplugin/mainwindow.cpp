@@ -26,8 +26,6 @@
 #include "mainwindow.h"
 
 #include "icore.h"
-#include "jsexpander.h"
-//#include "mimetypesettings.h"
 #include "coreicons.h"
 #include "documentmanager.h"
 #include "editormanager/ieditorfactory.h"
@@ -102,20 +100,11 @@ enum
 };
 
 MainWindow::MainWindow()
-    : AppMainWindow()
-    , m_coreImpl(new ICore(this))
-    , m_lowPrioAdditionalContexts(Constants::C_GLOBAL)
-    , m_settingsDatabase(
-          new SettingsDatabase(QFileInfo(PluginManager::settings()->fileName()).path(),
-                               QLatin1String(Constants::IDE_CASED_ID),
-                               this))
-    , m_jsExpander(JsExpander::createGlobalJsExpander())
-    , m_modeStack(new FancyTabWidget(this))
-    , m_generalSettings(new GeneralSettings)
-    , m_toolSettings(new ToolSettings)
-    , m_systemEditor(new SystemEditor)
-    , m_toggleLeftSideBarButton(new QToolButton)
-    , m_toggleRightSideBarButton(new QToolButton)
+    : AppMainWindow(), m_coreImpl(new ICore(this)), m_lowPrioAdditionalContexts(Constants::C_GLOBAL), m_settingsDatabase(
+                                                                                                          new SettingsDatabase(QFileInfo(PluginManager::settings()->fileName()).path(),
+                                                                                                                               QLatin1String(Constants::IDE_CASED_ID),
+                                                                                                                               this)),
+      m_modeStack(new FancyTabWidget(this)), m_generalSettings(new GeneralSettings), m_toolSettings(new ToolSettings), m_systemEditor(new SystemEditor), m_toggleLeftSideBarButton(new QToolButton), m_toggleRightSideBarButton(new QToolButton)
 {
     (void)new DocumentManager(this);
 
@@ -270,9 +259,6 @@ MainWindow::~MainWindow()
 
     delete m_modeManager;
     m_modeManager = nullptr;
-
-    delete m_jsExpander;
-    m_jsExpander = nullptr;
 }
 
 void MainWindow::init()
@@ -312,9 +298,10 @@ void MainWindow::restart()
     exit();
 }
 
-void MainWindow::closeEvent(QCloseEvent* event)
+void MainWindow::closeEvent(QCloseEvent *event)
 {
-    const auto cancelClose = [ event ] {
+    const auto cancelClose = [event]
+    {
         event->ignore();
         setRestart(false);
     };
@@ -336,7 +323,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
         return;
     }
 
-    foreach (const std::function<bool()>& listener, m_preCloseListeners)
+    foreach (const std::function<bool()> &listener, m_preCloseListeners)
     {
         if (!listener())
         {
@@ -356,31 +343,31 @@ void MainWindow::closeEvent(QCloseEvent* event)
     alreadyClosed = true;
 }
 
-void MainWindow::openDroppedFiles(const QList<DropSupport::FileSpec>& files)
+void MainWindow::openDroppedFiles(const QList<DropSupport::FileSpec> &files)
 {
     raiseWindow();
     QStringList filePaths = Utils::transform(files, &DropSupport::FileSpec::filePath);
     openFiles(filePaths, ICore::SwitchMode);
 }
 
-IContext* MainWindow::currentContextObject() const
+IContext *MainWindow::currentContextObject() const
 {
     return m_activeContext.isEmpty() ? nullptr : m_activeContext.first();
 }
 
-QStatusBar* MainWindow::statusBar() const
+QStatusBar *MainWindow::statusBar() const
 {
     return m_modeStack->statusBar();
 }
 
-InfoBar* MainWindow::infoBar() const
+InfoBar *MainWindow::infoBar() const
 {
     return m_modeStack->infoBar();
 }
 
 void MainWindow::registerDefaultContainers()
 {
-    ActionContainer* menubar = ActionManager::createMenuBar(Constants::MENU_BAR);
+    ActionContainer *menubar = ActionManager::createMenuBar(Constants::MENU_BAR);
 
     if (!HostOsInfo::isMacHost()) // System menu bar on Mac
         setMenuBar(menubar->menuBar());
@@ -392,11 +379,9 @@ void MainWindow::registerDefaultContainers()
     menubar->appendGroup(Constants::G_HELP);
 
     // File Menu
-    ActionContainer* filemenu = ActionManager::createMenu(Constants::M_FILE);
+    ActionContainer *filemenu = ActionManager::createMenu(Constants::M_FILE);
     menubar->addMenu(filemenu, Constants::G_FILE);
     filemenu->menu()->setTitle(tr("&File"));
-    filemenu->appendGroup(Constants::G_FILE_NEW);
-    filemenu->appendGroup(Constants::G_FILE_OPEN);
     filemenu->appendGroup(Constants::G_FILE_PROJECT);
     filemenu->appendGroup(Constants::G_FILE_SAVE);
     filemenu->appendGroup(Constants::G_FILE_EXPORT);
@@ -406,7 +391,7 @@ void MainWindow::registerDefaultContainers()
     connect(filemenu->menu(), &QMenu::aboutToShow, this, &MainWindow::aboutToShowRecentFiles);
 
     // Edit Menu
-    ActionContainer* medit = ActionManager::createMenu(Constants::M_EDIT);
+    ActionContainer *medit = ActionManager::createMenu(Constants::M_EDIT);
     menubar->addMenu(medit, Constants::G_EDIT);
     medit->menu()->setTitle(tr("&Edit"));
 
@@ -417,12 +402,12 @@ void MainWindow::registerDefaultContainers()
     medit->appendGroup(Constants::G_EDIT_OTHER);
 
     // Tools Menu
-    ActionContainer* ac = ActionManager::createMenu(Constants::M_TOOLS);
+    ActionContainer *ac = ActionManager::createMenu(Constants::M_TOOLS);
     menubar->addMenu(ac, Constants::G_TOOLS);
     ac->menu()->setTitle(tr("&Tools"));
 
     // Window Menu
-    ActionContainer* mwindow = ActionManager::createMenu(Constants::M_WINDOW);
+    ActionContainer *mwindow = ActionManager::createMenu(Constants::M_WINDOW);
     menubar->addMenu(mwindow, Constants::G_WINDOW);
     mwindow->menu()->setTitle(tr("&Window"));
     /*mwindow->appendGroup(Constants::G_WINDOW_SIZE);
@@ -455,11 +440,11 @@ void MainWindow::registerDefaultContainers()
 
 void MainWindow::registerDefaultActions()
 {
-    ActionContainer* mfile   = ActionManager::actionContainer(Constants::M_FILE);
-    ActionContainer* medit   = ActionManager::actionContainer(Constants::M_EDIT);
-    ActionContainer* mtools  = ActionManager::actionContainer(Constants::M_TOOLS);
-    ActionContainer* mwindow = ActionManager::actionContainer(Constants::M_WINDOW);
-    ActionContainer* mhelp   = ActionManager::actionContainer(Constants::M_HELP);
+    ActionContainer *mfile = ActionManager::actionContainer(Constants::M_FILE);
+    ActionContainer *medit = ActionManager::actionContainer(Constants::M_EDIT);
+    ActionContainer *mtools = ActionManager::actionContainer(Constants::M_TOOLS);
+    ActionContainer *mwindow = ActionManager::actionContainer(Constants::M_WINDOW);
+    ActionContainer *mhelp = ActionManager::actionContainer(Constants::M_HELP);
 
     // File menu separators
     mfile->addSeparator(Constants::G_FILE_SAVE);
@@ -476,41 +461,28 @@ void MainWindow::registerDefaultActions()
     // Return to editor shortcut: Note this requires Qt to fix up
     // handling of shortcut overrides in menus, item views, combos....
     m_focusToEditor = new QAction(tr("Return to Editor"), this);
-    Command* cmd    = ActionManager::registerAction(m_focusToEditor, Constants::S_RETURNTOEDITOR);
+    Command *cmd = ActionManager::registerAction(m_focusToEditor, Constants::S_RETURNTOEDITOR);
     cmd->setDefaultKeySequence(QKeySequence(Qt::Key_Escape));
     connect(m_focusToEditor, &QAction::triggered, this, &MainWindow::setFocusToEditor);
 
     // New File Action
-    QIcon icon  = QIcon::fromTheme(QLatin1String("document-new"), Utils::Icons::NEWFILE.icon());
+    QIcon icon = QIcon::fromTheme(QLatin1String("document-new"), Utils::Icons::NEWFILE.icon());
     m_newAction = new QAction(icon, tr("&New File or Project..."), this);
-    cmd         = ActionManager::registerAction(m_newAction, Constants::NEW);
+    cmd = ActionManager::registerAction(m_newAction, Constants::NEW);
     cmd->setDefaultKeySequence(QKeySequence::New);
     mfile->addAction(cmd, Constants::G_FILE_NEW);
-    connect(m_newAction, &QAction::triggered, this, []() {
-        if (!ICore::isNewItemDialogRunning())
-        {
-            ICore::showNewItemDialog(tr("New File or Project", "Title of dialog"),
-                                     IWizardFactory::allWizardFactories(), QString());
-        }
-        else
-        {
-            ICore::raiseWindow(ICore::newItemDialog());
-        }
-    });
-
-    // Open Action
-    icon         = QIcon::fromTheme(QLatin1String("document-open"), Utils::Icons::OPENFILE.icon());
-    m_openAction = new QAction(icon, tr("&Open File or Project..."), this);
-    cmd          = ActionManager::registerAction(m_openAction, Constants::OPEN);
-    cmd->setDefaultKeySequence(QKeySequence::Open);
-    mfile->addAction(cmd, Constants::G_FILE_OPEN);
-    connect(m_openAction, &QAction::triggered, this, &MainWindow::openFile);
-
-    // Open With Action
-    m_openWithAction = new QAction(tr("Open File &With..."), this);
-    cmd              = ActionManager::registerAction(m_openWithAction, Constants::OPEN_WITH);
-    mfile->addAction(cmd, Constants::G_FILE_OPEN);
-    connect(m_openWithAction, &QAction::triggered, this, &MainWindow::openFileWith);
+    connect(m_newAction, &QAction::triggered, this, []()
+            {
+                if (!ICore::isNewItemDialogRunning())
+                {
+                    ICore::showNewItemDialog(tr("New File or Project", "Title of dialog"),
+                                             IWizardFactory::allWizardFactories(), QString());
+                }
+                else
+                {
+                    ICore::raiseWindow(ICore::newItemDialog());
+                }
+            });
 
     // File->Recent Files Menu
     ActionContainer* ac = ActionManager::createMenu(Constants::M_FILE_RECENTFILES);
@@ -910,21 +882,6 @@ void MainWindow::exit()
     // so to prevent the deleting of that object we
     // just append it
     QTimer::singleShot(0, this, &QWidget::close);
-}
-
-void MainWindow::openFileWith()
-{
-    foreach (const QString& fileName, EditorManager::getOpenFileNames())
-    {
-        bool     isExternal;
-        const Id editorId = EditorManagerPrivate::getOpenWithEditorId(fileName, &isExternal);
-        if (!editorId.isValid())
-            continue;
-        if (isExternal)
-            EditorManager::openExternalEditor(fileName, editorId);
-        else
-            EditorManagerPrivate::openEditorWith(fileName, editorId);
-    }
 }
 
 IContext* MainWindow::contextObject(QWidget* widget)

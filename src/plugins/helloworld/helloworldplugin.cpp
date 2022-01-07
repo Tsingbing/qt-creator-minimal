@@ -52,6 +52,7 @@ public:
         setWidget(new QPushButton(tr("Hello World PushButton!")));
         setContext(Core::Context("HelloWorld.MainView"));
         setDisplayName(tr("你好"));
+
         /*
         const Icon CLASSIC(":/welcome/images/mode_welcome.png");
         const Icon FLAT({{":/welcome/images/mode_welcome_mask.png",

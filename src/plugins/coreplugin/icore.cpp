@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -25,8 +25,8 @@
 
 #include "icore.h"
 
-#include "windowsupport.h"
 #include "dialogs/settingsdialog.h"
+#include "windowsupport.h"
 
 #include <app/app_version.h>
 #include <extensionsystem/pluginmanager.h>
@@ -112,10 +112,9 @@
     from the focus object as well as the additional context.
 */
 
-#include "dialogs/newdialog.h"
+#include "documentmanager.h"
 #include "iwizardfactory.h"
 #include "mainwindow.h"
-#include "documentmanager.h"
 
 #include <utils/hostosinfo.h>
 
@@ -130,40 +129,29 @@
 using namespace Core::Internal;
 using namespace ExtensionSystem;
 
-namespace Core {
+namespace Core
+{
 
 // The Core Singleton
-static ICore *m_instance = nullptr;
-static MainWindow *m_mainwindow = nullptr;
+static ICore*      m_instance   = nullptr;
+static MainWindow* m_mainwindow = nullptr;
 
-ICore *ICore::instance()
+ICore* ICore::instance()
 {
     return m_instance;
-}
-
-bool ICore::isNewItemDialogRunning()
-{
-    return NewDialog::currentDialog() || IWizardFactory::isWizardRunning();
-}
-
-QWidget *ICore::newItemDialog()
-{
-    if (NewDialog::currentDialog())
-        return NewDialog::currentDialog();
-    return IWizardFactory::currentWizard();
 }
 
 /*!
     \internal
 */
-ICore::ICore(MainWindow *mainwindow)
+ICore::ICore(MainWindow* mainwindow)
 {
-    m_instance = this;
+    m_instance   = this;
     m_mainwindow = mainwindow;
     // Save settings once after all plugins are initialized:
     connect(PluginManager::instance(), &PluginManager::initializationDone,
             this, [] { ICore::saveSettings(ICore::InitializationDone); });
-    connect(PluginManager::instance(), &PluginManager::testsFinished, [this] (int failedTests) {
+    connect(PluginManager::instance(), &PluginManager::testsFinished, [ this ](int failedTests) {
         emit coreAboutToClose();
         if (failedTests != 0)
             qWarning("Test run was not successful: %d test(s) failed.", failedTests);
@@ -176,40 +164,11 @@ ICore::ICore(MainWindow *mainwindow)
 */
 ICore::~ICore()
 {
-    m_instance = nullptr;
+    m_instance   = nullptr;
     m_mainwindow = nullptr;
 }
 
-/*!
-    Opens a dialog where the user can choose from a set of \a factories that
-    create new files or projects.
-
-    The \a title argument is shown as the dialog title. The path where the
-    files will be created (if the user does not change it) is set
-    in \a defaultLocation. Defaults to DocumentManager::projectsDirectory()
-    or DocumentManager::fileDialogLastVisitedDirectory(), depending on wizard
-    kind.
-
-    Additional variables for the wizards are set in \a extraVariables.
-
-    \sa Core::DocumentManager
-*/
-void ICore::showNewItemDialog(const QString &title,
-                              const QList<IWizardFactory *> &factories,
-                              const QString &defaultLocation,
-                              const QVariantMap &extraVariables)
-{
-    QTC_ASSERT(!isNewItemDialogRunning(), return);
-    auto newDialog = new NewDialog(dialogParent());
-    connect(newDialog, &QObject::destroyed, m_instance, &ICore::updateNewItemDialogState);
-    newDialog->setWizardFactories(factories, defaultLocation, extraVariables);
-    newDialog->setWindowTitle(title);
-    newDialog->showDialog();
-
-    updateNewItemDialogState();
-}
-
-bool ICore::showOptionsDialog(const Id page, QWidget *parent)
+bool ICore::showOptionsDialog(const Id page, QWidget* parent)
 {
     return executeSettingsDialog(parent ? parent : dialogParent(), page);
 }
@@ -241,8 +200,8 @@ QString ICore::msgShowOptionsDialogToolTip()
 
     Returns \c true if the user accepted the settings dialog.
 */
-bool ICore::showWarningWithOptions(const QString &title, const QString &text,
-                                   const QString &details, Id settingsId, QWidget *parent)
+bool ICore::showWarningWithOptions(const QString& title, const QString& text,
+                                   const QString& details, Id settingsId, QWidget* parent)
 {
     if (!parent)
         parent = m_mainwindow;
@@ -250,7 +209,7 @@ bool ICore::showWarningWithOptions(const QString &title, const QString &text,
                        QMessageBox::Ok, parent);
     if (!details.isEmpty())
         msgBox.setDetailedText(details);
-    QAbstractButton *settingsButton = nullptr;
+    QAbstractButton* settingsButton = nullptr;
     if (settingsId.isValid())
         settingsButton = msgBox.addButton(tr("Settings..."), QMessageBox::AcceptRole);
     msgBox.exec();
@@ -275,7 +234,7 @@ bool ICore::showWarningWithOptions(const QString &title, const QString &text,
 
     \see settingsDatabase()
 */
-QSettings *ICore::settings(QSettings::Scope scope)
+QSettings* ICore::settings(QSettings::Scope scope)
 {
     if (scope == QSettings::UserScope)
         return PluginManager::settings();
@@ -292,7 +251,7 @@ QSettings *ICore::settings(QSettings::Scope scope)
 
     \see SettingsDatabase
 */
-SettingsDatabase *ICore::settingsDatabase()
+SettingsDatabase* ICore::settingsDatabase()
 {
     return m_mainwindow->settingsDatabase();
 }
@@ -303,7 +262,7 @@ SettingsDatabase *ICore::settingsDatabase()
     Always use this printer object for printing, so the different parts of the
     application re-use its settings.
 */
-QPrinter *ICore::printer()
+QPrinter* ICore::printer()
 {
     return m_mainwindow->printer();
 }
@@ -338,9 +297,10 @@ QString ICore::userResourcePath()
 {
     // Create qtcreator dir if it doesn't yet exist
     const QString configDir = QFileInfo(settings(QSettings::UserScope)->fileName()).path();
-    const QString urp = configDir + '/' + QLatin1String(Constants::IDE_ID);
+    const QString urp       = configDir + '/' + QLatin1String(Constants::IDE_ID);
 
-    if (!QFileInfo::exists(urp + QLatin1Char('/'))) {
+    if (!QFileInfo::exists(urp + QLatin1Char('/')))
+    {
         QDir dir;
         if (!dir.mkpath(urp))
             qWarning() << "could not create" << urp;
@@ -369,12 +329,12 @@ QString ICore::libexecPath()
     return QDir::cleanPath(QApplication::applicationDirPath() + '/' + RELATIVE_LIBEXEC_PATH);
 }
 
-static QString clangIncludePath(const QString &clangVersion)
+static QString clangIncludePath(const QString& clangVersion)
 {
     return "/lib/clang/" + clangVersion + "/include";
 }
 
-QString ICore::clangIncludeDirectory(const QString &clangVersion, const QString &clangResourceDirectory)
+QString ICore::clangIncludeDirectory(const QString& clangVersion, const QString& clangResourceDirectory)
 {
     QDir dir(libexecPath() + "/clang" + clangIncludePath(clangVersion));
     if (!dir.exists() || !QFileInfo(dir, "stdint.h").exists())
@@ -382,26 +342,26 @@ QString ICore::clangIncludeDirectory(const QString &clangVersion, const QString 
     return QDir::toNativeSeparators(dir.canonicalPath());
 }
 
-static QString clangBinary(const QString &binaryBaseName, const QString &clangBinDirectory)
+static QString clangBinary(const QString& binaryBaseName, const QString& clangBinDirectory)
 {
     const QString hostExeSuffix(QTC_HOST_EXE_SUFFIX);
-    QFileInfo executable(ICore::libexecPath() + "/clang/bin/" + binaryBaseName + hostExeSuffix);
+    QFileInfo     executable(ICore::libexecPath() + "/clang/bin/" + binaryBaseName + hostExeSuffix);
     if (!executable.exists())
         executable = QFileInfo(clangBinDirectory + "/" + binaryBaseName + hostExeSuffix);
     return QDir::toNativeSeparators(executable.canonicalFilePath());
 }
 
-QString ICore::clangExecutable(const QString &clangBinDirectory)
+QString ICore::clangExecutable(const QString& clangBinDirectory)
 {
     return clangBinary("clang", clangBinDirectory);
 }
 
-QString ICore::clangTidyExecutable(const QString &clangBinDirectory)
+QString ICore::clangTidyExecutable(const QString& clangBinDirectory)
 {
     return clangBinary("clang-tidy", clangBinDirectory);
 }
 
-QString ICore::clazyStandaloneExecutable(const QString &clangBinDirectory)
+QString ICore::clazyStandaloneExecutable(const QString& clangBinDirectory)
 {
     return clangBinary("clazy-standalone", clangBinDirectory);
 }
@@ -413,10 +373,10 @@ static QString compilerString()
 #if defined(__apple_build_version__) // Apple clang has other version numbers
     isAppleString = QLatin1String(" (Apple)");
 #endif
-    return QLatin1String("Clang " ) + QString::number(__clang_major__) + QLatin1Char('.')
-            + QString::number(__clang_minor__) + isAppleString;
+    return QLatin1String("Clang ") + QString::number(__clang_major__) + QLatin1Char('.')
+           + QString::number(__clang_minor__) + isAppleString;
 #elif defined(Q_CC_GNU)
-    return QLatin1String("GCC " ) + QLatin1String(__VERSION__);
+    return QLatin1String("GCC ") + QLatin1String(__VERSION__);
 #elif defined(Q_CC_MSVC)
     if (_MSC_VER > 1999)
         return QLatin1String("MSVC <unknown>");
@@ -440,9 +400,7 @@ QString ICore::versionString()
 
 QString ICore::buildCompatibilityString()
 {
-    return tr("Based on Qt %1 (%2, %3 bit)").arg(QLatin1String(qVersion()),
-                                                 compilerString(),
-                                                 QString::number(QSysInfo::WordSize));
+    return tr("Based on Qt %1 (%2, %3 bit)").arg(QLatin1String(qVersion()), compilerString(), QString::number(QSysInfo::WordSize));
 }
 
 /*!
@@ -450,18 +408,18 @@ QString ICore::buildCompatibilityString()
 
     \sa updateAdditionalContexts(), addContextObject()
 */
-IContext *ICore::currentContextObject()
+IContext* ICore::currentContextObject()
 {
     return m_mainwindow->currentContextObject();
 }
 
-QWidget *ICore::currentContextWidget()
+QWidget* ICore::currentContextWidget()
 {
-    IContext *context = currentContextObject();
+    IContext* context = currentContextObject();
     return context ? context->widget() : nullptr;
 }
 
-IContext *ICore::contextObject(QWidget *widget)
+IContext* ICore::contextObject(QWidget* widget)
 {
     return m_mainwindow->contextObject(widget);
 }
@@ -471,7 +429,7 @@ IContext *ICore::contextObject(QWidget *widget)
 
     For dialog parents use dialogParent().
 */
-QMainWindow *ICore::mainWindow()
+QMainWindow* ICore::mainWindow()
 {
     return m_mainwindow;
 }
@@ -479,9 +437,9 @@ QMainWindow *ICore::mainWindow()
 /*!
     Returns a widget pointer suitable to use as parent for QDialogs.
  */
-QWidget *ICore::dialogParent()
+QWidget* ICore::dialogParent()
 {
-    QWidget *active = QApplication::activeModalWidget();
+    QWidget* active = QApplication::activeModalWidget();
     if (!active)
         active = QApplication::activeWindow();
     if (!active)
@@ -489,24 +447,27 @@ QWidget *ICore::dialogParent()
     return active;
 }
 
-QStatusBar *ICore::statusBar()
+QStatusBar* ICore::statusBar()
 {
     return m_mainwindow->statusBar();
 }
 
-InfoBar *ICore::infoBar()
+InfoBar* ICore::infoBar()
 {
     return m_mainwindow->infoBar();
 }
 
-void ICore::raiseWindow(QWidget *widget)
+void ICore::raiseWindow(QWidget* widget)
 {
     if (!widget)
         return;
-    QWidget *window = widget->window();
-    if (window && window == m_mainwindow) {
+    QWidget* window = widget->window();
+    if (window && window == m_mainwindow)
+    {
         m_mainwindow->raiseWindow();
-    } else {
+    }
+    else
+    {
         window->raise();
         window->activateWindow();
     }
@@ -518,7 +479,7 @@ void ICore::raiseWindow(QWidget *widget)
     Removes the list of additional contexts specified by \a remove and adds the
     list of additional contexts specified by \a add with \a priority.
 */
-void ICore::updateAdditionalContexts(const Context &remove, const Context &add,
+void ICore::updateAdditionalContexts(const Context& remove, const Context& add,
                                      ContextPriority priority)
 {
     m_mainwindow->updateAdditionalContexts(remove, add, priority);
@@ -527,12 +488,12 @@ void ICore::updateAdditionalContexts(const Context &remove, const Context &add,
 /*!
     Adds \a context with \a priority.
 */
-void ICore::addAdditionalContext(const Context &context, ContextPriority priority)
+void ICore::addAdditionalContext(const Context& context, ContextPriority priority)
 {
     m_mainwindow->updateAdditionalContexts(Context(), context, priority);
 }
 
-void ICore::removeAdditionalContext(const Context &context)
+void ICore::removeAdditionalContext(const Context& context)
 {
     m_mainwindow->updateAdditionalContexts(context, Context(), ContextPriority::Low);
 }
@@ -544,7 +505,7 @@ void ICore::removeAdditionalContext(const Context &context)
     \sa removeContextObject(), updateAdditionalContexts(),
     currentContextObject()
 */
-void ICore::addContextObject(IContext *context)
+void ICore::addContextObject(IContext* context)
 {
     m_mainwindow->addContextObject(context);
 }
@@ -554,12 +515,12 @@ void ICore::addContextObject(IContext *context)
 
     \sa addContextObject(), updateAdditionalContexts(), currentContextObject()
 */
-void ICore::removeContextObject(IContext *context)
+void ICore::removeContextObject(IContext* context)
 {
     m_mainwindow->removeContextObject(context);
 }
 
-void ICore::registerWindow(QWidget *window, const Context &context)
+void ICore::registerWindow(QWidget* window, const Context& context)
 {
     new WindowSupport(window, context); // deletes itself when widget is destroyed
 }
@@ -570,7 +531,7 @@ void ICore::registerWindow(QWidget *window, const Context &context)
     they were opened via \uicontrol File > \uicontrol Open.
 */
 
-void ICore::openFiles(const QStringList &arguments, ICore::OpenFilesFlags flags)
+void ICore::openFiles(const QStringList& arguments, ICore::OpenFilesFlags flags)
 {
     m_mainwindow->openFiles(arguments, flags);
 }
@@ -583,7 +544,7 @@ void ICore::openFiles(const QStringList &arguments, ICore::OpenFilesFlags flags)
     the event is ignored. If all calls return \c true, coreAboutToClose()
     is emitted and the event is accepted or performed.
 */
-void ICore::addPreCloseListener(const std::function<bool ()> &listener)
+void ICore::addPreCloseListener(const std::function<bool()>& listener)
 {
     m_mainwindow->addPreCloseListener(listener);
 }
@@ -597,12 +558,12 @@ QString ICore::systemInformation()
     result += QString("From revision %1\n").arg(QString::fromLatin1(Constants::IDE_REVISION_STR).left(10));
 #endif
 #ifdef QTC_SHOW_BUILD_DATE
-     result += QString("Built on %1 %2\n").arg(QLatin1String(__DATE__), QLatin1String(__TIME__));
+    result += QString("Built on %1 %2\n").arg(QLatin1String(__DATE__), QLatin1String(__TIME__));
 #endif
-     return result;
+    return result;
 }
 
-static const QByteArray &screenShotsPath()
+static const QByteArray& screenShotsPath()
 {
     static const QByteArray path = qgetenv("QTC_SCREENSHOTS_PATH");
     return path;
@@ -611,13 +572,15 @@ static const QByteArray &screenShotsPath()
 class ScreenShooter : public QObject
 {
 public:
-    ScreenShooter(QWidget *widget, const QString &name, const QRect &rc)
-        : m_widget(widget), m_name(name), m_rc(rc)
+    ScreenShooter(QWidget* widget, const QString& name, const QRect& rc)
+        : m_widget(widget)
+        , m_name(name)
+        , m_rc(rc)
     {
         m_widget->installEventFilter(this);
     }
 
-    bool eventFilter(QObject *watched, QEvent *event) override
+    bool eventFilter(QObject* watched, QEvent* event) override
     {
         QTC_ASSERT(watched == m_widget, return false);
         if (event->type() == QEvent::Show)
@@ -627,12 +590,15 @@ public:
 
     void helper()
     {
-        if (m_widget) {
-            QRect rc = m_rc.isValid() ? m_rc : m_widget->rect();
+        if (m_widget)
+        {
+            QRect   rc = m_rc.isValid() ? m_rc : m_widget->rect();
             QPixmap pm = m_widget->grab(rc);
-            for (int i = 0; ; ++i) {
+            for (int i = 0;; ++i)
+            {
                 QString fileName = screenShotsPath() + '/' + m_name + QString("-%1.png").arg(i);
-                if (!QFileInfo::exists(fileName)) {
+                if (!QFileInfo::exists(fileName))
+                {
                     pm.save(fileName);
                     break;
                 }
@@ -642,11 +608,11 @@ public:
     }
 
     QPointer<QWidget> m_widget;
-    QString m_name;
-    QRect m_rc;
+    QString           m_name;
+    QRect             m_rc;
 };
 
-void ICore::setupScreenShooter(const QString &name, QWidget *w, const QRect &rc)
+void ICore::setupScreenShooter(const QString& name, QWidget* w, const QRect& rc)
 {
     if (!screenShotsPath().isEmpty())
         new ScreenShooter(w, name, rc);
@@ -671,20 +637,9 @@ QStringList ICore::additionalAboutInformation()
     return m_mainwindow->additionalAboutInformation();
 }
 
-void ICore::appendAboutInformation(const QString &line)
+void ICore::appendAboutInformation(const QString& line)
 {
     m_mainwindow->appendAboutInformation(line);
-}
-
-void ICore::updateNewItemDialogState()
-{
-    static bool wasRunning = false;
-    static QWidget *previousDialog = nullptr;
-    if (wasRunning == isNewItemDialogRunning() && previousDialog == newItemDialog())
-        return;
-    wasRunning = isNewItemDialogRunning();
-    previousDialog = newItemDialog();
-    emit instance()->newItemDialogStateChanged();
 }
 
 } // namespace Core

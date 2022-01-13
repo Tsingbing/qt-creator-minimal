@@ -72,13 +72,6 @@ public:
     // it returns a ICore.
     static ICore *instance();
 
-    static bool isNewItemDialogRunning();
-    static QWidget *newItemDialog();
-    static void showNewItemDialog(const QString &title,
-                                  const QList<IWizardFactory *> &factories,
-                                  const QString &defaultLocation = QString(),
-                                  const QVariantMap &extraVariables = QVariantMap());
-
     static bool showOptionsDialog(Id page, QWidget *parent = nullptr);
     static QString msgShowOptionsDialog();
     static QString msgShowOptionsDialogToolTip();
@@ -173,7 +166,6 @@ public:
     static void appendAboutInformation(const QString &line);
 
 private:
-    static void updateNewItemDialogState();
 };
 
 } // namespace Core

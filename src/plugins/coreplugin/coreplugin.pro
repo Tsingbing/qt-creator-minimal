@@ -41,7 +41,6 @@ SOURCES += mainwindow.cpp \
     actionmanager/commandbutton.cpp \
     actionmanager/actioncontainer.cpp \
     actionmanager/commandsfile.cpp \
-    dialogs/newdialog.cpp \
     dialogs/settingsdialog.cpp \
     actionmanager/commandmappings.cpp \
     #dialogs/readonlyfilesdialog.cpp \
@@ -128,7 +127,6 @@ HEADERS += mainwindow.h \
     actionmanager/command_p.h \
     actionmanager/actioncontainer_p.h \
     actionmanager/commandsfile.h \
-    dialogs/newdialog.h \
     dialogs/settingsdialog.h \
     actionmanager/commandmappings.h \
     dialogs/ioptionspage.h \
@@ -190,8 +188,7 @@ HEADERS += mainwindow.h \
     editormanager/ieditorfactory_p.h \
     welcomepagehelper.h
 
-FORMS += dialogs/newdialog.ui \
-    generalsettings.ui \
+FORMS +=  generalsettings.ui \
     dialogs/externaltoolconfig.ui \
 
 

@@ -25,7 +25,6 @@
 
 #include "mainwindow.h"
 
-#include "icore.h"
 #include "coreicons.h"
 #include "documentmanager.h"
 #include "editormanager/ieditorfactory.h"
@@ -33,6 +32,7 @@
 #include "externaltoolmanager.h"
 #include "fancytabwidget.h"
 #include "generalsettings.h"
+#include "icore.h"
 #include "id.h"
 #include "idocumentfactory.h"
 #include "manhattanstyle.h"
@@ -53,7 +53,6 @@
 #include <coreplugin/actionmanager/actionmanager_p.h>
 #include <coreplugin/actionmanager/command.h>
 #include <coreplugin/dialogs/externaltoolconfig.h>
-#include <coreplugin/dialogs/newdialog.h>
 #include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/editormanager/editormanager_p.h>
 #include <coreplugin/editormanager/ieditor.h>
@@ -465,25 +464,6 @@ void MainWindow::registerDefaultActions()
     cmd->setDefaultKeySequence(QKeySequence(Qt::Key_Escape));
     connect(m_focusToEditor, &QAction::triggered, this, &MainWindow::setFocusToEditor);
 
-    // New File Action
-    QIcon icon = QIcon::fromTheme(QLatin1String("document-new"), Utils::Icons::NEWFILE.icon());
-    m_newAction = new QAction(icon, tr("&New File or Project..."), this);
-    cmd = ActionManager::registerAction(m_newAction, Constants::NEW);
-    cmd->setDefaultKeySequence(QKeySequence::New);
-    mfile->addAction(cmd, Constants::G_FILE_NEW);
-    connect(m_newAction, &QAction::triggered, this, []()
-            {
-                if (!ICore::isNewItemDialogRunning())
-                {
-                    ICore::showNewItemDialog(tr("New File or Project", "Title of dialog"),
-                                             IWizardFactory::allWizardFactories(), QString());
-                }
-                else
-                {
-                    ICore::raiseWindow(ICore::newItemDialog());
-                }
-            });
-
     // File->Recent Files Menu
     ActionContainer* ac = ActionManager::createMenu(Constants::M_FILE_RECENTFILES);
     mfile->addMenu(ac, Constants::G_FILE_OPEN);
@@ -491,7 +471,7 @@ void MainWindow::registerDefaultActions()
     ac->setOnAllDisabledBehavior(ActionContainer::Show);
 
     // Save Action
-    icon               = QIcon::fromTheme(QLatin1String("document-save"), Utils::Icons::SAVEFILE.icon());
+    QIcon icon = QIcon::fromTheme(QLatin1String("document-save"), Utils::Icons::SAVEFILE.icon());
     QAction* tmpaction = new QAction(icon, EditorManager::tr("&Save"), this);
     tmpaction->setEnabled(false);
     cmd = ActionManager::registerAction(tmpaction, Constants::SAVE);
@@ -499,31 +479,6 @@ void MainWindow::registerDefaultActions()
     cmd->setAttribute(Command::CA_UpdateText);
     cmd->setDescription(tr("Save"));
     mfile->addAction(cmd, Constants::G_FILE_SAVE);
-
-    // Save As Action
-    icon      = QIcon::fromTheme(QLatin1String("document-save-as"));
-    tmpaction = new QAction(icon, EditorManager::tr("Save &As..."), this);
-    tmpaction->setEnabled(false);
-    cmd = ActionManager::registerAction(tmpaction, Constants::SAVEAS);
-    cmd->setDefaultKeySequence(QKeySequence(useMacShortcuts ? tr("Ctrl+Shift+S") : QString()));
-    cmd->setAttribute(Command::CA_UpdateText);
-    cmd->setDescription(tr("Save As..."));
-    mfile->addAction(cmd, Constants::G_FILE_SAVE);
-
-    // SaveAll Action
-    m_saveAllAction = new QAction(tr("Save A&ll"), this);
-    cmd             = ActionManager::registerAction(m_saveAllAction, Constants::SAVEALL);
-    cmd->setDefaultKeySequence(QKeySequence(useMacShortcuts ? QString() : tr("Ctrl+Shift+S")));
-    mfile->addAction(cmd, Constants::G_FILE_SAVE);
-    connect(m_saveAllAction, &QAction::triggered, this, &MainWindow::saveAll);
-
-    // Print Action
-    icon      = QIcon::fromTheme(QLatin1String("document-print"));
-    tmpaction = new QAction(icon, tr("&Print..."), this);
-    tmpaction->setEnabled(false);
-    cmd = ActionManager::registerAction(tmpaction, Constants::PRINT);
-    cmd->setDefaultKeySequence(QKeySequence::Print);
-    mfile->addAction(cmd, Constants::G_FILE_PRINT);
 
     // Exit Action
     icon         = QIcon::fromTheme(QLatin1String("application-exit"));

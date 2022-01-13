@@ -336,12 +336,12 @@ void EditorManagerPrivate::init()
     connect(m_revertToSavedAction, &QAction::triggered, m_instance, &EditorManager::revertToSaved);
 
     // Save Action
-    ActionManager::registerAction(m_saveAction, Constants::SAVE, editManagerContext);
-    connect(m_saveAction, &QAction::triggered, m_instance, []() { EditorManager::saveDocument(); });
+    //ActionManager::registerAction(m_saveAction, Constants::SAVE, editManagerContext);
+    //connect(m_saveAction, &QAction::triggered, m_instance, []() { EditorManager::saveDocument(); });
 
     // Save As Action
-    ActionManager::registerAction(m_saveAsAction, Constants::SAVEAS, editManagerContext);
-    connect(m_saveAsAction, &QAction::triggered, m_instance, &EditorManager::saveDocumentAs);
+    //ActionManager::registerAction(m_saveAsAction, Constants::SAVEAS, editManagerContext);
+    //connect(m_saveAsAction, &QAction::triggered, m_instance, &EditorManager::saveDocumentAs);
 
     // Window Menu
     ActionContainer* mwindow = ActionManager::actionContainer(Constants::M_WINDOW);
@@ -371,23 +371,23 @@ void EditorManagerPrivate::init()
     }
 
     // Close All Action
-    cmd = ActionManager::registerAction(m_closeAllEditorsAction, Constants::CLOSEALL, editManagerContext, true);
-    cmd->setDefaultKeySequence(QKeySequence(tr("Ctrl+Shift+W")));
-    mfile->addAction(cmd, Constants::G_FILE_CLOSE);
-    connect(m_closeAllEditorsAction, &QAction::triggered, m_instance, &EditorManager::closeAllDocuments);
+    //cmd = ActionManager::registerAction(m_closeAllEditorsAction, Constants::CLOSEALL, editManagerContext, true);
+    //cmd->setDefaultKeySequence(QKeySequence(tr("Ctrl+Shift+W")));
+    //mfile->addAction(cmd, Constants::G_FILE_CLOSE);
+    //connect(m_closeAllEditorsAction, &QAction::triggered, m_instance, &EditorManager::closeAllDocuments);
 
     // Close All Others Action
-    cmd = ActionManager::registerAction(m_closeOtherDocumentsAction, Constants::CLOSEOTHERS, editManagerContext, true);
-    mfile->addAction(cmd, Constants::G_FILE_CLOSE);
-    cmd->setAttribute(Command::CA_UpdateText);
-    connect(m_closeOtherDocumentsAction, &QAction::triggered,
-            m_instance, []() { EditorManager::closeOtherDocuments(); });
+    //cmd = ActionManager::registerAction(m_closeOtherDocumentsAction, Constants::CLOSEOTHERS, editManagerContext, true);
+    //mfile->addAction(cmd, Constants::G_FILE_CLOSE);
+    //cmd->setAttribute(Command::CA_UpdateText);
+    //connect(m_closeOtherDocumentsAction, &QAction::triggered,
+    //        m_instance, []() { EditorManager::closeOtherDocuments(); });
 
     // Close All Others Except Visible Action
-    cmd = ActionManager::registerAction(m_closeAllEditorsExceptVisibleAction, Constants::CLOSEALLEXCEPTVISIBLE, editManagerContext, true);
-    mfile->addAction(cmd, Constants::G_FILE_CLOSE);
-    connect(m_closeAllEditorsExceptVisibleAction, &QAction::triggered,
-            this, &EditorManagerPrivate::closeAllEditorsExceptVisible);
+    //cmd = ActionManager::registerAction(m_closeAllEditorsExceptVisibleAction, Constants::CLOSEALLEXCEPTVISIBLE, editManagerContext, true);
+    //mfile->addAction(cmd, Constants::G_FILE_CLOSE);
+    //connect(m_closeAllEditorsExceptVisibleAction, &QAction::triggered,
+    //        this, &EditorManagerPrivate::closeAllEditorsExceptVisible);
 
     //Save XXX Context Actions
     connect(m_copyFilePathContextAction, &QAction::triggered,

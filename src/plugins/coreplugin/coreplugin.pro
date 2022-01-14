@@ -32,8 +32,8 @@ SOURCES += mainwindow.cpp \
     editormanager/editorview.cpp \
     editormanager/editorwindow.cpp \
     editormanager/documentmodel.cpp \
-    editormanager/openeditorsview.cpp \
-    editormanager/openeditorswindow.cpp \
+    #editormanager/openeditorsview.cpp \
+    #editormanager/openeditorswindow.cpp \
     editormanager/ieditorfactory.cpp \
     editormanager/iexternaleditor.cpp \
     actionmanager/actionmanager.cpp \
@@ -66,7 +66,7 @@ SOURCES += mainwindow.cpp \
     settingsdatabase.cpp \
     imode.cpp \
     editormanager/systemeditor.cpp \
-    designmode.cpp \
+    #designmode.cpp \
     editortoolbar.cpp \
     helpitem.cpp \
     helpmanager.cpp \
@@ -114,8 +114,8 @@ HEADERS += mainwindow.h \
     editormanager/editorview.h \
     editormanager/editorwindow.h \
     editormanager/documentmodel.h \
-    editormanager/openeditorsview.h \
-    editormanager/openeditorswindow.h \
+    #editormanager/openeditorsview.h \
+    #editormanager/openeditorswindow.h \
     editormanager/ieditor.h \
     editormanager/iexternaleditor.h \
     editormanager/ieditorfactory.h \
@@ -157,7 +157,7 @@ HEADERS += mainwindow.h \
     fileiconprovider.h \
     settingsdatabase.h \
     editormanager/systemeditor.h \
-    designmode.h \
+    #designmode.h \
     editortoolbar.h \
     helpitem.h \
     helpmanager.h \

@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -32,11 +32,13 @@ class QSplitter;
 class QVBoxLayout;
 QT_END_NAMESPACE
 
-namespace Core {
+namespace Core
+{
 
-class EditorManager;
+//class EditorManager;
 
-namespace Internal {
+namespace Internal
+{
 
 class EditMode : public IMode
 {
@@ -49,8 +51,8 @@ public:
 private:
     void grabEditorManager(Id mode);
 
-    QSplitter *m_splitter;
-    QVBoxLayout *m_rightSplitWidgetLayout;
+    QSplitter*   m_splitter;
+    QVBoxLayout* m_rightSplitWidgetLayout;
 };
 
 } // namespace Internal

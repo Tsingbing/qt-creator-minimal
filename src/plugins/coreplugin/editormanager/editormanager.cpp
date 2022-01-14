@@ -31,8 +31,8 @@
 #include "documentmodel_p.h"
 #include "editorview.h"
 #include "ieditor.h"
-#include "openeditorsview.h"
-#include "openeditorswindow.h"
+//#include "openeditorsview.h"
+//#include "openeditorswindow.h"
 
 #include <app/app_version.h>
 
@@ -294,15 +294,15 @@ EditorManagerPrivate::EditorManagerPrivate(QObject* parent)
 EditorManagerPrivate::~EditorManagerPrivate()
 {
     if (ICore::instance())
-        delete m_openEditorsFactory;
+        //delete m_openEditorsFactory;
 
-    // close all extra windows
-    for (int i = 0; i < m_editorAreas.size(); ++i)
-    {
-        EditorArea* area = m_editorAreas.at(i);
-        disconnect(area, &QObject::destroyed, this, &EditorManagerPrivate::editorAreaDestroyed);
-        delete area;
-    }
+        // close all extra windows
+        for (int i = 0; i < m_editorAreas.size(); ++i)
+        {
+            EditorArea *area = m_editorAreas.at(i);
+            disconnect(area, &QObject::destroyed, this, &EditorManagerPrivate::editorAreaDestroyed);
+            delete area;
+        }
     m_editorAreas.clear();
 
     DocumentModel::destroy();
@@ -533,15 +533,15 @@ void EditorManagerPrivate::init()
     updateActions();
 
     // The popup needs a parent to get keyboard focus.
-    m_windowPopup = new OpenEditorsWindow(mainEditorArea);
-    m_windowPopup->hide();
+    //m_windowPopup = new OpenEditorsWindow(mainEditorArea);
+    //m_windowPopup->hide();
 
     m_autoSaveTimer = new QTimer(this);
     m_autoSaveTimer->setObjectName("EditorManager::m_autoSaveTimer");
     connect(m_autoSaveTimer, &QTimer::timeout, this, &EditorManagerPrivate::autoSave);
     updateAutoSave();
 
-    d->m_openEditorsFactory = new OpenEditorsViewFactory();
+    //d->m_openEditorsFactory = new OpenEditorsViewFactory();
 
     globalMacroExpander()->registerFileVariables(kCurrentDocumentPrefix, tr("Current document"),
                                                  []() -> QString {
@@ -1008,13 +1008,14 @@ void EditorManagerPrivate::doEscapeKeyFocusMoveMagic()
     }
 }
 
-OpenEditorsWindow* EditorManagerPrivate::windowPopup()
-{
-    return d->m_windowPopup;
-}
+// OpenEditorsWindow* EditorManagerPrivate::windowPopup()
+// {
+//     return d->m_windowPopup;
+// }
 
 void EditorManagerPrivate::showPopupOrSelectDocument()
 {
+    /*
     if (QApplication::keyboardModifiers() == Qt::NoModifier)
     {
         windowPopup()->selectAndHide();
@@ -1050,9 +1051,8 @@ void EditorManagerPrivate::showPopupOrSelectDocument()
         popup->move((referenceWidget->width() - popup->width()) / 2 + p.x(),
                     (referenceWidget->height() - popup->height()) / 2 + p.y());
         popup->setVisible(true);
-    }
+    }*/
 }
-
 
 static QMap<QString, QVariant> toMap(const QHash<Utils::MimeType, IEditorFactory*>& hash)
 {
@@ -1496,7 +1496,7 @@ bool EditorManagerPrivate::closeEditors(const QList<IEditor*>& editors, CloseFla
         return true;
     bool closingFailed = false;
     // close Editor History list
-    windowPopup()->setVisible(false);
+    //windowPopup()->setVisible(false);
 
     EditorView* currentView = currentEditorView();
 
@@ -2073,34 +2073,34 @@ void EditorManagerPrivate::updateWindowTitle()
 
 void EditorManagerPrivate::gotoNextDocHistory()
 {
-    OpenEditorsWindow* dialog = windowPopup();
-    if (dialog->isVisible())
-    {
-        dialog->selectNextEditor();
-    }
-    else
-    {
-        EditorView* view = currentEditorView();
-        dialog->setEditors(d->m_globalHistory, view);
-        dialog->selectNextEditor();
-        showPopupOrSelectDocument();
-    }
+    // OpenEditorsWindow* dialog = windowPopup();
+    // if (dialog->isVisible())
+    // {
+    //     dialog->selectNextEditor();
+    // }
+    // else
+    // {
+    //     EditorView* view = currentEditorView();
+    //     dialog->setEditors(d->m_globalHistory, view);
+    //     dialog->selectNextEditor();
+    //     showPopupOrSelectDocument();
+    // }
 }
 
 void EditorManagerPrivate::gotoPreviousDocHistory()
 {
-    OpenEditorsWindow* dialog = windowPopup();
-    if (dialog->isVisible())
-    {
-        dialog->selectPreviousEditor();
-    }
-    else
-    {
-        EditorView* view = currentEditorView();
-        dialog->setEditors(d->m_globalHistory, view);
-        dialog->selectPreviousEditor();
-        showPopupOrSelectDocument();
-    }
+    // OpenEditorsWindow* dialog = windowPopup();
+    // if (dialog->isVisible())
+    // {
+    //     dialog->selectPreviousEditor();
+    // }
+    // else
+    // {
+    //     EditorView* view = currentEditorView();
+    //     dialog->setEditors(d->m_globalHistory, view);
+    //     dialog->selectPreviousEditor();
+    //     showPopupOrSelectDocument();
+    // }
 }
 
 void EditorManagerPrivate::gotoLastEditLocation()

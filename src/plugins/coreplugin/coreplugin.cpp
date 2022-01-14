@@ -24,7 +24,7 @@
 ****************************************************************************/
 
 #include "coreplugin.h"
-#include "designmode.h"
+//#include "designmode.h"
 #include "editmode.h"
 #include "helpmanager.h"
 #include "icore.h"
@@ -92,7 +92,7 @@ CorePlugin::~CorePlugin()
     //delete m_locator;
     delete m_editMode;
 
-    DesignMode::destroyModeIfRequired();
+    //DesignMode::destroyModeIfRequired();
 
     delete m_mainWindow;
     setCreatorTheme(nullptr);
@@ -232,7 +232,7 @@ bool CorePlugin::initialize(const QStringList& arguments, QString* errorMessage)
 
 void CorePlugin::extensionsInitialized()
 {
-    DesignMode::createModeIfRequired();
+    //DesignMode::createModeIfRequired();
     //Find::extensionsInitialized();
     //m_locator->extensionsInitialized();
     m_mainWindow->extensionsInitialized();

@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -23,29 +23,31 @@
 **
 ****************************************************************************/
 
+#include "editmode.h"
 #include "coreconstants.h"
 #include "coreicons.h"
-#include "editmode.h"
 #include "icore.h"
-#include "modemanager.h"
 #include "minisplitter.h"
+#include "modemanager.h"
 #include "navigationwidget.h"
 #include "outputpane.h"
 #include "rightpane.h"
-#include <coreplugin/editormanager/editormanager.h>
+//#include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/editormanager/ieditor.h>
 
-#include <QLatin1String>
 #include <QHBoxLayout>
-#include <QWidget>
 #include <QIcon>
+#include <QLatin1String>
+#include <QWidget>
 
-namespace Core {
-namespace Internal {
+namespace Core
+{
+namespace Internal
+{
 
-EditMode::EditMode() :
-    m_splitter(new MiniSplitter),
-    m_rightSplitWidgetLayout(new QVBoxLayout)
+EditMode::EditMode()
+    : m_splitter(new MiniSplitter)
+    , m_rightSplitWidgetLayout(new QVBoxLayout)
 {
     setObjectName(QLatin1String("EditMode"));
     setDisplayName(tr("Edit"));
@@ -56,10 +58,10 @@ EditMode::EditMode() :
 
     m_rightSplitWidgetLayout->setSpacing(0);
     m_rightSplitWidgetLayout->setContentsMargins(0, 0, 0, 0);
-    QWidget *rightSplitWidget = new QWidget;
+    QWidget* rightSplitWidget = new QWidget;
     rightSplitWidget->setLayout(m_rightSplitWidgetLayout);
-    auto editorPlaceHolder = new EditorManagerPlaceHolder;
-    m_rightSplitWidgetLayout->insertWidget(0, editorPlaceHolder);
+    //auto editorPlaceHolder = new EditorManagerPlaceHolder;
+    //m_rightSplitWidgetLayout->insertWidget(0, editorPlaceHolder);
 
     auto rightPaneSplitter = new MiniSplitter;
     rightPaneSplitter->insertWidget(0, rightSplitWidget);
@@ -70,7 +72,7 @@ EditMode::EditMode() :
     auto splitter = new MiniSplitter;
     splitter->setOrientation(Qt::Vertical);
     splitter->insertWidget(0, rightPaneSplitter);
-    QWidget *outputPane = new OutputPanePlaceHolder(Constants::MODE_EDIT, splitter);
+    QWidget* outputPane = new OutputPanePlaceHolder(Constants::MODE_EDIT, splitter);
     outputPane->setObjectName(QLatin1String("EditModeOutputPanePlaceHolder"));
     splitter->insertWidget(1, outputPane);
     splitter->setStretchFactor(0, 3);
@@ -85,7 +87,7 @@ EditMode::EditMode() :
 
     connect(ModeManager::instance(), &ModeManager::currentModeChanged,
             this, &EditMode::grabEditorManager);
-    m_splitter->setFocusProxy(editorPlaceHolder);
+    //m_splitter->setFocusProxy(editorPlaceHolder);
 
     auto modeContextObject = new IContext(this);
     modeContextObject->setContext(Context(Constants::C_EDITORMANAGER));
@@ -107,8 +109,8 @@ void EditMode::grabEditorManager(Id mode)
     if (mode != id())
         return;
 
-    if (EditorManager::currentEditor())
-        EditorManager::currentEditor()->widget()->setFocus();
+    //if (EditorManager::currentEditor())
+    //    EditorManager::currentEditor()->widget()->setFocus();
 }
 
 } // namespace Internal

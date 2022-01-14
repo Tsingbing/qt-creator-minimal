@@ -56,7 +56,7 @@
 #include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/editormanager/editormanager_p.h>
 #include <coreplugin/editormanager/ieditor.h>
-#include <coreplugin/inavigationwidgetfactory.h>
+//#include <coreplugin/inavigationwidgetfactory.h>
 #include <coreplugin/settingsdatabase.h>
 #include <extensionsystem/pluginmanager.h>
 #include <utils/algorithm.h>
@@ -99,11 +99,19 @@ enum
 };
 
 MainWindow::MainWindow()
-    : AppMainWindow(), m_coreImpl(new ICore(this)), m_lowPrioAdditionalContexts(Constants::C_GLOBAL), m_settingsDatabase(
-                                                                                                          new SettingsDatabase(QFileInfo(PluginManager::settings()->fileName()).path(),
-                                                                                                                               QLatin1String(Constants::IDE_CASED_ID),
-                                                                                                                               this)),
-      m_modeStack(new FancyTabWidget(this)), m_generalSettings(new GeneralSettings), m_toolSettings(new ToolSettings), m_systemEditor(new SystemEditor), m_toggleLeftSideBarButton(new QToolButton), m_toggleRightSideBarButton(new QToolButton)
+    : AppMainWindow()
+    , m_coreImpl(new ICore(this))
+    , m_lowPrioAdditionalContexts(Constants::C_GLOBAL)
+    , m_settingsDatabase(
+          new SettingsDatabase(QFileInfo(PluginManager::settings()->fileName()).path(),
+                               QLatin1String(Constants::IDE_CASED_ID),
+                               this))
+    , m_modeStack(new FancyTabWidget(this))
+    , m_generalSettings(new GeneralSettings)
+    , m_toolSettings(new ToolSettings)
+    , m_systemEditor(new SystemEditor)
+    , m_toggleLeftSideBarButton(new QToolButton)
+    , m_toggleRightSideBarButton(new QToolButton)
 {
     (void)new DocumentManager(this);
 
@@ -272,8 +280,8 @@ void MainWindow::extensionsInitialized()
     m_windowSupport = new WindowSupport(this, Context("Core.MainWindow"));
     m_windowSupport->setCloseActionEnabled(false);
     OutputPaneManager::create();
-    m_leftNavigationWidget->setFactories(INavigationWidgetFactory::allNavigationFactories());
-    m_rightNavigationWidget->setFactories(INavigationWidgetFactory::allNavigationFactories());
+    //m_leftNavigationWidget->setFactories(INavigationWidgetFactory::allNavigationFactories());
+    //m_rightNavigationWidget->setFactories(INavigationWidgetFactory::allNavigationFactories());
 
     ModeManager::extensionsInitialized();
 
@@ -297,10 +305,9 @@ void MainWindow::restart()
     exit();
 }
 
-void MainWindow::closeEvent(QCloseEvent *event)
+void MainWindow::closeEvent(QCloseEvent* event)
 {
-    const auto cancelClose = [event]
-    {
+    const auto cancelClose = [ event ] {
         event->ignore();
         setRestart(false);
     };
@@ -322,7 +329,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
         return;
     }
 
-    foreach (const std::function<bool()> &listener, m_preCloseListeners)
+    foreach (const std::function<bool()>& listener, m_preCloseListeners)
     {
         if (!listener())
         {
@@ -342,31 +349,31 @@ void MainWindow::closeEvent(QCloseEvent *event)
     alreadyClosed = true;
 }
 
-void MainWindow::openDroppedFiles(const QList<DropSupport::FileSpec> &files)
+void MainWindow::openDroppedFiles(const QList<DropSupport::FileSpec>& files)
 {
     raiseWindow();
     QStringList filePaths = Utils::transform(files, &DropSupport::FileSpec::filePath);
     openFiles(filePaths, ICore::SwitchMode);
 }
 
-IContext *MainWindow::currentContextObject() const
+IContext* MainWindow::currentContextObject() const
 {
     return m_activeContext.isEmpty() ? nullptr : m_activeContext.first();
 }
 
-QStatusBar *MainWindow::statusBar() const
+QStatusBar* MainWindow::statusBar() const
 {
     return m_modeStack->statusBar();
 }
 
-InfoBar *MainWindow::infoBar() const
+InfoBar* MainWindow::infoBar() const
 {
     return m_modeStack->infoBar();
 }
 
 void MainWindow::registerDefaultContainers()
 {
-    ActionContainer *menubar = ActionManager::createMenuBar(Constants::MENU_BAR);
+    ActionContainer* menubar = ActionManager::createMenuBar(Constants::MENU_BAR);
 
     if (!HostOsInfo::isMacHost()) // System menu bar on Mac
         setMenuBar(menubar->menuBar());
@@ -378,7 +385,7 @@ void MainWindow::registerDefaultContainers()
     menubar->appendGroup(Constants::G_HELP);
 
     // File Menu
-    ActionContainer *filemenu = ActionManager::createMenu(Constants::M_FILE);
+    ActionContainer* filemenu = ActionManager::createMenu(Constants::M_FILE);
     menubar->addMenu(filemenu, Constants::G_FILE);
     filemenu->menu()->setTitle(tr("&File"));
     filemenu->appendGroup(Constants::G_FILE_PROJECT);
@@ -390,7 +397,7 @@ void MainWindow::registerDefaultContainers()
     connect(filemenu->menu(), &QMenu::aboutToShow, this, &MainWindow::aboutToShowRecentFiles);
 
     // Edit Menu
-    ActionContainer *medit = ActionManager::createMenu(Constants::M_EDIT);
+    ActionContainer* medit = ActionManager::createMenu(Constants::M_EDIT);
     menubar->addMenu(medit, Constants::G_EDIT);
     medit->menu()->setTitle(tr("&Edit"));
 
@@ -401,12 +408,12 @@ void MainWindow::registerDefaultContainers()
     medit->appendGroup(Constants::G_EDIT_OTHER);
 
     // Tools Menu
-    ActionContainer *ac = ActionManager::createMenu(Constants::M_TOOLS);
+    ActionContainer* ac = ActionManager::createMenu(Constants::M_TOOLS);
     menubar->addMenu(ac, Constants::G_TOOLS);
     ac->menu()->setTitle(tr("&Tools"));
 
     // Window Menu
-    ActionContainer *mwindow = ActionManager::createMenu(Constants::M_WINDOW);
+    ActionContainer* mwindow = ActionManager::createMenu(Constants::M_WINDOW);
     menubar->addMenu(mwindow, Constants::G_WINDOW);
     mwindow->menu()->setTitle(tr("&Window"));
     /*mwindow->appendGroup(Constants::G_WINDOW_SIZE);
@@ -439,11 +446,11 @@ void MainWindow::registerDefaultContainers()
 
 void MainWindow::registerDefaultActions()
 {
-    ActionContainer *mfile = ActionManager::actionContainer(Constants::M_FILE);
-    ActionContainer *medit = ActionManager::actionContainer(Constants::M_EDIT);
-    ActionContainer *mtools = ActionManager::actionContainer(Constants::M_TOOLS);
-    ActionContainer *mwindow = ActionManager::actionContainer(Constants::M_WINDOW);
-    ActionContainer *mhelp = ActionManager::actionContainer(Constants::M_HELP);
+    ActionContainer* mfile   = ActionManager::actionContainer(Constants::M_FILE);
+    ActionContainer* medit   = ActionManager::actionContainer(Constants::M_EDIT);
+    ActionContainer* mtools  = ActionManager::actionContainer(Constants::M_TOOLS);
+    ActionContainer* mwindow = ActionManager::actionContainer(Constants::M_WINDOW);
+    ActionContainer* mhelp   = ActionManager::actionContainer(Constants::M_HELP);
 
     // File menu separators
     mfile->addSeparator(Constants::G_FILE_SAVE);
@@ -460,7 +467,7 @@ void MainWindow::registerDefaultActions()
     // Return to editor shortcut: Note this requires Qt to fix up
     // handling of shortcut overrides in menus, item views, combos....
     m_focusToEditor = new QAction(tr("Return to Editor"), this);
-    Command *cmd = ActionManager::registerAction(m_focusToEditor, Constants::S_RETURNTOEDITOR);
+    Command* cmd    = ActionManager::registerAction(m_focusToEditor, Constants::S_RETURNTOEDITOR);
     cmd->setDefaultKeySequence(QKeySequence(Qt::Key_Escape));
     connect(m_focusToEditor, &QAction::triggered, this, &MainWindow::setFocusToEditor);
 
@@ -471,7 +478,7 @@ void MainWindow::registerDefaultActions()
     ac->setOnAllDisabledBehavior(ActionContainer::Show);
 
     // Save Action
-    QIcon icon = QIcon::fromTheme(QLatin1String("document-save"), Utils::Icons::SAVEFILE.icon());
+    QIcon    icon      = QIcon::fromTheme(QLatin1String("document-save"), Utils::Icons::SAVEFILE.icon());
     QAction* tmpaction = new QAction(icon, EditorManager::tr("&Save"), this);
     tmpaction->setEnabled(false);
     cmd = ActionManager::registerAction(tmpaction, Constants::SAVE);

@@ -189,7 +189,7 @@ private:
 
     static void setCurrentEditorFromContextChange();
 
-    static OpenEditorsWindow *windowPopup();
+    //static OpenEditorsWindow *windowPopup();
     static void showPopupOrSelectDocument();
 
     static EditorFactoryList findFactories(Id editorId, const QString &fileName);
@@ -262,10 +262,10 @@ private:
     DocumentModel::Entry *m_contextMenuEntry = nullptr;
     IEditor *m_contextMenuEditor = nullptr;
 
-    OpenEditorsWindow *m_windowPopup = nullptr;
+    //OpenEditorsWindow *m_windowPopup = nullptr;
 
     QMap<QString, QVariant> m_editorStates;
-    OpenEditorsViewFactory *m_openEditorsFactory = nullptr;
+    //OpenEditorsViewFactory *m_openEditorsFactory = nullptr;
 
     IDocument::ReloadSetting m_reloadSetting = IDocument::AlwaysAsk;
 

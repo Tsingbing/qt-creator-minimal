@@ -49,7 +49,7 @@ class IDocument;
 class InfoBar;
 class MessageManager;
 class ModeManager;
-class NavigationWidget;
+//class NavigationWidget;
 enum class Side;
 class RightPaneWidget;
 class SettingsDatabase;
@@ -117,7 +117,7 @@ private:
     void aboutQtCreator();
     void aboutPlugins();
     void updateFocusWidget(QWidget *old, QWidget *now);
-    NavigationWidget *navigationWidget(Side side) const;
+    //NavigationWidget *navigationWidget(Side side) const;
     void setSidebarVisible(bool visible, Side side);
     void destroyVersionDialog();
     void openDroppedFiles(const QList<Utils::DropSupport::FileSpec> &files);
@@ -148,8 +148,8 @@ private:
 
     ModeManager *m_modeManager = nullptr;
     FancyTabWidget *m_modeStack = nullptr;
-    NavigationWidget *m_leftNavigationWidget = nullptr;
-    NavigationWidget *m_rightNavigationWidget = nullptr;
+    //NavigationWidget *m_leftNavigationWidget = nullptr;
+    //NavigationWidget *m_rightNavigationWidget = nullptr;
     RightPaneWidget *m_rightPaneWidget = nullptr;
     VersionDialog *m_versionDialog = nullptr;
 

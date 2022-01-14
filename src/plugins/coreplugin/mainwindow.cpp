@@ -38,7 +38,7 @@
 #include "manhattanstyle.h"
 #include "messagemanager.h"
 #include "modemanager.h"
-#include "navigationwidget.h"
+//#include "navigationwidget.h"
 #include "outputpanemanager.h"
 #include "plugindialog.h"
 #include "rightpane.h"
@@ -164,9 +164,9 @@ MainWindow::MainWindow()
     registerDefaultContainers();
     registerDefaultActions();
 
-    m_leftNavigationWidget  = new NavigationWidget(m_toggleLeftSideBarAction, Side::Left);
-    m_rightNavigationWidget = new NavigationWidget(m_toggleRightSideBarAction, Side::Right);
-    m_rightPaneWidget       = new RightPaneWidget();
+    //m_leftNavigationWidget  = new NavigationWidget(m_toggleLeftSideBarAction, Side::Left);
+    //m_rightNavigationWidget = new NavigationWidget(m_toggleRightSideBarAction, Side::Right);
+    m_rightPaneWidget = new RightPaneWidget();
 
     m_messageManager      = new MessageManager;
     m_editorManager       = new EditorManager(this);
@@ -193,15 +193,15 @@ MainWindow::MainWindow()
             this, &MainWindow::openDroppedFiles);
 }
 
-NavigationWidget* MainWindow::navigationWidget(Side side) const
-{
-    return side == Side::Left ? m_leftNavigationWidget : m_rightNavigationWidget;
-}
+// NavigationWidget* MainWindow::navigationWidget(Side side) const
+// {
+//     return side == Side::Left ? m_leftNavigationWidget : m_rightNavigationWidget;
+// }
 
 void MainWindow::setSidebarVisible(bool visible, Side side)
 {
-    if (NavigationWidgetPlaceHolder::current(side))
-        navigationWidget(side)->setShown(visible);
+    //if (NavigationWidgetPlaceHolder::current(side))
+    //    navigationWidget(side)->setShown(visible);
 }
 
 void MainWindow::setOverrideColor(const QColor& color)
@@ -250,10 +250,10 @@ MainWindow::~MainWindow()
     // All modes are now gone
     OutputPaneManager::destroy();
 
-    delete m_leftNavigationWidget;
-    delete m_rightNavigationWidget;
-    m_leftNavigationWidget  = nullptr;
-    m_rightNavigationWidget = nullptr;
+    //delete m_leftNavigationWidget;
+    //delete m_rightNavigationWidget;
+    //m_leftNavigationWidget  = nullptr;
+    //m_rightNavigationWidget = nullptr;
 
     delete m_editorManager;
     m_editorManager = nullptr;
@@ -342,8 +342,8 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
     saveWindowSettings();
 
-    m_leftNavigationWidget->closeSubWidgets();
-    m_rightNavigationWidget->closeSubWidgets();
+    //m_leftNavigationWidget->closeSubWidgets();
+    //m_rightNavigationWidget->closeSubWidgets();
 
     event->accept();
     alreadyClosed = true;
@@ -640,8 +640,8 @@ void MainWindow::registerDefaultActions()
     cmd = ActionManager::registerAction(m_toggleLeftSideBarAction, Constants::TOGGLE_LEFT_SIDEBAR);
     cmd->setAttribute(Command::CA_UpdateText);
     cmd->setDefaultKeySequence(QKeySequence(useMacShortcuts ? tr("Ctrl+0") : tr("Alt+0")));
-    connect(m_toggleLeftSideBarAction, &QAction::triggered,
-            this, [ this ](bool visible) { setSidebarVisible(visible, Side::Left); });
+    //    connect(m_toggleLeftSideBarAction, &QAction::triggered,
+    //            this, [ this ](bool visible) { setSidebarVisible(visible, Side::Left); });
     ProxyAction* toggleLeftSideBarProxyAction =
         ProxyAction::proxyActionWithIcon(cmd->action(), Utils::Icons::TOGGLE_LEFT_SIDEBAR_TOOLBAR.icon());
     m_toggleLeftSideBarButton->setDefaultAction(toggleLeftSideBarProxyAction);
@@ -656,8 +656,8 @@ void MainWindow::registerDefaultActions()
     cmd = ActionManager::registerAction(m_toggleRightSideBarAction, Constants::TOGGLE_RIGHT_SIDEBAR);
     cmd->setAttribute(Command::CA_UpdateText);
     cmd->setDefaultKeySequence(QKeySequence(useMacShortcuts ? tr("Ctrl+Shift+0") : tr("Alt+Shift+0")));
-    connect(m_toggleRightSideBarAction, &QAction::triggered,
-            this, [ this ](bool visible) { setSidebarVisible(visible, Side::Right); });
+    //    connect(m_toggleRightSideBarAction, &QAction::triggered,
+    //            this, [ this ](bool visible) { setSidebarVisible(visible, Side::Right); });
     ProxyAction* toggleRightSideBarProxyAction =
         ProxyAction::proxyActionWithIcon(cmd->action(), Utils::Icons::TOGGLE_RIGHT_SIDEBAR_TOOLBAR.icon());
     m_toggleRightSideBarButton->setDefaultAction(toggleRightSideBarProxyAction);
@@ -965,8 +965,8 @@ void MainWindow::readSettings()
     settings->endGroup();
 
     EditorManagerPrivate::readSettings();
-    m_leftNavigationWidget->restoreSettings(settings);
-    m_rightNavigationWidget->restoreSettings(settings);
+    //m_leftNavigationWidget->restoreSettings(settings);
+    //m_rightNavigationWidget->restoreSettings(settings);
     m_rightPaneWidget->readSettings(settings);
 }
 
@@ -983,8 +983,8 @@ void MainWindow::saveSettings()
     DocumentManager::saveSettings();
     ActionManager::saveSettings();
     EditorManagerPrivate::saveSettings();
-    m_leftNavigationWidget->saveSettings(settings);
-    m_rightNavigationWidget->saveSettings(settings);
+    //m_leftNavigationWidget->saveSettings(settings);
+    //m_rightNavigationWidget->saveSettings(settings);
 }
 
 void MainWindow::saveWindowSettings()

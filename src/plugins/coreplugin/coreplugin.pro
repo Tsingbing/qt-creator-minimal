@@ -51,13 +51,13 @@ SOURCES += mainwindow.cpp \
     basefilewizardfactory.cpp \
     generatedfile.cpp \
     plugindialog.cpp \
-    inavigationwidgetfactory.cpp \
-    navigationwidget.cpp \
+    #inavigationwidgetfactory.cpp \
+    #navigationwidget.cpp \
     manhattanstyle.cpp \
     minisplitter.cpp \
     styleanimator.cpp \
     rightpane.cpp \
-    sidebar.cpp \
+    #sidebar.cpp \
     fileiconprovider.cpp \
     icore.cpp \
     infobar.cpp \
@@ -71,8 +71,8 @@ SOURCES += mainwindow.cpp \
     helpitem.cpp \
     helpmanager.cpp \
     outputpanemanager.cpp \
-    navigationsubwidget.cpp \
-    sidebarwidget.cpp \
+    #navigationsubwidget.cpp \
+    #sidebarwidget.cpp \
     externaltool.cpp \
     dialogs/externaltoolconfig.cpp \
     variablechooser.cpp \
@@ -147,13 +147,13 @@ HEADERS += mainwindow.h \
     basefilewizardfactory.h \
     generatedfile.h \
     plugindialog.h \
-    inavigationwidgetfactory.h \
-    navigationwidget.h \
+    #inavigationwidgetfactory.h \
+    #navigationwidget.h \
     manhattanstyle.h \
     minisplitter.h \
     styleanimator.h \
     rightpane.h \
-    sidebar.h \
+    #sidebar.h \
     fileiconprovider.h \
     settingsdatabase.h \
     editormanager/systemeditor.h \
@@ -163,8 +163,8 @@ HEADERS += mainwindow.h \
     helpmanager.h \
     helpmanager_implementation.h \
     outputpanemanager.h \
-    navigationsubwidget.h \
-    sidebarwidget.h \
+    #navigationsubwidget.h \
+    #sidebarwidget.h \
     externaltool.h \
     dialogs/externaltoolconfig.h \
     variablechooser.h \

@@ -29,7 +29,7 @@
 #include "icore.h"
 #include "minisplitter.h"
 #include "modemanager.h"
-#include "navigationwidget.h"
+//#include "navigationwidget.h"
 #include "outputpane.h"
 #include "rightpane.h"
 //#include <coreplugin/editormanager/editormanager.h>
@@ -78,9 +78,9 @@ EditMode::EditMode()
     splitter->setStretchFactor(0, 3);
     splitter->setStretchFactor(1, 0);
 
-    m_splitter->insertWidget(0, new NavigationWidgetPlaceHolder(Constants::MODE_EDIT, Side::Left));
+    //m_splitter->insertWidget(0, new NavigationWidgetPlaceHolder(Constants::MODE_EDIT, Side::Left));
     m_splitter->insertWidget(1, splitter);
-    m_splitter->insertWidget(2, new NavigationWidgetPlaceHolder(Constants::MODE_EDIT, Side::Right));
+    //m_splitter->insertWidget(2, new NavigationWidgetPlaceHolder(Constants::MODE_EDIT, Side::Right));
     m_splitter->setStretchFactor(0, 0);
     m_splitter->setStretchFactor(1, 1);
     m_splitter->setStretchFactor(2, 0);

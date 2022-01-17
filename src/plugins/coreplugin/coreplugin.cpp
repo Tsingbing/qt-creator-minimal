@@ -30,7 +30,7 @@
 #include "icore.h"
 #include "idocument.h"
 #include "infobar.h"
-#include "iwizardfactory.h"
+//#include "iwizardfactory.h"
 #include "mainwindow.h"
 #include "modemanager.h"
 #include "reaper_p.h"
@@ -86,7 +86,7 @@ CorePlugin::CorePlugin()
 
 CorePlugin::~CorePlugin()
 {
-    IWizardFactory::destroyFeatureProvider();
+    //IWizardFactory::destroyFeatureProvider();
     //Find::destroy();
 
     //delete m_locator;
@@ -168,7 +168,7 @@ bool CorePlugin::initialize(const QStringList& arguments, QString* errorMessage)
     m_editMode = new EditMode;
     ModeManager::activateMode(m_editMode->id());
 
-    IWizardFactory::initialize();
+    //IWizardFactory::initialize();
 
     // Make sure we respect the process's umask when creating new files
     SaveFile::initializeUmask();
@@ -249,7 +249,7 @@ void CorePlugin::extensionsInitialized()
 bool CorePlugin::delayedInitialize()
 {
     // m_locator->delayedInitialize();
-    IWizardFactory::allWizardFactories(); // scan for all wizard factories
+    //IWizardFactory::allWizardFactories(); // scan for all wizard factories
     return true;
 }
 

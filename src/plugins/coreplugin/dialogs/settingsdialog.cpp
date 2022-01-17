@@ -27,7 +27,7 @@
 
 #include <coreplugin/icore.h>
 #include <coreplugin/dialogs/ioptionspage.h>
-#include <coreplugin/iwizardfactory.h>
+//#include <coreplugin/iwizardfactory.h>
 
 #include <utils/algorithm.h>
 #include <utils/hostosinfo.h>
@@ -773,7 +773,7 @@ bool SettingsDialog::execDialog()
 bool executeSettingsDialog(QWidget *parent, Id initialPage)
 {
     // Make sure all wizards are there when the user might access the keyboard shortcuts:
-    (void) IWizardFactory::allWizardFactories();
+    //(void) IWizardFactory::allWizardFactories();
 
     if (!m_instance)
         m_instance = new SettingsDialog(parent);

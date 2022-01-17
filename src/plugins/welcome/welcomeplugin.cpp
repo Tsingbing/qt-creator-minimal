@@ -37,7 +37,7 @@
 #include <coreplugin/icore.h>
 #include <coreplugin/imode.h>
 #include <coreplugin/iwelcomepage.h>
-#include <coreplugin/iwizardfactory.h>
+//#include <coreplugin/iwizardfactory.h>
 #include <coreplugin/modemanager.h>
 
 #include <utils/algorithm.h>

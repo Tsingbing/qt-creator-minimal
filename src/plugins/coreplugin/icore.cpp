@@ -113,7 +113,7 @@
 */
 
 #include "documentmanager.h"
-#include "iwizardfactory.h"
+//#include "iwizardfactory.h"
 #include "mainwindow.h"
 
 #include <utils/hostosinfo.h>

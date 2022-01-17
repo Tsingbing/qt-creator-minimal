@@ -14,7 +14,6 @@ msvc: QMAKE_CXXFLAGS += -wd4251 -wd4290 -wd4250
 SOURCES += mainwindow.cpp \
     shellcommand.cpp \
     editmode.cpp \
-    iwizardfactory.cpp \
     fancyactionbar.cpp \
     fancytabwidget.cpp \
     generalsettings.cpp \
@@ -40,8 +39,6 @@ SOURCES += mainwindow.cpp \
     reaper.cpp \
     coreplugin.cpp \
     modemanager.cpp \
-    basefilewizard.cpp \
-    basefilewizardfactory.cpp \
     generatedfile.cpp \
     plugindialog.cpp \
     manhattanstyle.cpp \
@@ -77,7 +74,6 @@ SOURCES += mainwindow.cpp \
 HEADERS += mainwindow.h \
     shellcommand.h \
     editmode.h \
-    iwizardfactory.h \
     fancyactionbar.h \
     fancytabwidget.h \
     generalsettings.h \
@@ -111,13 +107,10 @@ HEADERS += mainwindow.h \
     infobar.h \
     imode.h \
     coreconstants.h \
-    ifilewizardextension.h \
     versiondialog.h \
     core_global.h \
     coreplugin.h \
     modemanager.h \
-    basefilewizard.h \
-    basefilewizardfactory.h \
     generatedfile.h \
     plugindialog.h \
     manhattanstyle.h \

@@ -26,22 +26,15 @@
 #include "mainwindow.h"
 
 #include "coreicons.h"
-//#include "documentmanager.h"
-//#include "editormanager/ieditorfactory.h"
-//#include "editormanager/systemeditor.h"
-//#include "externaltoolmanager.h"
+
 #include "fancytabwidget.h"
 #include "generalsettings.h"
 #include "icore.h"
 #include "id.h"
-#include "idocumentfactory.h"
 #include "manhattanstyle.h"
-//#include "messagemanager.h"
+
 #include "modemanager.h"
-//#include "navigationwidget.h"
-//#include "outputpanemanager.h"
 #include "plugindialog.h"
-//#include "rightpane.h"
 #include "statusbarmanager.h"
 
 #include "versiondialog.h"
@@ -52,10 +45,6 @@
 #include <coreplugin/actionmanager/actionmanager.h>
 #include <coreplugin/actionmanager/actionmanager_p.h>
 #include <coreplugin/actionmanager/command.h>
-//#include <coreplugin/editormanager/editormanager.h>
-//#include <coreplugin/editormanager/editormanager_p.h>
-//#include <coreplugin/editormanager/ieditor.h>
-//#include <coreplugin/inavigationwidgetfactory.h>
 #include <coreplugin/settingsdatabase.h>
 #include <extensionsystem/pluginmanager.h>
 #include <utils/algorithm.h>
@@ -157,13 +146,6 @@ MainWindow::MainWindow()
     registerDefaultContainers();
     registerDefaultActions();
 
-    //m_leftNavigationWidget  = new NavigationWidget(m_toggleLeftSideBarAction, Side::Left);
-    //m_rightNavigationWidget = new NavigationWidget(m_toggleRightSideBarAction, Side::Right);
-    //m_rightPaneWidget = new RightPaneWidget();
-
-    //m_messageManager      = new MessageManager;
-    //m_editorManager = new EditorManager(this);
-    //m_externalToolManager = new ExternalToolManager();
     setCentralWidget(m_modeStack);
 
     connect(qApp, &QApplication::focusChanged, this, &MainWindow::updateFocusWidget);
@@ -173,10 +155,6 @@ MainWindow::MainWindow()
     int childsCount = statusBar()->findChildren<QWidget*>(QString(), Qt::FindDirectChildrenOnly).count();
     statusBar()->insertPermanentWidget(childsCount - 1, m_toggleRightSideBarButton); // before QSizeGrip
 
-    //    setUnifiedTitleAndToolBarOnMac(true);
-    //if (HostOsInfo::isAnyUnixHost())
-    //signal(SIGINT, handleSigInt);
-
     statusBar()->setProperty("p_styled", true);
 
     auto dropSupport = new DropSupport(this, [](QDropEvent* event, DropSupport*) {
@@ -185,11 +163,6 @@ MainWindow::MainWindow()
     connect(dropSupport, &DropSupport::filesDropped,
             this, &MainWindow::openDroppedFiles);
 }
-
-// NavigationWidget* MainWindow::navigationWidget(Side side) const
-// {
-//     return side == Side::Left ? m_leftNavigationWidget : m_rightNavigationWidget;
-// }
 
 void MainWindow::setSidebarVisible(bool visible, Side side)
 {
@@ -224,38 +197,14 @@ MainWindow::~MainWindow()
     delete m_windowSupport;
     m_windowSupport = nullptr;
 
-    //delete m_externalToolManager;
-    //m_externalToolManager = nullptr;
-    //delete m_messageManager;
-    //m_messageManager = nullptr;
     delete m_generalSettings;
     m_generalSettings = nullptr;
-    //delete m_toolSettings;
-    //m_toolSettings = nullptr;
-    //delete m_systemEditor;
-    //m_systemEditor = nullptr;
+
     delete m_printer;
     m_printer = nullptr;
 
-    //we need to delete editormanager and statusbarmanager explicitly before the end of the destructor,
-    //because they might trigger stuff that tries to access data from editorwindow, like removeContextWidget
-
-    // All modes are now gone
-    //OutputPaneManager::destroy();
-
-    //delete m_leftNavigationWidget;
-    //delete m_rightNavigationWidget;
-    //m_leftNavigationWidget  = nullptr;
-    //m_rightNavigationWidget = nullptr;
-
-    //delete m_editorManager;
-    //m_editorManager = nullptr;
-
     delete m_coreImpl;
     m_coreImpl = nullptr;
-
-    //delete m_rightPaneWidget;
-    //m_rightPaneWidget = nullptr;
 
     delete m_modeManager;
     m_modeManager = nullptr;
@@ -335,9 +284,6 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
     saveWindowSettings();
 
-    //m_leftNavigationWidget->closeSubWidgets();
-    //m_rightNavigationWidget->closeSubWidgets();
-
     event->accept();
     alreadyClosed = true;
 }
@@ -381,24 +327,8 @@ void MainWindow::registerDefaultContainers()
     ActionContainer* filemenu = ActionManager::createMenu(Constants::M_FILE);
     menubar->addMenu(filemenu, Constants::G_FILE);
     filemenu->menu()->setTitle(tr("&File"));
-    filemenu->appendGroup(Constants::G_FILE_PROJECT);
-    filemenu->appendGroup(Constants::G_FILE_SAVE);
-    filemenu->appendGroup(Constants::G_FILE_EXPORT);
-    filemenu->appendGroup(Constants::G_FILE_CLOSE);
-    /*filemenu->appendGroup(Constants::G_FILE_PRINT);*/
     filemenu->appendGroup(Constants::G_FILE_OTHER);
     connect(filemenu->menu(), &QMenu::aboutToShow, this, &MainWindow::aboutToShowRecentFiles);
-
-    // Edit Menu
-    ActionContainer* medit = ActionManager::createMenu(Constants::M_EDIT);
-    menubar->addMenu(medit, Constants::G_EDIT);
-    medit->menu()->setTitle(tr("&Edit"));
-
-    /**/ medit->appendGroup(Constants::G_EDIT_UNDOREDO);
-    medit->appendGroup(Constants::G_EDIT_COPYPASTE);
-    medit->appendGroup(Constants::G_EDIT_SELECTALL);
-    medit->appendGroup(Constants::G_EDIT_ADVANCED);
-    medit->appendGroup(Constants::G_EDIT_OTHER);
 
     // Tools Menu
     ActionContainer* ac = ActionManager::createMenu(Constants::M_TOOLS);
@@ -409,11 +339,6 @@ void MainWindow::registerDefaultContainers()
     ActionContainer* mwindow = ActionManager::createMenu(Constants::M_WINDOW);
     menubar->addMenu(mwindow, Constants::G_WINDOW);
     mwindow->menu()->setTitle(tr("&Window"));
-    /*mwindow->appendGroup(Constants::G_WINDOW_SIZE);
-    mwindow->appendGroup(Constants::G_WINDOW_VIEWS);
-    mwindow->appendGroup(Constants::G_WINDOW_PANES);
-    mwindow->appendGroup(Constants::G_WINDOW_SPLIT);
-    mwindow->appendGroup(Constants::G_WINDOW_NAVIGATE);*/
     mwindow->appendGroup(Constants::G_WINDOW_LIST);
     mwindow->appendGroup(Constants::G_WINDOW_OTHER);
 
@@ -440,22 +365,13 @@ void MainWindow::registerDefaultContainers()
 void MainWindow::registerDefaultActions()
 {
     ActionContainer* mfile   = ActionManager::actionContainer(Constants::M_FILE);
-    ActionContainer* medit   = ActionManager::actionContainer(Constants::M_EDIT);
+    //ActionContainer* medit   = ActionManager::actionContainer(Constants::M_EDIT);
     ActionContainer* mtools  = ActionManager::actionContainer(Constants::M_TOOLS);
     ActionContainer* mwindow = ActionManager::actionContainer(Constants::M_WINDOW);
     ActionContainer* mhelp   = ActionManager::actionContainer(Constants::M_HELP);
 
     // File menu separators
-    mfile->addSeparator(Constants::G_FILE_SAVE);
-    mfile->addSeparator(Constants::G_FILE_EXPORT);
-    mfile->addSeparator(Constants::G_FILE_PRINT);
-    mfile->addSeparator(Constants::G_FILE_CLOSE);
     mfile->addSeparator(Constants::G_FILE_OTHER);
-    // Edit menu separators
-    medit->addSeparator(Constants::G_EDIT_COPYPASTE);
-    medit->addSeparator(Constants::G_EDIT_SELECTALL);
-    //medit->addSeparator(Constants::G_EDIT_FIND);
-    medit->addSeparator(Constants::G_EDIT_ADVANCED);
 
     // Return to editor shortcut: Note this requires Qt to fix up
     // handling of shortcut overrides in menus, item views, combos....
@@ -466,11 +382,6 @@ void MainWindow::registerDefaultActions()
 
     // File->Recent Files Menu
     ActionContainer *ac;
-    // ac = ActionManager::createMenu(Constants::M_FILE_RECENTFILES);
-    // mfile->addMenu(ac, Constants::G_FILE_OPEN);
-    // ac->menu()->setTitle(tr("Recent &Files"));
-    // ac->setOnAllDisabledBehavior(ActionContainer::Show);
-
     QAction *tmpaction;
     QIcon icon;
     // Exit Action
@@ -654,81 +565,6 @@ void MainWindow::openFile()
     //openFiles(EditorManager::getOpenFileNames(), ICore::SwitchMode);
 }
 
-static IDocumentFactory* findDocumentFactory(const QList<IDocumentFactory*>& fileFactories,
-                                             const QFileInfo&                fi)
-{
-    const QString typeName = Utils::mimeTypeForFile(fi).name();
-    return Utils::findOrDefault(fileFactories, [ typeName ](IDocumentFactory* f) {
-        return f->mimeTypes().contains(typeName);
-    });
-}
-
-/*!
- * \internal
- * Either opens \a fileNames with editors or loads a project.
- *
- *  \a flags can be used to stop on first failure, indicate that a file name
- *  might include line numbers and/or switch mode to edit mode.
- *
- *  \a workingDirectory is used when files are opened by a remote client, since
- *  the file names are relative to the client working directory.
- *
- *  Returns the first opened document. Required to support the \c -block flag
- *  for client mode.
- *
- *  \sa IPlugin::remoteArguments()
- */
-/*
-IDocument* MainWindow::openFiles(const QStringList&    fileNames,
-                                 ICore::OpenFilesFlags flags,
-                                 const QString&        workingDirectory)
-{
-    const QList<IDocumentFactory*> documentFactories = IDocumentFactory::allDocumentFactories();
-    IDocument*                     res               = nullptr;
-
-    foreach (const QString& fileName, fileNames)
-    {
-        const QDir      workingDir(workingDirectory.isEmpty() ? QDir::currentPath() : workingDirectory);
-        const QFileInfo fi(workingDir, fileName);
-        const QString   absoluteFilePath = fi.absoluteFilePath();
-        if (IDocumentFactory* documentFactory = findDocumentFactory(documentFactories, fi))
-        {
-            IDocument* document = documentFactory->open(absoluteFilePath);
-            if (!document)
-            {
-                if (flags & ICore::StopOnLoadFail)
-                    return res;
-            }
-            else
-            {
-                if (!res)
-                    res = document;
-                if (flags & ICore::SwitchMode)
-                    ModeManager::activateMode(Id(Constants::MODE_EDIT));
-            }
-        }
-        else
-        {
-            QFlags<EditorManager::OpenEditorFlag> emFlags;
-            if (flags & ICore::CanContainLineAndColumnNumbers)
-                emFlags |= EditorManager::CanContainLineAndColumnNumber;
-            if (flags & ICore::SwitchSplitIfAlreadyVisible)
-                emFlags |= EditorManager::SwitchSplitIfAlreadyVisible;
-            IEditor* editor = EditorManager::openEditor(absoluteFilePath, Id(), emFlags);
-            if (!editor)
-            {
-                if (flags & ICore::StopOnLoadFail)
-                    return res;
-            }
-            else if (!res)
-            {
-                res = editor->document();
-            }
-        }
-    }
-    return res;
-}
-*/
 void MainWindow::setFocusToEditor()
 {
     //EditorManagerPrivate::doEscapeKeyFocusMoveMagic();

@@ -24,26 +24,16 @@
 ****************************************************************************/
 
 #include "coreplugin.h"
-//#include "designmode.h"
-//#include "editmode.h"
 #include "helpmanager.h"
 #include "icore.h"
-#include "idocument.h"
 #include "infobar.h"
-//#include "iwizardfactory.h"
 #include "mainwindow.h"
 #include "modemanager.h"
-#include "reaper_p.h"
 #include "themechooser.h"
 
 #include <coreplugin/actionmanager/actionmanager.h>
 #include <coreplugin/coreconstants.h>
-//#include <coreplugin/documentmanager.h>
-//#include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/fileutils.h>
-//#include <coreplugin/find/findplugin.h>
-//#include <coreplugin/find/searchresultwindow.h>
-//#include <coreplugin/locator/locator.h>
 
 #include <app/app_version.h>
 #include <extensionsystem/pluginerroroverview.h>
@@ -252,23 +242,6 @@ bool CorePlugin::delayedInitialize()
     //IWizardFactory::allWizardFactories(); // scan for all wizard factories
     return true;
 }
-
-// QObject* CorePlugin::remoteCommand(const QStringList& /* options */,
-//                                    const QString&     workingDirectory,
-//                                    const QStringList& args)
-// {
-//     if (!ExtensionSystem::PluginManager::isInitializationDone())
-//     {
-//         connect(ExtensionSystem::PluginManager::instance(), &ExtensionSystem::PluginManager::initializationDone,
-//                 this, [ this, workingDirectory, args ]() { remoteCommand(QStringList(), workingDirectory, args); });
-//         return nullptr;
-//     }
-//     IDocument* res = m_mainWindow->openFiles(
-//         args, ICore::OpenFilesFlags(ICore::SwitchMode | ICore::CanContainLineAndColumnNumbers | ICore::SwitchSplitIfAlreadyVisible),
-//         workingDirectory);
-//     m_mainWindow->raiseWindow();
-//     return res;
-// }
 
 void CorePlugin::fileOpenRequest(const QString& f)
 {

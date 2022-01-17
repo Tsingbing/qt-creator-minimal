@@ -25,7 +25,6 @@
 
 #pragma once
 
-#include "reaper_p.h"
 #include <qglobal.h>
 
 #include <extensionsystem/iplugin.h>
@@ -87,7 +86,6 @@ private:
 
     MainWindow* m_mainWindow = nullptr;
     //EditMode *m_editMode = nullptr;
-    ReaperPrivate m_reaper;
 };
 
 } // namespace Internal

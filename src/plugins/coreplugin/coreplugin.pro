@@ -22,13 +22,6 @@ SOURCES += mainwindow.cpp \
     icontext.cpp \
     statusbarmanager.cpp \
     versiondialog.cpp \
-    #editormanager/editorarea.cpp \
-    #editormanager/editormanager.cpp \
-    #editormanager/editorview.cpp \
-    #editormanager/editorwindow.cpp \
-    #editormanager/documentmodel.cpp \
-    #editormanager/ieditorfactory.cpp \
-    #editormanager/iexternaleditor.cpp \
     actionmanager/actionmanager.cpp \
     actionmanager/command.cpp \
     actionmanager/commandbutton.cpp \
@@ -36,10 +29,8 @@ SOURCES += mainwindow.cpp \
     actionmanager/commandsfile.cpp \
     dialogs/settingsdialog.cpp \
     actionmanager/commandmappings.cpp \
-    reaper.cpp \
     coreplugin.cpp \
     modemanager.cpp \
-    #generatedfile.cpp \
     plugindialog.cpp \
     manhattanstyle.cpp \
     minisplitter.cpp \
@@ -47,28 +38,20 @@ SOURCES += mainwindow.cpp \
     fileiconprovider.cpp \
     icore.cpp \
     infobar.cpp \
-    #editormanager/ieditor.cpp \
     dialogs/ioptionspage.cpp \
     settingsdatabase.cpp \
     imode.cpp \
-    #editormanager/systemeditor.cpp \
-    #editortoolbar.cpp \
     helpitem.cpp \
     helpmanager.cpp \
     variablechooser.cpp \
     dialogs/promptoverwritedialog.cpp \
     fileutils.cpp \
     featureprovider.cpp \
-    idocument.cpp \
-    idocumentfactory.cpp \
-    #textdocument.cpp \
-    #documentmanager.cpp \
     dialogs/restartdialog.cpp \
     windowsupport.cpp \
     messagebox.cpp \
     iwelcomepage.cpp \
     coreicons.cpp \
-    diffservice.cpp \
     welcomepagehelper.cpp
 
 HEADERS += mainwindow.h \
@@ -80,15 +63,6 @@ HEADERS += mainwindow.h \
     themechooser.h \
     id.h \
     statusbarmanager.h \
-    #editormanager/editorarea.h \
-    #editormanager/editormanager.h \
-    #editormanager/editormanager_p.h \
-    #editormanager/editorview.h \
-    #editormanager/editorwindow.h \
-    #editormanager/documentmodel.h \
-    #editormanager/ieditor.h \
-    #editormanager/iexternaleditor.h \
-    #editormanager/ieditorfactory.h \
     actionmanager/actioncontainer.h \
     actionmanager/actionmanager.h \
     actionmanager/command.h \
@@ -100,8 +74,6 @@ HEADERS += mainwindow.h \
     dialogs/settingsdialog.h \
     actionmanager/commandmappings.h \
     dialogs/ioptionspage.h \
-    reaper.h \
-    reaper_p.h \
     icontext.h \
     icore.h \
     infobar.h \
@@ -111,35 +83,24 @@ HEADERS += mainwindow.h \
     core_global.h \
     coreplugin.h \
     modemanager.h \
-    #generatedfile.h \
     plugindialog.h \
     manhattanstyle.h \
     minisplitter.h \
     styleanimator.h \
     fileiconprovider.h \
     settingsdatabase.h \
-    #editormanager/systemeditor.h \
-    #editortoolbar.h \
     helpitem.h \
     helpmanager.h \
     helpmanager_implementation.h \
     variablechooser.h \
     dialogs/promptoverwritedialog.h \
     fileutils.h \
-    #generatedfile.h \
     featureprovider.h \
-    idocument.h \
-    idocumentfactory.h \
-    #textdocument.h \
-    #documentmanager.h \
     dialogs/restartdialog.h \
     windowsupport.h \
     messagebox.h \
     iwelcomepage.h \
     coreicons.h \
-    #editormanager/documentmodel_p.h \
-    diffservice.h \
-    #editormanager/ieditorfactory_p.h \
     welcomepagehelper.h
 
 FORMS +=  generalsettings.ui 

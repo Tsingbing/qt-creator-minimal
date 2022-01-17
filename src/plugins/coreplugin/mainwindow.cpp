@@ -26,9 +26,9 @@
 #include "mainwindow.h"
 
 #include "coreicons.h"
-#include "documentmanager.h"
-#include "editormanager/ieditorfactory.h"
-#include "editormanager/systemeditor.h"
+//#include "documentmanager.h"
+//#include "editormanager/ieditorfactory.h"
+//#include "editormanager/systemeditor.h"
 //#include "externaltoolmanager.h"
 #include "fancytabwidget.h"
 #include "generalsettings.h"
@@ -52,9 +52,9 @@
 #include <coreplugin/actionmanager/actionmanager.h>
 #include <coreplugin/actionmanager/actionmanager_p.h>
 #include <coreplugin/actionmanager/command.h>
-#include <coreplugin/editormanager/editormanager.h>
-#include <coreplugin/editormanager/editormanager_p.h>
-#include <coreplugin/editormanager/ieditor.h>
+//#include <coreplugin/editormanager/editormanager.h>
+//#include <coreplugin/editormanager/editormanager_p.h>
+//#include <coreplugin/editormanager/ieditor.h>
 //#include <coreplugin/inavigationwidgetfactory.h>
 #include <coreplugin/settingsdatabase.h>
 #include <extensionsystem/pluginmanager.h>
@@ -98,20 +98,15 @@ enum
 };
 
 MainWindow::MainWindow()
-    : AppMainWindow()
-    , m_coreImpl(new ICore(this))
-    , m_lowPrioAdditionalContexts(Constants::C_GLOBAL)
-    , m_settingsDatabase(
-          new SettingsDatabase(QFileInfo(PluginManager::settings()->fileName()).path(),
-                               QLatin1String(Constants::IDE_CASED_ID),
-                               this))
-    , m_modeStack(new FancyTabWidget(this))
-    , m_generalSettings(new GeneralSettings)
-    , m_systemEditor(new SystemEditor)
-    , m_toggleLeftSideBarButton(new QToolButton)
-    , m_toggleRightSideBarButton(new QToolButton)
+    : AppMainWindow(), m_coreImpl(new ICore(this)), m_lowPrioAdditionalContexts(Constants::C_GLOBAL), m_settingsDatabase(
+                                                                                                          new SettingsDatabase(QFileInfo(PluginManager::settings()->fileName()).path(),
+                                                                                                                               QLatin1String(Constants::IDE_CASED_ID),
+                                                                                                                               this)),
+      m_modeStack(new FancyTabWidget(this)), m_generalSettings(new GeneralSettings) //, m_systemEditor(new SystemEditor)
+      ,
+      m_toggleLeftSideBarButton(new QToolButton), m_toggleRightSideBarButton(new QToolButton)
 {
-    (void)new DocumentManager(this);
+    //(void)new DocumentManager(this);
 
     HistoryCompleter::setSettings(PluginManager::settings());
 
@@ -167,7 +162,7 @@ MainWindow::MainWindow()
     //m_rightPaneWidget = new RightPaneWidget();
 
     //m_messageManager      = new MessageManager;
-    m_editorManager = new EditorManager(this);
+    //m_editorManager = new EditorManager(this);
     //m_externalToolManager = new ExternalToolManager();
     setCentralWidget(m_modeStack);
 
@@ -237,8 +232,8 @@ MainWindow::~MainWindow()
     m_generalSettings = nullptr;
     //delete m_toolSettings;
     //m_toolSettings = nullptr;
-    delete m_systemEditor;
-    m_systemEditor = nullptr;
+    //delete m_systemEditor;
+    //m_systemEditor = nullptr;
     delete m_printer;
     m_printer = nullptr;
 
@@ -253,8 +248,8 @@ MainWindow::~MainWindow()
     //m_leftNavigationWidget  = nullptr;
     //m_rightNavigationWidget = nullptr;
 
-    delete m_editorManager;
-    m_editorManager = nullptr;
+    //delete m_editorManager;
+    //m_editorManager = nullptr;
 
     delete m_coreImpl;
     m_coreImpl = nullptr;
@@ -273,7 +268,7 @@ void MainWindow::init()
 
 void MainWindow::extensionsInitialized()
 {
-    EditorManagerPrivate::extensionsInitialized();
+    //EditorManagerPrivate::extensionsInitialized();
     //MimeTypeSettings::restoreSettings();
     m_windowSupport = new WindowSupport(this, Context("Core.MainWindow"));
     m_windowSupport->setCloseActionEnabled(false);
@@ -321,11 +316,11 @@ void MainWindow::closeEvent(QCloseEvent* event)
     ICore::saveSettings(ICore::MainWindowClosing);
 
     // Save opened files
-    if (!DocumentManager::saveAllModifiedDocuments())
-    {
-        cancelClose();
-        return;
-    }
+    // if (!DocumentManager::saveAllModifiedDocuments())
+    // {
+    //     cancelClose();
+    //     return;
+    // }
 
     foreach (const std::function<bool()>& listener, m_preCloseListeners)
     {
@@ -351,7 +346,7 @@ void MainWindow::openDroppedFiles(const QList<DropSupport::FileSpec>& files)
 {
     raiseWindow();
     QStringList filePaths = Utils::transform(files, &DropSupport::FileSpec::filePath);
-    openFiles(filePaths, ICore::SwitchMode);
+    //openFiles(filePaths, ICore::SwitchMode);
 }
 
 IContext* MainWindow::currentContextObject() const
@@ -470,21 +465,14 @@ void MainWindow::registerDefaultActions()
     connect(m_focusToEditor, &QAction::triggered, this, &MainWindow::setFocusToEditor);
 
     // File->Recent Files Menu
-    ActionContainer* ac = ActionManager::createMenu(Constants::M_FILE_RECENTFILES);
-    mfile->addMenu(ac, Constants::G_FILE_OPEN);
-    ac->menu()->setTitle(tr("Recent &Files"));
-    ac->setOnAllDisabledBehavior(ActionContainer::Show);
+    ActionContainer *ac;
+    // ac = ActionManager::createMenu(Constants::M_FILE_RECENTFILES);
+    // mfile->addMenu(ac, Constants::G_FILE_OPEN);
+    // ac->menu()->setTitle(tr("Recent &Files"));
+    // ac->setOnAllDisabledBehavior(ActionContainer::Show);
 
-    // Save Action
-    QIcon    icon      = QIcon::fromTheme(QLatin1String("document-save"), Utils::Icons::SAVEFILE.icon());
-    QAction* tmpaction = new QAction(icon, EditorManager::tr("&Save"), this);
-    tmpaction->setEnabled(false);
-    cmd = ActionManager::registerAction(tmpaction, Constants::SAVE);
-    cmd->setDefaultKeySequence(QKeySequence::Save);
-    cmd->setAttribute(Command::CA_UpdateText);
-    cmd->setDescription(tr("Save"));
-    mfile->addAction(cmd, Constants::G_FILE_SAVE);
-
+    QAction *tmpaction;
+    QIcon icon;
     // Exit Action
     icon         = QIcon::fromTheme(QLatin1String("application-exit"));
     m_exitAction = new QAction(icon, tr("E&xit"), this);
@@ -493,90 +481,6 @@ void MainWindow::registerDefaultActions()
     cmd->setDefaultKeySequence(QKeySequence(tr("Ctrl+Q")));
     mfile->addAction(cmd, Constants::G_FILE_OTHER);
     connect(m_exitAction, &QAction::triggered, this, &MainWindow::exit);
-
-    // Undo Action
-    icon      = QIcon::fromTheme(QLatin1String("edit-undo"), Utils::Icons::UNDO.icon());
-    tmpaction = new QAction(icon, tr("&Undo"), this);
-    cmd       = ActionManager::registerAction(tmpaction, Constants::UNDO);
-    cmd->setDefaultKeySequence(QKeySequence::Undo);
-    cmd->setAttribute(Command::CA_UpdateText);
-    cmd->setDescription(tr("Undo"));
-    medit->addAction(cmd, Constants::G_EDIT_UNDOREDO);
-    tmpaction->setEnabled(false);
-
-    // Redo Action
-    icon      = QIcon::fromTheme(QLatin1String("edit-redo"), Utils::Icons::REDO.icon());
-    tmpaction = new QAction(icon, tr("&Redo"), this);
-    cmd       = ActionManager::registerAction(tmpaction, Constants::REDO);
-    cmd->setDefaultKeySequence(QKeySequence::Redo);
-    cmd->setAttribute(Command::CA_UpdateText);
-    cmd->setDescription(tr("Redo"));
-    medit->addAction(cmd, Constants::G_EDIT_UNDOREDO);
-    tmpaction->setEnabled(false);
-
-    // Cut Action
-    icon      = QIcon::fromTheme(QLatin1String("edit-cut"), Utils::Icons::CUT.icon());
-    tmpaction = new QAction(icon, tr("Cu&t"), this);
-    cmd       = ActionManager::registerAction(tmpaction, Constants::CUT);
-    cmd->setDefaultKeySequence(QKeySequence::Cut);
-    medit->addAction(cmd, Constants::G_EDIT_COPYPASTE);
-    tmpaction->setEnabled(false);
-
-    // Copy Action
-    icon      = QIcon::fromTheme(QLatin1String("edit-copy"), Utils::Icons::COPY.icon());
-    tmpaction = new QAction(icon, tr("&Copy"), this);
-    cmd       = ActionManager::registerAction(tmpaction, Constants::COPY);
-    cmd->setDefaultKeySequence(QKeySequence::Copy);
-    medit->addAction(cmd, Constants::G_EDIT_COPYPASTE);
-    tmpaction->setEnabled(false);
-
-    // Paste Action
-    icon      = QIcon::fromTheme(QLatin1String("edit-paste"), Utils::Icons::PASTE.icon());
-    tmpaction = new QAction(icon, tr("&Paste"), this);
-    cmd       = ActionManager::registerAction(tmpaction, Constants::PASTE);
-    cmd->setDefaultKeySequence(QKeySequence::Paste);
-    medit->addAction(cmd, Constants::G_EDIT_COPYPASTE);
-    tmpaction->setEnabled(false);
-
-    // Select All
-    icon      = QIcon::fromTheme(QLatin1String("edit-select-all"));
-    tmpaction = new QAction(icon, tr("Select &All"), this);
-    cmd       = ActionManager::registerAction(tmpaction, Constants::SELECTALL);
-    cmd->setDefaultKeySequence(QKeySequence::SelectAll);
-    medit->addAction(cmd, Constants::G_EDIT_SELECTALL);
-    tmpaction->setEnabled(false);
-
-    // Goto Action
-    icon      = QIcon::fromTheme(QLatin1String("go-jump"));
-    tmpaction = new QAction(icon, tr("&Go to Line..."), this);
-    cmd       = ActionManager::registerAction(tmpaction, Constants::GOTO);
-    cmd->setDefaultKeySequence(QKeySequence(tr("Ctrl+L")));
-    medit->addAction(cmd, Constants::G_EDIT_OTHER);
-    tmpaction->setEnabled(false);
-
-    // Zoom In Action
-    icon = QIcon::hasThemeIcon("zoom-in") ? QIcon::fromTheme("zoom-in")
-                                          : Utils::Icons::ZOOMIN_TOOLBAR.icon();
-    tmpaction = new QAction(icon, tr("Zoom In"), this);
-    cmd       = ActionManager::registerAction(tmpaction, Constants::ZOOM_IN);
-    cmd->setDefaultKeySequence(QKeySequence(tr("Ctrl++")));
-    tmpaction->setEnabled(false);
-
-    // Zoom Out Action
-    icon = QIcon::hasThemeIcon("zoom-out") ? QIcon::fromTheme("zoom-out")
-                                           : Utils::Icons::ZOOMOUT_TOOLBAR.icon();
-    tmpaction = new QAction(icon, tr("Zoom Out"), this);
-    cmd       = ActionManager::registerAction(tmpaction, Constants::ZOOM_OUT);
-    cmd->setDefaultKeySequence(QKeySequence(tr("Ctrl+-")));
-    tmpaction->setEnabled(false);
-
-    // Zoom Reset Action
-    icon = QIcon::hasThemeIcon("zoom-original") ? QIcon::fromTheme("zoom-original")
-                                                : Utils::Icons::EYE_OPEN_TOOLBAR.icon();
-    tmpaction = new QAction(icon, tr("Original Size"), this);
-    cmd       = ActionManager::registerAction(tmpaction, Constants::ZOOM_RESET);
-    cmd->setDefaultKeySequence(QKeySequence(Core::useMacShortcuts ? tr("Meta+0") : tr("Ctrl+0")));
-    tmpaction->setEnabled(false);
 
     // Options Action
     mtools->appendGroup(Constants::G_TOOLS_OPTIONS);
@@ -747,7 +651,7 @@ void MainWindow::registerModeSelectorStyleActions()
 
 void MainWindow::openFile()
 {
-    openFiles(EditorManager::getOpenFileNames(), ICore::SwitchMode);
+    //openFiles(EditorManager::getOpenFileNames(), ICore::SwitchMode);
 }
 
 static IDocumentFactory* findDocumentFactory(const QList<IDocumentFactory*>& fileFactories,
@@ -774,6 +678,7 @@ static IDocumentFactory* findDocumentFactory(const QList<IDocumentFactory*>& fil
  *
  *  \sa IPlugin::remoteArguments()
  */
+/*
 IDocument* MainWindow::openFiles(const QStringList&    fileNames,
                                  ICore::OpenFilesFlags flags,
                                  const QString&        workingDirectory)
@@ -823,15 +728,15 @@ IDocument* MainWindow::openFiles(const QStringList&    fileNames,
     }
     return res;
 }
-
+*/
 void MainWindow::setFocusToEditor()
 {
-    EditorManagerPrivate::doEscapeKeyFocusMoveMagic();
+    //EditorManagerPrivate::doEscapeKeyFocusMoveMagic();
 }
 
 void MainWindow::saveAll()
 {
-    DocumentManager::saveAllModifiedDocumentsSilently();
+    //DocumentManager::saveAllModifiedDocumentsSilently();
 }
 
 void MainWindow::exit()
@@ -962,7 +867,7 @@ void MainWindow::readSettings()
 
     settings->endGroup();
 
-    EditorManagerPrivate::readSettings();
+    //EditorManagerPrivate::readSettings();
     //m_leftNavigationWidget->restoreSettings(settings);
     //m_rightNavigationWidget->restoreSettings(settings);
     //m_rightPaneWidget->readSettings(settings);
@@ -978,9 +883,9 @@ void MainWindow::saveSettings()
 
     settings->endGroup();
 
-    DocumentManager::saveSettings();
+    //DocumentManager::saveSettings();
     ActionManager::saveSettings();
-    EditorManagerPrivate::saveSettings();
+    //EditorManagerPrivate::saveSettings();
     //m_leftNavigationWidget->saveSettings(settings);
     //m_rightNavigationWidget->saveSettings(settings);
 }
@@ -1069,6 +974,7 @@ void MainWindow::updateContext()
 
 void MainWindow::aboutToShowRecentFiles()
 {
+    /*
     ActionContainer* aci  = ActionManager::actionContainer(Constants::M_FILE_RECENTFILES);
     QMenu*           menu = aci->menu();
     menu->clear();
@@ -1097,7 +1003,7 @@ void MainWindow::aboutToShowRecentFiles()
             "Core", Constants::TR_CLEAR_MENU));
         connect(action, &QAction::triggered,
                 DocumentManager::instance(), &DocumentManager::clearRecentFiles);
-    }
+    }*/
 }
 
 void MainWindow::aboutQtCreator()

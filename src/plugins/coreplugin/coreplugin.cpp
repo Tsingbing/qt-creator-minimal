@@ -25,7 +25,7 @@
 
 #include "coreplugin.h"
 //#include "designmode.h"
-#include "editmode.h"
+//#include "editmode.h"
 #include "helpmanager.h"
 #include "icore.h"
 #include "idocument.h"
@@ -38,8 +38,8 @@
 
 #include <coreplugin/actionmanager/actionmanager.h>
 #include <coreplugin/coreconstants.h>
-#include <coreplugin/documentmanager.h>
-#include <coreplugin/editormanager/editormanager.h>
+//#include <coreplugin/documentmanager.h>
+//#include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/fileutils.h>
 //#include <coreplugin/find/findplugin.h>
 //#include <coreplugin/find/searchresultwindow.h>
@@ -90,7 +90,7 @@ CorePlugin::~CorePlugin()
     //Find::destroy();
 
     //delete m_locator;
-    delete m_editMode;
+    //delete m_editMode;
 
     //DesignMode::destroyModeIfRequired();
 
@@ -165,8 +165,8 @@ bool CorePlugin::initialize(const QStringList& arguments, QString* errorMessage)
     //m_locator = new Locator;
     std::srand(unsigned(QDateTime::currentDateTime().toSecsSinceEpoch()));
     m_mainWindow->init();
-    m_editMode = new EditMode;
-    ModeManager::activateMode(m_editMode->id());
+    //m_editMode = new EditMode;
+    //ModeManager::activateMode(m_editMode->id());
 
     //IWizardFactory::initialize();
 
@@ -189,10 +189,10 @@ bool CorePlugin::initialize(const QStringList& arguments, QString* errorMessage)
                                []() { return QDate::currentDate().toString(Qt::DefaultLocaleShortDate); });
     expander->registerVariable("CurrentTime:Locale", tr("The current time (Locale)."),
                                []() { return QTime::currentTime().toString(Qt::DefaultLocaleShortDate); });
-    expander->registerVariable("Config:DefaultProjectDirectory", tr("The configured default directory for projects."),
-                               []() { return DocumentManager::projectsDirectory().toString(); });
-    expander->registerVariable("Config:LastFileDialogDirectory", tr("The directory last visited in a file dialog."),
-                               []() { return DocumentManager::fileDialogLastVisitedDirectory(); });
+    // expander->registerVariable("Config:DefaultProjectDirectory", tr("The configured default directory for projects."),
+    //                            []() { return DocumentManager::projectsDirectory().toString(); });
+    // expander->registerVariable("Config:LastFileDialogDirectory", tr("The directory last visited in a file dialog."),
+    //                            []() { return DocumentManager::fileDialogLastVisitedDirectory(); });
     expander->registerVariable("HostOs:isWindows",
                                tr("Is %1 running on Windows?").arg(Constants::IDE_DISPLAY_NAME),
                                []() { return QVariant(Utils::HostOsInfo::isWindowsHost()).toString(); });
@@ -253,26 +253,26 @@ bool CorePlugin::delayedInitialize()
     return true;
 }
 
-QObject* CorePlugin::remoteCommand(const QStringList& /* options */,
-                                   const QString&     workingDirectory,
-                                   const QStringList& args)
-{
-    if (!ExtensionSystem::PluginManager::isInitializationDone())
-    {
-        connect(ExtensionSystem::PluginManager::instance(), &ExtensionSystem::PluginManager::initializationDone,
-                this, [ this, workingDirectory, args ]() { remoteCommand(QStringList(), workingDirectory, args); });
-        return nullptr;
-    }
-    IDocument* res = m_mainWindow->openFiles(
-        args, ICore::OpenFilesFlags(ICore::SwitchMode | ICore::CanContainLineAndColumnNumbers | ICore::SwitchSplitIfAlreadyVisible),
-        workingDirectory);
-    m_mainWindow->raiseWindow();
-    return res;
-}
+// QObject* CorePlugin::remoteCommand(const QStringList& /* options */,
+//                                    const QString&     workingDirectory,
+//                                    const QStringList& args)
+// {
+//     if (!ExtensionSystem::PluginManager::isInitializationDone())
+//     {
+//         connect(ExtensionSystem::PluginManager::instance(), &ExtensionSystem::PluginManager::initializationDone,
+//                 this, [ this, workingDirectory, args ]() { remoteCommand(QStringList(), workingDirectory, args); });
+//         return nullptr;
+//     }
+//     IDocument* res = m_mainWindow->openFiles(
+//         args, ICore::OpenFilesFlags(ICore::SwitchMode | ICore::CanContainLineAndColumnNumbers | ICore::SwitchSplitIfAlreadyVisible),
+//         workingDirectory);
+//     m_mainWindow->raiseWindow();
+//     return res;
+// }
 
 void CorePlugin::fileOpenRequest(const QString& f)
 {
-    remoteCommand(QStringList(), QString(), QStringList(f));
+    //remoteCommand(QStringList(), QString(), QStringList(f));
 }
 
 void CorePlugin::addToPathChooserContextMenu(Utils::PathChooser* pathChooser, QMenu* menu)

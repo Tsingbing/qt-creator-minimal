@@ -44,38 +44,38 @@ namespace Core
 namespace Internal
 {
 
-class EditMode;
-class MainWindow;
-//class Locator;
+    //class EditMode;
+    class MainWindow;
+    //class Locator;
 
-class CorePlugin : public ExtensionSystem::IPlugin
-{
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QtCreatorPlugin" FILE "Core.json")
+    class CorePlugin : public ExtensionSystem::IPlugin
+    {
+        Q_OBJECT
+        Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QtCreatorPlugin" FILE "Core.json")
 
-public:
-    CorePlugin();
-    ~CorePlugin() override;
+    public:
+        CorePlugin();
+        ~CorePlugin() override;
 
-    static CorePlugin* instance();
+        static CorePlugin *instance();
 
-    bool         initialize(const QStringList& arguments, QString* errorMessage = nullptr) override;
-    void         extensionsInitialized() override;
-    bool         delayedInitialize() override;
-    ShutdownFlag aboutToShutdown() override;
-    QObject*     remoteCommand(const QStringList& /* options */,
-                               const QString&     workingDirectory,
-                               const QStringList& args) override;
+        bool initialize(const QStringList &arguments, QString *errorMessage = nullptr) override;
+        void extensionsInitialized() override;
+        bool delayedInitialize() override;
+        ShutdownFlag aboutToShutdown() override;
+        // QObject*     remoteCommand(const QStringList& /* options */,
+        //                            const QString&     workingDirectory,
+        //                            const QStringList& args) override;
 
-public slots:
-    void fileOpenRequest(const QString&);
+    public slots:
+        void fileOpenRequest(const QString &);
 
 #if defined(WITH_TESTS)
 private slots:
     //void testVcsManager_data();
    // void testVcsManager();
-    void testSplitLineAndColumnNumber();
-    void testSplitLineAndColumnNumber_data();
+    //void testSplitLineAndColumnNumber();
+    //void testSplitLineAndColumnNumber_data();
     // Locator:
     //void test_basefilefilter();
     //void test_basefilefilter_data();
@@ -86,7 +86,7 @@ private:
     void        checkSettings();
 
     MainWindow* m_mainWindow = nullptr;
-    EditMode *m_editMode = nullptr;
+    //EditMode *m_editMode = nullptr;
     ReaperPrivate m_reaper;
 };
 

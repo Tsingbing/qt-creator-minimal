@@ -13,7 +13,7 @@ include(../../qtcreatorplugin.pri)
 msvc: QMAKE_CXXFLAGS += -wd4251 -wd4290 -wd4250
 SOURCES += mainwindow.cpp \
     shellcommand.cpp \
-    editmode.cpp \
+    #editmode.cpp \
     fancyactionbar.cpp \
     fancytabwidget.cpp \
     generalsettings.cpp \
@@ -22,13 +22,13 @@ SOURCES += mainwindow.cpp \
     icontext.cpp \
     statusbarmanager.cpp \
     versiondialog.cpp \
-    editormanager/editorarea.cpp \
-    editormanager/editormanager.cpp \
-    editormanager/editorview.cpp \
-    editormanager/editorwindow.cpp \
-    editormanager/documentmodel.cpp \
-    editormanager/ieditorfactory.cpp \
-    editormanager/iexternaleditor.cpp \
+    #editormanager/editorarea.cpp \
+    #editormanager/editormanager.cpp \
+    #editormanager/editorview.cpp \
+    #editormanager/editorwindow.cpp \
+    #editormanager/documentmodel.cpp \
+    #editormanager/ieditorfactory.cpp \
+    #editormanager/iexternaleditor.cpp \
     actionmanager/actionmanager.cpp \
     actionmanager/command.cpp \
     actionmanager/commandbutton.cpp \
@@ -39,7 +39,7 @@ SOURCES += mainwindow.cpp \
     reaper.cpp \
     coreplugin.cpp \
     modemanager.cpp \
-    generatedfile.cpp \
+    #generatedfile.cpp \
     plugindialog.cpp \
     manhattanstyle.cpp \
     minisplitter.cpp \
@@ -47,12 +47,12 @@ SOURCES += mainwindow.cpp \
     fileiconprovider.cpp \
     icore.cpp \
     infobar.cpp \
-    editormanager/ieditor.cpp \
+    #editormanager/ieditor.cpp \
     dialogs/ioptionspage.cpp \
     settingsdatabase.cpp \
     imode.cpp \
-    editormanager/systemeditor.cpp \
-    editortoolbar.cpp \
+    #editormanager/systemeditor.cpp \
+    #editortoolbar.cpp \
     helpitem.cpp \
     helpmanager.cpp \
     variablechooser.cpp \
@@ -61,8 +61,8 @@ SOURCES += mainwindow.cpp \
     featureprovider.cpp \
     idocument.cpp \
     idocumentfactory.cpp \
-    textdocument.cpp \
-    documentmanager.cpp \
+    #textdocument.cpp \
+    #documentmanager.cpp \
     dialogs/restartdialog.cpp \
     windowsupport.cpp \
     messagebox.cpp \
@@ -73,22 +73,22 @@ SOURCES += mainwindow.cpp \
 
 HEADERS += mainwindow.h \
     shellcommand.h \
-    editmode.h \
+    #editmode.h \
     fancyactionbar.h \
     fancytabwidget.h \
     generalsettings.h \
     themechooser.h \
     id.h \
     statusbarmanager.h \
-    editormanager/editorarea.h \
-    editormanager/editormanager.h \
-    editormanager/editormanager_p.h \
-    editormanager/editorview.h \
-    editormanager/editorwindow.h \
-    editormanager/documentmodel.h \
-    editormanager/ieditor.h \
-    editormanager/iexternaleditor.h \
-    editormanager/ieditorfactory.h \
+    #editormanager/editorarea.h \
+    #editormanager/editormanager.h \
+    #editormanager/editormanager_p.h \
+    #editormanager/editorview.h \
+    #editormanager/editorwindow.h \
+    #editormanager/documentmodel.h \
+    #editormanager/ieditor.h \
+    #editormanager/iexternaleditor.h \
+    #editormanager/ieditorfactory.h \
     actionmanager/actioncontainer.h \
     actionmanager/actionmanager.h \
     actionmanager/command.h \
@@ -111,35 +111,35 @@ HEADERS += mainwindow.h \
     core_global.h \
     coreplugin.h \
     modemanager.h \
-    generatedfile.h \
+    #generatedfile.h \
     plugindialog.h \
     manhattanstyle.h \
     minisplitter.h \
     styleanimator.h \
     fileiconprovider.h \
     settingsdatabase.h \
-    editormanager/systemeditor.h \
-    editortoolbar.h \
+    #editormanager/systemeditor.h \
+    #editortoolbar.h \
     helpitem.h \
     helpmanager.h \
     helpmanager_implementation.h \
     variablechooser.h \
     dialogs/promptoverwritedialog.h \
     fileutils.h \
-    generatedfile.h \
+    #generatedfile.h \
     featureprovider.h \
     idocument.h \
     idocumentfactory.h \
-    textdocument.h \
-    documentmanager.h \
+    #textdocument.h \
+    #documentmanager.h \
     dialogs/restartdialog.h \
     windowsupport.h \
     messagebox.h \
     iwelcomepage.h \
     coreicons.h \
-    editormanager/documentmodel_p.h \
+    #editormanager/documentmodel_p.h \
     diffservice.h \
-    editormanager/ieditorfactory_p.h \
+    #editormanager/ieditorfactory_p.h \
     welcomepagehelper.h
 
 FORMS +=  generalsettings.ui 

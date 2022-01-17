@@ -112,7 +112,7 @@
     from the focus object as well as the additional context.
 */
 
-#include "documentmanager.h"
+//#include "documentmanager.h"
 //#include "iwizardfactory.h"
 #include "mainwindow.h"
 
@@ -533,7 +533,7 @@ void ICore::registerWindow(QWidget* window, const Context& context)
 
 void ICore::openFiles(const QStringList& arguments, ICore::OpenFilesFlags flags)
 {
-    m_mainwindow->openFiles(arguments, flags);
+    //m_mainwindow->openFiles(arguments, flags);
 }
 
 /*!

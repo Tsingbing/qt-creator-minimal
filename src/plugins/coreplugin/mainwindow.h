@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -31,8 +31,8 @@
 #include <utils/appmainwindow.h>
 #include <utils/dropsupport.h>
 
-#include <QMap>
 #include <QColor>
+#include <QMap>
 
 #include <functional>
 
@@ -41,136 +41,118 @@ class QPrinter;
 class QToolButton;
 QT_END_NAMESPACE
 
-namespace Core {
+namespace Core
+{
 
-    class InfoBar;
-    class ModeManager;
-    enum class Side;
-    class SettingsDatabase;
+class InfoBar;
+class ModeManager;
+enum class Side;
+class SettingsDatabase;
 
-    namespace Internal
-    {
+namespace Internal
+{
 
-        class FancyTabWidget;
-        class GeneralSettings;
-        class VersionDialog;
-        class WindowSupport;
-        //class SystemEditor;
+class FancyTabWidget;
+class GeneralSettings;
+class VersionDialog;
+class WindowSupport;
+//class SystemEditor;
 
-        class MainWindow : public Utils::AppMainWindow
-        {
-            Q_OBJECT
+class MainWindow : public Utils::AppMainWindow
+{
+    Q_OBJECT
 
-        public:
-            MainWindow();
-            ~MainWindow() override;
+public:
+    MainWindow();
+    ~MainWindow() override;
 
-            void init();
-            void extensionsInitialized();
-            void aboutToShutdown();
+    void init();
+    void extensionsInitialized();
+    void aboutToShutdown();
 
-            IContext *contextObject(QWidget *widget);
-            void addContextObject(IContext *context);
-            void removeContextObject(IContext *context);
+    IContext* contextObject(QWidget* widget);
+    void      addContextObject(IContext* context);
+    void      removeContextObject(IContext* context);
 
-            inline SettingsDatabase *settingsDatabase() const { return m_settingsDatabase; }
-            virtual QPrinter *printer() const;
-            IContext *currentContextObject() const;
-            QStatusBar *statusBar() const;
-            InfoBar *infoBar() const;
+    inline SettingsDatabase* settingsDatabase() const { return m_settingsDatabase; }
+    virtual QPrinter*        printer() const;
+    IContext*                currentContextObject() const;
+    QStatusBar*              statusBar() const;
+    InfoBar*                 infoBar() const;
 
-            void updateAdditionalContexts(const Context &remove, const Context &add,
-                                          ICore::ContextPriority priority);
+    void updateAdditionalContexts(const Context& remove, const Context& add,
+                                  ICore::ContextPriority priority);
 
-            void setOverrideColor(const QColor &color);
+    void setOverrideColor(const QColor& color);
 
-            QStringList additionalAboutInformation() const;
-            void appendAboutInformation(const QString &line);
+    QStringList additionalAboutInformation() const;
+    void        appendAboutInformation(const QString& line);
 
-            void addPreCloseListener(const std::function<bool()> &listener);
+    void addPreCloseListener(const std::function<bool()>& listener);
 
-            void saveSettings();
+    void saveSettings();
 
-            void restart();
+    void restart();
 
-        public slots:
-            void exit();
+public slots:
+    void exit();
 
-        protected:
-            void closeEvent(QCloseEvent *event) override;
+protected:
+    void closeEvent(QCloseEvent* event) override;
 
-        private:
-            void openFile();
-            void aboutToShowRecentFiles();
-            void setFocusToEditor();
-            void saveAll();
-            void aboutQtCreator();
-            void aboutPlugins();
-            void updateFocusWidget(QWidget *old, QWidget *now);
-            //NavigationWidget *navigationWidget(Side side) const;
-            void setSidebarVisible(bool visible, Side side);
-            void destroyVersionDialog();
-            void openDroppedFiles(const QList<Utils::DropSupport::FileSpec> &files);
-            void restoreWindowState();
+private:
+    void aboutQtCreator();
+    void aboutPlugins();
+    void updateFocusWidget(QWidget* old, QWidget* now);
+    void setSidebarVisible(bool visible, Side side);
+    void destroyVersionDialog();
+    void openDroppedFiles(const QList<Utils::DropSupport::FileSpec>& files);
+    void restoreWindowState();
 
-            void updateContextObject(const QList<IContext *> &context);
-            void updateContext();
+    void updateContextObject(const QList<IContext*>& context);
+    void updateContext();
 
-            void registerDefaultContainers();
-            void registerDefaultActions();
-            void registerModeSelectorStyleActions();
+    void registerDefaultContainers();
+    void registerDefaultActions();
+    void registerModeSelectorStyleActions();
 
-            void readSettings();
-            void saveWindowSettings();
+    void readSettings();
+    void saveWindowSettings();
 
-            void updateModeSelectorStyleMenu();
+    void updateModeSelectorStyleMenu();
 
-            ICore *m_coreImpl = nullptr;
-            QStringList m_aboutInformation;
-            Context m_highPrioAdditionalContexts;
-            Context m_lowPrioAdditionalContexts;
-            SettingsDatabase *m_settingsDatabase = nullptr;
-            mutable QPrinter *m_printer = nullptr;
-            WindowSupport *m_windowSupport = nullptr;
-            //EditorManager *m_editorManager = nullptr;
-            //ExternalToolManager *m_externalToolManager = nullptr;
-            //MessageManager *m_messageManager = nullptr;
+    ICore*            m_coreImpl = nullptr;
+    QStringList       m_aboutInformation;
+    Context           m_highPrioAdditionalContexts;
+    Context           m_lowPrioAdditionalContexts;
+    SettingsDatabase* m_settingsDatabase = nullptr;
+    mutable QPrinter* m_printer          = nullptr;
+    WindowSupport*    m_windowSupport    = nullptr;
 
-            ModeManager *m_modeManager = nullptr;
-            FancyTabWidget *m_modeStack = nullptr;
-            //NavigationWidget *m_leftNavigationWidget = nullptr;
-            //NavigationWidget *m_rightNavigationWidget = nullptr;
-            //RightPaneWidget *m_rightPaneWidget = nullptr;
-            VersionDialog *m_versionDialog = nullptr;
+    ModeManager*    m_modeManager   = nullptr;
+    FancyTabWidget* m_modeStack     = nullptr;
+    VersionDialog*  m_versionDialog = nullptr;
 
-            QList<IContext *> m_activeContext;
+    QList<IContext*> m_activeContext;
 
-            QMap<QWidget *, IContext *> m_contextWidgets;
+    QMap<QWidget*, IContext*> m_contextWidgets;
 
-            GeneralSettings *m_generalSettings = nullptr;
-            //SystemEditor *m_systemEditor = nullptr;
+    GeneralSettings* m_generalSettings = nullptr;
 
-            // actions
-            QAction *m_focusToEditor = nullptr;
-            QAction *m_newAction = nullptr;
-            QAction *m_openAction = nullptr;
-            QAction *m_openWithAction = nullptr;
-            QAction *m_saveAllAction = nullptr;
-            QAction *m_exitAction = nullptr;
-            QAction *m_optionsAction = nullptr;
-            QAction *m_toggleLeftSideBarAction = nullptr;
-            QAction *m_toggleRightSideBarAction = nullptr;
-            QAction *m_cycleModeSelectorStyleAction = nullptr;
-            QAction *m_setModeSelectorStyleIconsAndTextAction = nullptr;
-            QAction *m_setModeSelectorStyleHiddenAction = nullptr;
-            QAction *m_setModeSelectorStyleIconsOnlyAction = nullptr;
-            QAction *m_themeAction = nullptr;
+    // actions
+    QAction* m_exitAction                             = nullptr;
+    QAction* m_optionsAction                          = nullptr;
+    QAction* m_cycleModeSelectorStyleAction           = nullptr;
+    QAction* m_setModeSelectorStyleIconsAndTextAction = nullptr;
+    QAction* m_setModeSelectorStyleHiddenAction       = nullptr;
+    QAction* m_setModeSelectorStyleIconsOnlyAction    = nullptr;
+    QAction* m_themeAction                            = nullptr;
 
-            QToolButton *m_toggleLeftSideBarButton = nullptr;
-            QToolButton *m_toggleRightSideBarButton = nullptr;
-            QColor m_overrideColor;
-            QList<std::function<bool()>> m_preCloseListeners;
-        };
+    QToolButton*                 m_toggleLeftSideBarButton  = nullptr;
+    QToolButton*                 m_toggleRightSideBarButton = nullptr;
+    QColor                       m_overrideColor;
+    QList<std::function<bool()>> m_preCloseListeners;
+};
 
-    } // namespace Internal
+} // namespace Internal
 } // namespace Core

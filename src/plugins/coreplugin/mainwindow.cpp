@@ -87,13 +87,17 @@ enum
 };
 
 MainWindow::MainWindow()
-    : AppMainWindow(), m_coreImpl(new ICore(this)), m_lowPrioAdditionalContexts(Constants::C_GLOBAL), m_settingsDatabase(
-                                                                                                          new SettingsDatabase(QFileInfo(PluginManager::settings()->fileName()).path(),
-                                                                                                                               QLatin1String(Constants::IDE_CASED_ID),
-                                                                                                                               this)),
-      m_modeStack(new FancyTabWidget(this)), m_generalSettings(new GeneralSettings) //, m_systemEditor(new SystemEditor)
-      ,
-      m_toggleLeftSideBarButton(new QToolButton), m_toggleRightSideBarButton(new QToolButton)
+    : AppMainWindow()
+    , m_coreImpl(new ICore(this))
+    , m_lowPrioAdditionalContexts(Constants::C_GLOBAL)
+    , m_settingsDatabase(
+          new SettingsDatabase(QFileInfo(PluginManager::settings()->fileName()).path(),
+                               QLatin1String(Constants::IDE_CASED_ID),
+                               this))
+    , m_modeStack(new FancyTabWidget(this))
+    , m_generalSettings(new GeneralSettings) //, m_systemEditor(new SystemEditor)
+    , m_toggleLeftSideBarButton(new QToolButton)
+    , m_toggleRightSideBarButton(new QToolButton)
 {
     //(void)new DocumentManager(this);
 
@@ -156,12 +160,6 @@ MainWindow::MainWindow()
     statusBar()->insertPermanentWidget(childsCount - 1, m_toggleRightSideBarButton); // before QSizeGrip
 
     statusBar()->setProperty("p_styled", true);
-
-    auto dropSupport = new DropSupport(this, [](QDropEvent* event, DropSupport*) {
-        return event->source() == nullptr; // only accept drops from the "outside" (e.g. file manager)
-    });
-    connect(dropSupport, &DropSupport::filesDropped,
-            this, &MainWindow::openDroppedFiles);
 }
 
 void MainWindow::setSidebarVisible(bool visible, Side side)
@@ -217,13 +215,9 @@ void MainWindow::init()
 
 void MainWindow::extensionsInitialized()
 {
-    //EditorManagerPrivate::extensionsInitialized();
-    //MimeTypeSettings::restoreSettings();
+
     m_windowSupport = new WindowSupport(this, Context("Core.MainWindow"));
     m_windowSupport->setCloseActionEnabled(false);
-    //OutputPaneManager::create();
-    //m_leftNavigationWidget->setFactories(INavigationWidgetFactory::allNavigationFactories());
-    //m_rightNavigationWidget->setFactories(INavigationWidgetFactory::allNavigationFactories());
 
     ModeManager::extensionsInitialized();
 
@@ -264,13 +258,6 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
     ICore::saveSettings(ICore::MainWindowClosing);
 
-    // Save opened files
-    // if (!DocumentManager::saveAllModifiedDocuments())
-    // {
-    //     cancelClose();
-    //     return;
-    // }
-
     foreach (const std::function<bool()>& listener, m_preCloseListeners)
     {
         if (!listener())
@@ -286,13 +273,6 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
     event->accept();
     alreadyClosed = true;
-}
-
-void MainWindow::openDroppedFiles(const QList<DropSupport::FileSpec>& files)
-{
-    raiseWindow();
-    QStringList filePaths = Utils::transform(files, &DropSupport::FileSpec::filePath);
-    //openFiles(filePaths, ICore::SwitchMode);
 }
 
 IContext* MainWindow::currentContextObject() const
@@ -317,8 +297,8 @@ void MainWindow::registerDefaultContainers()
     if (!HostOsInfo::isMacHost()) // System menu bar on Mac
         setMenuBar(menubar->menuBar());
     menubar->appendGroup(Constants::G_FILE);
-    menubar->appendGroup(Constants::G_EDIT);
-    menubar->appendGroup(Constants::G_VIEW);
+    //menubar->appendGroup(Constants::G_EDIT);
+    //menubar->appendGroup(Constants::G_VIEW);
     menubar->appendGroup(Constants::G_TOOLS);
     menubar->appendGroup(Constants::G_WINDOW);
     menubar->appendGroup(Constants::G_HELP);
@@ -328,7 +308,6 @@ void MainWindow::registerDefaultContainers()
     menubar->addMenu(filemenu, Constants::G_FILE);
     filemenu->menu()->setTitle(tr("&File"));
     filemenu->appendGroup(Constants::G_FILE_OTHER);
-    connect(filemenu->menu(), &QMenu::aboutToShow, this, &MainWindow::aboutToShowRecentFiles);
 
     // Tools Menu
     ActionContainer* ac = ActionManager::createMenu(Constants::M_TOOLS);
@@ -339,6 +318,7 @@ void MainWindow::registerDefaultContainers()
     ActionContainer* mwindow = ActionManager::createMenu(Constants::M_WINDOW);
     menubar->addMenu(mwindow, Constants::G_WINDOW);
     mwindow->menu()->setTitle(tr("&Window"));
+    mwindow->appendGroup(Constants::G_WINDOW_SIZE);
     mwindow->appendGroup(Constants::G_WINDOW_LIST);
     mwindow->appendGroup(Constants::G_WINDOW_OTHER);
 
@@ -364,7 +344,7 @@ void MainWindow::registerDefaultContainers()
 
 void MainWindow::registerDefaultActions()
 {
-    ActionContainer* mfile   = ActionManager::actionContainer(Constants::M_FILE);
+    ActionContainer* mfile = ActionManager::actionContainer(Constants::M_FILE);
     //ActionContainer* medit   = ActionManager::actionContainer(Constants::M_EDIT);
     ActionContainer* mtools  = ActionManager::actionContainer(Constants::M_TOOLS);
     ActionContainer* mwindow = ActionManager::actionContainer(Constants::M_WINDOW);
@@ -373,17 +353,12 @@ void MainWindow::registerDefaultActions()
     // File menu separators
     mfile->addSeparator(Constants::G_FILE_OTHER);
 
-    // Return to editor shortcut: Note this requires Qt to fix up
-    // handling of shortcut overrides in menus, item views, combos....
-    m_focusToEditor = new QAction(tr("Return to Editor"), this);
-    Command* cmd    = ActionManager::registerAction(m_focusToEditor, Constants::S_RETURNTOEDITOR);
-    cmd->setDefaultKeySequence(QKeySequence(Qt::Key_Escape));
-    connect(m_focusToEditor, &QAction::triggered, this, &MainWindow::setFocusToEditor);
+    Command* cmd;
 
     // File->Recent Files Menu
-    ActionContainer *ac;
-    QAction *tmpaction;
-    QIcon icon;
+    ActionContainer* ac;
+    QAction*         tmpaction;
+    QIcon            icon;
     // Exit Action
     icon         = QIcon::fromTheme(QLatin1String("application-exit"));
     m_exitAction = new QAction(icon, tr("E&xit"), this);
@@ -424,7 +399,7 @@ void MainWindow::registerDefaultActions()
 
     // Full Screen Action
     QAction* toggleFullScreenAction = new QAction(tr("Full Screen"), this);
-    toggleFullScreenAction->setCheckable(!HostOsInfo::isMacHost());
+    toggleFullScreenAction->setCheckable(true);
     toggleFullScreenAction->setEnabled(false); // actual implementation in WindowSupport
     cmd = ActionManager::registerAction(toggleFullScreenAction, Constants::TOGGLE_FULLSCREEN);
     cmd->setDefaultKeySequence(QKeySequence(useMacShortcuts ? tr("Ctrl+Meta+F") : tr("Ctrl+Shift+F11")));
@@ -444,38 +419,6 @@ void MainWindow::registerDefaultActions()
 
         mwindow->addSeparator(Constants::G_WINDOW_SIZE);
     }
-
-    // Show Left Sidebar Action
-    m_toggleLeftSideBarAction = new QAction(Utils::Icons::TOGGLE_LEFT_SIDEBAR.icon(),
-                                            QCoreApplication::translate("Core", Constants::TR_SHOW_LEFT_SIDEBAR),
-                                            this);
-    m_toggleLeftSideBarAction->setCheckable(true);
-    cmd = ActionManager::registerAction(m_toggleLeftSideBarAction, Constants::TOGGLE_LEFT_SIDEBAR);
-    cmd->setAttribute(Command::CA_UpdateText);
-    cmd->setDefaultKeySequence(QKeySequence(useMacShortcuts ? tr("Ctrl+0") : tr("Alt+0")));
-    //    connect(m_toggleLeftSideBarAction, &QAction::triggered,
-    //            this, [ this ](bool visible) { setSidebarVisible(visible, Side::Left); });
-    ProxyAction* toggleLeftSideBarProxyAction =
-        ProxyAction::proxyActionWithIcon(cmd->action(), Utils::Icons::TOGGLE_LEFT_SIDEBAR_TOOLBAR.icon());
-    m_toggleLeftSideBarButton->setDefaultAction(toggleLeftSideBarProxyAction);
-    mwindow->addAction(cmd, Constants::G_WINDOW_VIEWS);
-    m_toggleLeftSideBarAction->setEnabled(false);
-
-    // Show Right Sidebar Action
-    m_toggleRightSideBarAction = new QAction(Utils::Icons::TOGGLE_RIGHT_SIDEBAR.icon(),
-                                             QCoreApplication::translate("Core", Constants::TR_SHOW_RIGHT_SIDEBAR),
-                                             this);
-    m_toggleRightSideBarAction->setCheckable(true);
-    cmd = ActionManager::registerAction(m_toggleRightSideBarAction, Constants::TOGGLE_RIGHT_SIDEBAR);
-    cmd->setAttribute(Command::CA_UpdateText);
-    cmd->setDefaultKeySequence(QKeySequence(useMacShortcuts ? tr("Ctrl+Shift+0") : tr("Alt+Shift+0")));
-    //    connect(m_toggleRightSideBarAction, &QAction::triggered,
-    //            this, [ this ](bool visible) { setSidebarVisible(visible, Side::Right); });
-    ProxyAction* toggleRightSideBarProxyAction =
-        ProxyAction::proxyActionWithIcon(cmd->action(), Utils::Icons::TOGGLE_RIGHT_SIDEBAR_TOOLBAR.icon());
-    m_toggleRightSideBarButton->setDefaultAction(toggleRightSideBarProxyAction);
-    mwindow->addAction(cmd, Constants::G_WINDOW_VIEWS);
-    m_toggleRightSideBarButton->setEnabled(false);
 
     registerModeSelectorStyleActions();
 
@@ -508,12 +451,7 @@ void MainWindow::registerDefaultActions()
     mhelp->addAction(cmd, Constants::G_HELP_ABOUT);
     tmpaction->setEnabled(true);
     connect(tmpaction, &QAction::triggered, this, &MainWindow::aboutPlugins);
-    // About Qt Action
-    //    tmpaction = new QAction(tr("About &Qt..."), this);
-    //    cmd = ActionManager::registerAction(tmpaction, Constants:: ABOUT_QT);
-    //    mhelp->addAction(cmd, Constants::G_HELP_ABOUT);
-    //    tmpaction->setEnabled(true);
-    //    connect(tmpaction, &QAction::triggered, qApp, &QApplication::aboutQt);
+
     // About sep
     if (!HostOsInfo::isMacHost())
     { // doesn't have the "About" actions in the Help menu
@@ -558,21 +496,6 @@ void MainWindow::registerModeSelectorStyleActions()
     m_setModeSelectorStyleHiddenAction->setCheckable(true);
 
     styleMenu->addActions(stylesGroup->actions());
-}
-
-void MainWindow::openFile()
-{
-    //openFiles(EditorManager::getOpenFileNames(), ICore::SwitchMode);
-}
-
-void MainWindow::setFocusToEditor()
-{
-    //EditorManagerPrivate::doEscapeKeyFocusMoveMagic();
-}
-
-void MainWindow::saveAll()
-{
-    //DocumentManager::saveAllModifiedDocumentsSilently();
 }
 
 void MainWindow::exit()
@@ -806,40 +729,6 @@ void MainWindow::updateContext()
 
     ActionManager::setContext(uniquecontexts);
     emit m_coreImpl->contextChanged(uniquecontexts);
-}
-
-void MainWindow::aboutToShowRecentFiles()
-{
-    /*
-    ActionContainer* aci  = ActionManager::actionContainer(Constants::M_FILE_RECENTFILES);
-    QMenu*           menu = aci->menu();
-    menu->clear();
-
-    const QList<DocumentManager::RecentFile> recentFiles = DocumentManager::recentFiles();
-    for (int i = 0; i < recentFiles.count(); ++i)
-    {
-        const DocumentManager::RecentFile file = recentFiles[ i ];
-
-        const QString filePath   = Utils::quoteAmpersands(QDir::toNativeSeparators(withTildeHomePath(file.first)));
-        const QString actionText = ActionManager::withNumberAccelerator(filePath, i + 1);
-        QAction*      action     = menu->addAction(actionText);
-        connect(action, &QAction::triggered, this, [ file ] {
-            EditorManager::openEditor(file.first, file.second);
-        });
-    }
-
-    bool hasRecentFiles = !recentFiles.isEmpty();
-    menu->setEnabled(hasRecentFiles);
-
-    // add the Clear Menu item
-    if (hasRecentFiles)
-    {
-        menu->addSeparator();
-        QAction* action = menu->addAction(QCoreApplication::translate(
-            "Core", Constants::TR_CLEAR_MENU));
-        connect(action, &QAction::triggered,
-                DocumentManager::instance(), &DocumentManager::clearRecentFiles);
-    }*/
 }
 
 void MainWindow::aboutQtCreator()

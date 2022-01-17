@@ -32,8 +32,6 @@ SOURCES += mainwindow.cpp \
     editormanager/editorview.cpp \
     editormanager/editorwindow.cpp \
     editormanager/documentmodel.cpp \
-    #editormanager/openeditorsview.cpp \
-    #editormanager/openeditorswindow.cpp \
     editormanager/ieditorfactory.cpp \
     editormanager/iexternaleditor.cpp \
     actionmanager/actionmanager.cpp \
@@ -43,7 +41,6 @@ SOURCES += mainwindow.cpp \
     actionmanager/commandsfile.cpp \
     dialogs/settingsdialog.cpp \
     actionmanager/commandmappings.cpp \
-    #dialogs/readonlyfilesdialog.cpp \
     reaper.cpp \
     coreplugin.cpp \
     modemanager.cpp \
@@ -51,13 +48,10 @@ SOURCES += mainwindow.cpp \
     basefilewizardfactory.cpp \
     generatedfile.cpp \
     plugindialog.cpp \
-    #inavigationwidgetfactory.cpp \
-    #navigationwidget.cpp \
     manhattanstyle.cpp \
     minisplitter.cpp \
     styleanimator.cpp \
     rightpane.cpp \
-    #sidebar.cpp \
     fileiconprovider.cpp \
     icore.cpp \
     infobar.cpp \
@@ -66,13 +60,10 @@ SOURCES += mainwindow.cpp \
     settingsdatabase.cpp \
     imode.cpp \
     editormanager/systemeditor.cpp \
-    #designmode.cpp \
     editortoolbar.cpp \
     helpitem.cpp \
     helpmanager.cpp \
     outputpanemanager.cpp \
-    #navigationsubwidget.cpp \
-    #sidebarwidget.cpp \
     externaltool.cpp \
     dialogs/externaltoolconfig.cpp \
     variablechooser.cpp \
@@ -114,8 +105,6 @@ HEADERS += mainwindow.h \
     editormanager/editorview.h \
     editormanager/editorwindow.h \
     editormanager/documentmodel.h \
-    #editormanager/openeditorsview.h \
-    #editormanager/openeditorswindow.h \
     editormanager/ieditor.h \
     editormanager/iexternaleditor.h \
     editormanager/ieditorfactory.h \
@@ -147,24 +136,18 @@ HEADERS += mainwindow.h \
     basefilewizardfactory.h \
     generatedfile.h \
     plugindialog.h \
-    #inavigationwidgetfactory.h \
-    #navigationwidget.h \
     manhattanstyle.h \
     minisplitter.h \
     styleanimator.h \
     rightpane.h \
-    #sidebar.h \
     fileiconprovider.h \
     settingsdatabase.h \
     editormanager/systemeditor.h \
-    #designmode.h \
     editortoolbar.h \
     helpitem.h \
     helpmanager.h \
     helpmanager_implementation.h \
     outputpanemanager.h \
-    #navigationsubwidget.h \
-    #sidebarwidget.h \
     externaltool.h \
     dialogs/externaltoolconfig.h \
     variablechooser.h \

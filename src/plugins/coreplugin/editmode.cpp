@@ -29,10 +29,8 @@
 #include "icore.h"
 #include "minisplitter.h"
 #include "modemanager.h"
-//#include "navigationwidget.h"
 #include "outputpane.h"
 #include "rightpane.h"
-//#include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/editormanager/ieditor.h>
 
 #include <QHBoxLayout>
@@ -63,20 +61,20 @@ EditMode::EditMode()
     //auto editorPlaceHolder = new EditorManagerPlaceHolder;
     //m_rightSplitWidgetLayout->insertWidget(0, editorPlaceHolder);
 
-    auto rightPaneSplitter = new MiniSplitter;
-    rightPaneSplitter->insertWidget(0, rightSplitWidget);
-    rightPaneSplitter->insertWidget(1, new RightPanePlaceHolder(Constants::MODE_EDIT));
-    rightPaneSplitter->setStretchFactor(0, 1);
-    rightPaneSplitter->setStretchFactor(1, 0);
+    // auto rightPaneSplitter = new MiniSplitter;
+    // rightPaneSplitter->insertWidget(0, rightSplitWidget);
+    // rightPaneSplitter->insertWidget(1, new RightPanePlaceHolder(Constants::MODE_EDIT));
+    // rightPaneSplitter->setStretchFactor(0, 1);
+    // rightPaneSplitter->setStretchFactor(1, 0);
 
     auto splitter = new MiniSplitter;
     splitter->setOrientation(Qt::Vertical);
-    splitter->insertWidget(0, rightPaneSplitter);
-    QWidget* outputPane = new OutputPanePlaceHolder(Constants::MODE_EDIT, splitter);
-    outputPane->setObjectName(QLatin1String("EditModeOutputPanePlaceHolder"));
-    splitter->insertWidget(1, outputPane);
-    splitter->setStretchFactor(0, 3);
-    splitter->setStretchFactor(1, 0);
+    //splitter->insertWidget(0, rightPaneSplitter);
+    // QWidget* outputPane = new OutputPanePlaceHolder(Constants::MODE_EDIT, splitter);
+    // outputPane->setObjectName(QLatin1String("EditModeOutputPanePlaceHolder"));
+    // splitter->insertWidget(1, outputPane);
+    // splitter->setStretchFactor(0, 3);
+    // splitter->setStretchFactor(1, 0);
 
     //m_splitter->insertWidget(0, new NavigationWidgetPlaceHolder(Constants::MODE_EDIT, Side::Left));
     m_splitter->insertWidget(1, splitter);

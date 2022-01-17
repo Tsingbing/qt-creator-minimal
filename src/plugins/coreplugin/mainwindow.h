@@ -44,21 +44,20 @@ QT_END_NAMESPACE
 namespace Core {
 
 class EditorManager;
-class ExternalToolManager;
+//class ExternalToolManager;
 class IDocument;
 class InfoBar;
-class MessageManager;
+//class MessageManager;
 class ModeManager;
 //class NavigationWidget;
 enum class Side;
-class RightPaneWidget;
+//class RightPaneWidget;
 class SettingsDatabase;
 
 namespace Internal {
 
 class FancyTabWidget;
 class GeneralSettings;
-class ToolSettings;
 class VersionDialog;
 class WindowSupport;
 class SystemEditor;
@@ -143,14 +142,14 @@ private:
     mutable QPrinter *m_printer = nullptr;
     WindowSupport *m_windowSupport = nullptr;
     EditorManager *m_editorManager = nullptr;
-    ExternalToolManager *m_externalToolManager = nullptr;
-    MessageManager *m_messageManager = nullptr;
+    //ExternalToolManager *m_externalToolManager = nullptr;
+    //MessageManager *m_messageManager = nullptr;
 
     ModeManager *m_modeManager = nullptr;
     FancyTabWidget *m_modeStack = nullptr;
     //NavigationWidget *m_leftNavigationWidget = nullptr;
     //NavigationWidget *m_rightNavigationWidget = nullptr;
-    RightPaneWidget *m_rightPaneWidget = nullptr;
+    //RightPaneWidget *m_rightPaneWidget = nullptr;
     VersionDialog *m_versionDialog = nullptr;
 
     QList<IContext *> m_activeContext;
@@ -158,7 +157,6 @@ private:
     QMap<QWidget *, IContext *> m_contextWidgets;
 
     GeneralSettings *m_generalSettings = nullptr;
-    ToolSettings *m_toolSettings = nullptr;
     SystemEditor *m_systemEditor = nullptr;
 
     // actions

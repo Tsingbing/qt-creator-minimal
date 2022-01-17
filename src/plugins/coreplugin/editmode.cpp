@@ -29,8 +29,8 @@
 #include "icore.h"
 #include "minisplitter.h"
 #include "modemanager.h"
-#include "outputpane.h"
-#include "rightpane.h"
+//#include "outputpane.h"
+//#include "rightpane.h"
 #include <coreplugin/editormanager/ieditor.h>
 
 #include <QHBoxLayout>

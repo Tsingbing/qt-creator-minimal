@@ -29,19 +29,19 @@
 #include "documentmanager.h"
 #include "editormanager/ieditorfactory.h"
 #include "editormanager/systemeditor.h"
-#include "externaltoolmanager.h"
+//#include "externaltoolmanager.h"
 #include "fancytabwidget.h"
 #include "generalsettings.h"
 #include "icore.h"
 #include "id.h"
 #include "idocumentfactory.h"
 #include "manhattanstyle.h"
-#include "messagemanager.h"
+//#include "messagemanager.h"
 #include "modemanager.h"
 //#include "navigationwidget.h"
-#include "outputpanemanager.h"
+//#include "outputpanemanager.h"
 #include "plugindialog.h"
-#include "rightpane.h"
+//#include "rightpane.h"
 #include "statusbarmanager.h"
 
 #include "versiondialog.h"
@@ -52,7 +52,6 @@
 #include <coreplugin/actionmanager/actionmanager.h>
 #include <coreplugin/actionmanager/actionmanager_p.h>
 #include <coreplugin/actionmanager/command.h>
-#include <coreplugin/dialogs/externaltoolconfig.h>
 #include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/editormanager/editormanager_p.h>
 #include <coreplugin/editormanager/ieditor.h>
@@ -108,7 +107,6 @@ MainWindow::MainWindow()
                                this))
     , m_modeStack(new FancyTabWidget(this))
     , m_generalSettings(new GeneralSettings)
-    , m_toolSettings(new ToolSettings)
     , m_systemEditor(new SystemEditor)
     , m_toggleLeftSideBarButton(new QToolButton)
     , m_toggleRightSideBarButton(new QToolButton)
@@ -166,11 +164,11 @@ MainWindow::MainWindow()
 
     //m_leftNavigationWidget  = new NavigationWidget(m_toggleLeftSideBarAction, Side::Left);
     //m_rightNavigationWidget = new NavigationWidget(m_toggleRightSideBarAction, Side::Right);
-    m_rightPaneWidget = new RightPaneWidget();
+    //m_rightPaneWidget = new RightPaneWidget();
 
-    m_messageManager      = new MessageManager;
-    m_editorManager       = new EditorManager(this);
-    m_externalToolManager = new ExternalToolManager();
+    //m_messageManager      = new MessageManager;
+    m_editorManager = new EditorManager(this);
+    //m_externalToolManager = new ExternalToolManager();
     setCentralWidget(m_modeStack);
 
     connect(qApp, &QApplication::focusChanged, this, &MainWindow::updateFocusWidget);
@@ -231,14 +229,14 @@ MainWindow::~MainWindow()
     delete m_windowSupport;
     m_windowSupport = nullptr;
 
-    delete m_externalToolManager;
-    m_externalToolManager = nullptr;
-    delete m_messageManager;
-    m_messageManager = nullptr;
+    //delete m_externalToolManager;
+    //m_externalToolManager = nullptr;
+    //delete m_messageManager;
+    //m_messageManager = nullptr;
     delete m_generalSettings;
     m_generalSettings = nullptr;
-    delete m_toolSettings;
-    m_toolSettings = nullptr;
+    //delete m_toolSettings;
+    //m_toolSettings = nullptr;
     delete m_systemEditor;
     m_systemEditor = nullptr;
     delete m_printer;
@@ -248,7 +246,7 @@ MainWindow::~MainWindow()
     //because they might trigger stuff that tries to access data from editorwindow, like removeContextWidget
 
     // All modes are now gone
-    OutputPaneManager::destroy();
+    //OutputPaneManager::destroy();
 
     //delete m_leftNavigationWidget;
     //delete m_rightNavigationWidget;
@@ -261,8 +259,8 @@ MainWindow::~MainWindow()
     delete m_coreImpl;
     m_coreImpl = nullptr;
 
-    delete m_rightPaneWidget;
-    m_rightPaneWidget = nullptr;
+    //delete m_rightPaneWidget;
+    //m_rightPaneWidget = nullptr;
 
     delete m_modeManager;
     m_modeManager = nullptr;
@@ -270,7 +268,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::init()
 {
-    MessageManager::init();
+    //MessageManager::init();
 }
 
 void MainWindow::extensionsInitialized()
@@ -279,7 +277,7 @@ void MainWindow::extensionsInitialized()
     //MimeTypeSettings::restoreSettings();
     m_windowSupport = new WindowSupport(this, Context("Core.MainWindow"));
     m_windowSupport->setCloseActionEnabled(false);
-    OutputPaneManager::create();
+    //OutputPaneManager::create();
     //m_leftNavigationWidget->setFactories(INavigationWidgetFactory::allNavigationFactories());
     //m_rightNavigationWidget->setFactories(INavigationWidgetFactory::allNavigationFactories());
 
@@ -967,7 +965,7 @@ void MainWindow::readSettings()
     EditorManagerPrivate::readSettings();
     //m_leftNavigationWidget->restoreSettings(settings);
     //m_rightNavigationWidget->restoreSettings(settings);
-    m_rightPaneWidget->readSettings(settings);
+    //m_rightPaneWidget->readSettings(settings);
 }
 
 void MainWindow::saveSettings()

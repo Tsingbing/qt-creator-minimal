@@ -50,9 +50,9 @@
 #include <coreplugin/imode.h>
 #include <coreplugin/infobar.h>
 #include <coreplugin/modemanager.h>
-#include <coreplugin/outputpane.h>
-#include <coreplugin/outputpanemanager.h>
-#include <coreplugin/rightpane.h>
+//#include <coreplugin/outputpane.h>
+//#include <coreplugin/outputpanemanager.h>
+//#include <coreplugin/rightpane.h>
 #include <coreplugin/settingsdatabase.h>
 
 #include <extensionsystem/pluginmanager.h>
@@ -249,13 +249,14 @@ static void setFocusToEditorViewAndUnmaximizePanes(EditorView* view)
     w->setFocus();
     ICore::raiseWindow(w);
 
+    /*
     OutputPanePlaceHolder* holder = OutputPanePlaceHolder::getCurrent();
     if (holder && holder->window() == view->window())
     {
         // unmaximize output pane if necessary
         if (holder->isVisible() && holder->isMaximized())
             holder->setMaximized(false);
-    }
+    }*/
 }
 
 EditorManagerPrivate::EditorManagerPrivate(QObject* parent)
@@ -961,7 +962,7 @@ void EditorManagerPrivate::doEscapeKeyFocusMoveMagic()
     else */
     if (!(editorViewVisible && !editorViewActive && editorView->window() == activeWindow))
     {
-        QWidget* outputPane = OutputPanePlaceHolder::getCurrent();
+        /*QWidget* outputPane = OutputPanePlaceHolder::getCurrent();
         if (outputPane && outputPane->isVisible() && outputPane->window() == activeWindow)
         {
             OutputPaneManager::instance()->slotHide();
@@ -973,7 +974,7 @@ void EditorManagerPrivate::doEscapeKeyFocusMoveMagic()
             RightPaneWidget::instance()->setShown(false);
             stuffHidden = true;
         }
-        /*
+
         if (findPane && findPane->isVisible() && findPane->window() == activeWindow)
         {
             findPane->hide();

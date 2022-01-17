@@ -21,10 +21,6 @@ SOURCES += mainwindow.cpp \
     themechooser.cpp \
     id.cpp \
     icontext.cpp \
-    messagemanager.cpp \
-    messageoutputwindow.cpp \
-    outputpane.cpp \
-    outputwindow.cpp \
     statusbarmanager.cpp \
     versiondialog.cpp \
     editormanager/editorarea.cpp \
@@ -51,7 +47,6 @@ SOURCES += mainwindow.cpp \
     manhattanstyle.cpp \
     minisplitter.cpp \
     styleanimator.cpp \
-    rightpane.cpp \
     fileiconprovider.cpp \
     icore.cpp \
     infobar.cpp \
@@ -63,9 +58,6 @@ SOURCES += mainwindow.cpp \
     editortoolbar.cpp \
     helpitem.cpp \
     helpmanager.cpp \
-    outputpanemanager.cpp \
-    externaltool.cpp \
-    dialogs/externaltoolconfig.cpp \
     variablechooser.cpp \
     dialogs/promptoverwritedialog.cpp \
     fileutils.cpp \
@@ -75,12 +67,9 @@ SOURCES += mainwindow.cpp \
     textdocument.cpp \
     documentmanager.cpp \
     dialogs/restartdialog.cpp \
-    ioutputpane.cpp \
     windowsupport.cpp \
-    opendocumentstreeview.cpp \
     messagebox.cpp \
     iwelcomepage.cpp \
-    externaltoolmanager.cpp \
     coreicons.cpp \
     diffservice.cpp \
     welcomepagehelper.cpp
@@ -94,10 +83,6 @@ HEADERS += mainwindow.h \
     generalsettings.h \
     themechooser.h \
     id.h \
-    messagemanager.h \
-    messageoutputwindow.h \
-    outputpane.h \
-    outputwindow.h \
     statusbarmanager.h \
     editormanager/editorarea.h \
     editormanager/editormanager.h \
@@ -125,7 +110,6 @@ HEADERS += mainwindow.h \
     icore.h \
     infobar.h \
     imode.h \
-    ioutputpane.h \
     coreconstants.h \
     ifilewizardextension.h \
     versiondialog.h \
@@ -139,7 +123,6 @@ HEADERS += mainwindow.h \
     manhattanstyle.h \
     minisplitter.h \
     styleanimator.h \
-    rightpane.h \
     fileiconprovider.h \
     settingsdatabase.h \
     editormanager/systemeditor.h \
@@ -147,13 +130,9 @@ HEADERS += mainwindow.h \
     helpitem.h \
     helpmanager.h \
     helpmanager_implementation.h \
-    outputpanemanager.h \
-    externaltool.h \
-    dialogs/externaltoolconfig.h \
     variablechooser.h \
     dialogs/promptoverwritedialog.h \
     fileutils.h \
-    externaltoolmanager.h \
     generatedfile.h \
     featureprovider.h \
     idocument.h \
@@ -162,7 +141,6 @@ HEADERS += mainwindow.h \
     documentmanager.h \
     dialogs/restartdialog.h \
     windowsupport.h \
-    opendocumentstreeview.h \
     messagebox.h \
     iwelcomepage.h \
     coreicons.h \
@@ -171,8 +149,7 @@ HEADERS += mainwindow.h \
     editormanager/ieditorfactory_p.h \
     welcomepagehelper.h
 
-FORMS +=  generalsettings.ui \
-    dialogs/externaltoolconfig.ui \
+FORMS +=  generalsettings.ui 
 
 
 RESOURCES += core.qrc \

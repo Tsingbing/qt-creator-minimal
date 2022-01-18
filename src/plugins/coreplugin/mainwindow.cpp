@@ -95,7 +95,7 @@ MainWindow::MainWindow()
                                QLatin1String(Constants::IDE_CASED_ID),
                                this))
     , m_modeStack(new FancyTabWidget(this))
-    , m_generalSettings(new GeneralSettings) //, m_systemEditor(new SystemEditor)
+    , m_generalSettings(new GeneralSettings)
     , m_toggleLeftSideBarButton(new QToolButton)
     , m_toggleRightSideBarButton(new QToolButton)
 {

@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -25,22 +25,38 @@
 
 #include "helloworldplugin.h"
 
-#include <coreplugin/actionmanager/actionmanager.h>
 #include <coreplugin/actionmanager/actioncontainer.h>
+#include <coreplugin/actionmanager/actionmanager.h>
 #include <coreplugin/coreconstants.h>
 #include <coreplugin/icore.h>
+#include <coreplugin/id.h>
 #include <coreplugin/imode.h>
 #include <coreplugin/modemanager.h>
-#include <coreplugin/id.h>
 
-#include <QDebug>
+#include <utils/styledbar.h>
+#include <utils/theme/theme.h>
+
 #include <QAction>
+#include <QDebug>
 #include <QMenu>
 #include <QMessageBox>
 #include <QPushButton>
 
-namespace HelloWorld {
-namespace Internal {
+#include "helloform.h"
+
+using namespace Core;
+using namespace ExtensionSystem;
+using namespace Utils;
+
+namespace HelloWorld
+{
+namespace Internal
+{
+
+static QColor themeColor(Theme::Color role)
+{
+    return Utils::creatorTheme()->color(role);
+}
 
 /*!  A mode with a push button based on BaseMode.  */
 
@@ -49,9 +65,38 @@ class HelloMode : public Core::IMode
 public:
     HelloMode()
     {
-        setWidget(new QPushButton(tr("Hello World PushButton!")));
+        QPalette palette = creatorTheme()->palette();
+        palette.setColor(QPalette::Window, themeColor(Theme::Welcome_BackgroundColor));
+
+        //m_modeWidget = new QWidget;
+        m_modeWidget = new helloForm;
+        m_modeWidget->setAutoFillBackground(true);
+        m_modeWidget->setPalette(palette);
+        /*
+        auto divider = new QWidget(m_modeWidget);
+        divider->setMaximumWidth(1);
+        divider->setMinimumWidth(1);
+        divider->setAutoFillBackground(true);
+        divider->setPalette(themeColor(Theme::Welcome_DividerColor));
+
+        auto pubtton = new QPushButton(tr("Hello World PushButton!"));
+        //pubtton->setAutoFillBackground(true);
+
+        auto hbox = new QHBoxLayout;
+        hbox->addWidget(divider);
+        hbox->addWidget(pubtton);
+        //hbox->setStretchFactor(pubtton, 10);
+
+        auto layout = new QVBoxLayout(m_modeWidget);
+        layout->setContentsMargins(0, 0, 0, 0);
+        layout->setSpacing(0);
+        layout->addWidget(new StyledBar(m_modeWidget));
+        layout->addItem(hbox);
+        //layout->addWidget(pubtton);
+        */
+        setWidget(m_modeWidget);
         setContext(Core::Context("HelloWorld.MainView"));
-        setDisplayName(tr("你好"));
+        setDisplayName(tr("Hello"));
 
         /*
         const Icon CLASSIC(":/welcome/images/mode_welcome.png");
@@ -64,8 +109,10 @@ public:
         setPriority(0);
         setId("HelloWorld.HelloWorldMode");
     }
-};
 
+private:
+    QWidget* m_modeWidget;
+};
 
 /*! Constructs the Hello World plugin. Normally plugins don't do anything in
     their constructor except for initializing their member variables. The
@@ -90,7 +137,7 @@ HelloWorldPlugin::~HelloWorldPlugin()
     \a errorMessage can be used to pass an error message to the plugin system,
        if there was any.
 */
-bool HelloWorldPlugin::initialize(const QStringList &arguments, QString *errorMessage)
+bool HelloWorldPlugin::initialize(const QStringList& arguments, QString* errorMessage)
 {
     Q_UNUSED(arguments)
     Q_UNUSED(errorMessage)
@@ -104,14 +151,14 @@ bool HelloWorldPlugin::initialize(const QStringList &arguments, QString *errorMe
     connect(helloWorldAction, &QAction::triggered, this, &HelloWorldPlugin::sayHelloWorld);
 
     // Register the action with the action manager
-    Core::Command *command =
-            Core::ActionManager::registerAction(
-                    helloWorldAction, "HelloWorld.HelloWorldAction", context);
+    Core::Command* command =
+        Core::ActionManager::registerAction(
+            helloWorldAction, "HelloWorld.HelloWorldAction", context);
 
     // Create our own menu to place in the Tools menu
-    Core::ActionContainer *helloWorldMenu =
-            Core::ActionManager::createMenu("HelloWorld.HelloWorldMenu");
-    QMenu *menu = helloWorldMenu->menu();
+    Core::ActionContainer* helloWorldMenu =
+        Core::ActionManager::createMenu("HelloWorld.HelloWorldMenu");
+    QMenu* menu = helloWorldMenu->menu();
     menu->setTitle(tr("&Hello World"));
     menu->setEnabled(true);
 
@@ -119,8 +166,8 @@ bool HelloWorldPlugin::initialize(const QStringList &arguments, QString *errorMe
     helloWorldMenu->addAction(command);
 
     // Request the Tools menu and add the Hello World menu to it
-    Core::ActionContainer *toolsMenu =
-            Core::ActionManager::actionContainer(Core::Constants::M_TOOLS);
+    Core::ActionContainer* toolsMenu =
+        Core::ActionManager::actionContainer(Core::Constants::M_TOOLS);
     toolsMenu->addMenu(helloWorldMenu);
 
     // Add a mode with a push button based on BaseMode.
@@ -149,7 +196,7 @@ void HelloWorldPlugin::sayHelloWorld()
     // When passing nullptr for the parent, the message box becomes an
     // application-global modal dialog box
     QMessageBox::information(
-            nullptr, tr("Hello World!"), tr("Hello World! Beautiful day today, isn't it?"));
+        nullptr, tr("Hello World!"), tr("Hello World! Beautiful day today, isn't it?"));
 }
 
 } // namespace Internal

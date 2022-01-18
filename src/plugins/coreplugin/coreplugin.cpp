@@ -152,19 +152,12 @@ bool CorePlugin::initialize(const QStringList& arguments, QString* errorMessage)
     m_mainWindow = new MainWindow;
     if (args.overrideColor.isValid())
         m_mainWindow->setOverrideColor(args.overrideColor);
-    //m_locator = new Locator;
+
     std::srand(unsigned(QDateTime::currentDateTime().toSecsSinceEpoch()));
     m_mainWindow->init();
-    //m_editMode = new EditMode;
-    //ModeManager::activateMode(m_editMode->id());
-
-    //IWizardFactory::initialize();
 
     // Make sure we respect the process's umask when creating new files
     SaveFile::initializeUmask();
-
-    //Find::initialize();
-    //m_locator->initialize();
 
     MacroExpander* expander = Utils::globalMacroExpander();
     expander->registerVariable("CurrentDate:ISO", tr("The current date (ISO)."),

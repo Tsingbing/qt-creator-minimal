@@ -162,12 +162,6 @@ MainWindow::MainWindow()
     statusBar()->setProperty("p_styled", true);
 }
 
-void MainWindow::setSidebarVisible(bool visible, Side side)
-{
-    //if (NavigationWidgetPlaceHolder::current(side))
-    //    navigationWidget(side)->setShown(visible);
-}
-
 void MainWindow::setOverrideColor(const QColor& color)
 {
     m_overrideColor = color;
@@ -297,8 +291,6 @@ void MainWindow::registerDefaultContainers()
     if (!HostOsInfo::isMacHost()) // System menu bar on Mac
         setMenuBar(menubar->menuBar());
     menubar->appendGroup(Constants::G_FILE);
-    //menubar->appendGroup(Constants::G_EDIT);
-    //menubar->appendGroup(Constants::G_VIEW);
     menubar->appendGroup(Constants::G_TOOLS);
     menubar->appendGroup(Constants::G_WINDOW);
     menubar->appendGroup(Constants::G_HELP);
@@ -320,7 +312,7 @@ void MainWindow::registerDefaultContainers()
     mwindow->menu()->setTitle(tr("&Window"));
     mwindow->appendGroup(Constants::G_WINDOW_SIZE);
     mwindow->appendGroup(Constants::G_WINDOW_LIST);
-    mwindow->appendGroup(Constants::G_WINDOW_OTHER);
+    //mwindow->appendGroup(Constants::G_WINDOW_OTHER);
 
     // Help Menu
     ac = ActionManager::createMenu(Constants::M_HELP);
@@ -356,9 +348,9 @@ void MainWindow::registerDefaultActions()
     Command* cmd;
 
     // File->Recent Files Menu
-    ActionContainer* ac;
-    QAction*         tmpaction;
-    QIcon            icon;
+    //ActionContainer* ac;
+    QAction* tmpaction;
+    QIcon    icon;
     // Exit Action
     icon         = QIcon::fromTheme(QLatin1String("application-exit"));
     m_exitAction = new QAction(icon, tr("E&xit"), this);
@@ -422,11 +414,6 @@ void MainWindow::registerDefaultActions()
 
     registerModeSelectorStyleActions();
 
-    // Window->Views
-    ActionContainer* mviews = ActionManager::createMenu(Constants::M_WINDOW_VIEWS);
-    mwindow->addMenu(mviews, Constants::G_WINDOW_VIEWS);
-    mviews->menu()->setTitle(tr("&Views"));
-
     // "Help" separators
     mhelp->addSeparator(Constants::G_HELP_SUPPORT);
     if (!HostOsInfo::isMacHost())
@@ -476,7 +463,7 @@ void MainWindow::registerModeSelectorStyleActions()
 
     // Mode Selector Styles
     ActionContainer* mmodeLayouts = ActionManager::createMenu(Constants::M_WINDOW_MODESTYLES);
-    mwindow->addMenu(mmodeLayouts, Constants::G_WINDOW_VIEWS);
+    mwindow->addMenu(mmodeLayouts, Constants::G_WINDOW_SIZE);
     QMenu* styleMenu = mmodeLayouts->menu();
     styleMenu->setTitle(tr("Mode Selector Style"));
     auto* stylesGroup = new QActionGroup(styleMenu);

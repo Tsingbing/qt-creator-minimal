@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -41,13 +41,13 @@
 #include <coreplugin/modemanager.h>
 
 #include <utils/algorithm.h>
-#include <utils/icon.h>
 #include <utils/fileutils.h>
 #include <utils/hostosinfo.h>
+#include <utils/icon.h>
 #include <utils/qtcassert.h>
 #include <utils/styledbar.h>
-#include <utils/treemodel.h>
 #include <utils/theme/theme.h>
+#include <utils/treemodel.h>
 
 #include <QDesktopServices>
 #include <QHeaderView>
@@ -63,12 +63,14 @@ using namespace Core;
 using namespace ExtensionSystem;
 using namespace Utils;
 
-namespace Welcome {
-namespace Internal {
+namespace Welcome
+{
+namespace Internal
+{
 
 class SideBar;
 
-const int lrPadding = 34;
+const int  lrPadding                 = 34;
 const char currentPageSettingsKeyC[] = "Welcome2Tab";
 
 static QColor themeColor(Theme::Color role)
@@ -76,7 +78,7 @@ static QColor themeColor(Theme::Color role)
     return Utils::creatorTheme()->color(role);
 }
 
-static QFont sizedFont(int size, const QWidget *widget, bool underline = false)
+static QFont sizedFont(int size, const QWidget* widget, bool underline = false)
 {
     QFont f = widget->font();
     f.setPixelSize(size);
@@ -91,7 +93,7 @@ static QPalette lightText()
     return pal;
 }
 
-static void addWeakVerticalSpacerToLayout(QVBoxLayout *layout, int maximumSize)
+static void addWeakVerticalSpacerToLayout(QVBoxLayout* layout, int maximumSize)
 {
     auto weakSpacer = new QWidget;
     weakSpacer->setMaximumHeight(maximumSize);
@@ -109,17 +111,15 @@ public:
 
     void initPlugins();
 
-    Q_INVOKABLE bool openDroppedFiles(const QList<QUrl> &urls);
-
 private:
-    void addPage(IWelcomePage *page);
+    void addPage(IWelcomePage* page);
 
-    QWidget *m_modeWidget;
-    QStackedWidget *m_pageStack;
-    SideBar *m_sideBar;
-    QList<IWelcomePage *> m_pluginList;
-    QList<WelcomePageButton *> m_pageButtons;
-    Id m_activePage;
+    QWidget*                  m_modeWidget;
+    QStackedWidget*           m_pageStack;
+    SideBar*                  m_sideBar;
+    QList<IWelcomePage*>      m_pluginList;
+    QList<WelcomePageButton*> m_pageButtons;
+    Id                        m_activePage;
 };
 
 class WelcomePlugin final : public ExtensionSystem::IPlugin
@@ -130,7 +130,7 @@ class WelcomePlugin final : public ExtensionSystem::IPlugin
 public:
     ~WelcomePlugin() final { delete m_welcomeMode; }
 
-    bool initialize(const QStringList &arguments, QString *) final
+    bool initialize(const QStringList& arguments, QString*) final
     {
         m_welcomeMode = new WelcomeMode;
 
@@ -139,16 +139,19 @@ public:
             auto intro = new IntroductionWidget(ICore::mainWindow());
             intro->show();
         });
-        Command *cmd = ActionManager::registerAction(introAction, "Welcome.UITour");
-        ActionContainer *mhelp = ActionManager::actionContainer(Core::Constants::M_HELP);
+        Command*         cmd   = ActionManager::registerAction(introAction, "Welcome.UITour");
+        ActionContainer* mhelp = ActionManager::actionContainer(Core::Constants::M_HELP);
         if (QTC_GUARD(mhelp))
             mhelp->addAction(cmd, Core::Constants::G_HELP_HELP);
 
-        if (!arguments.contains("-notour")) {
-            connect(ICore::instance(), &ICore::coreOpened, this, []() {
-                IntroductionWidget::askUserAboutIntroduction(ICore::mainWindow(),
-                                                             ICore::settings());
-            }, Qt::QueuedConnection);
+        if (!arguments.contains("-notour"))
+        {
+            connect(
+                ICore::instance(), &ICore::coreOpened, this, []() {
+                    IntroductionWidget::askUserAboutIntroduction(ICore::mainWindow(),
+                                                                 ICore::settings());
+                },
+                Qt::QueuedConnection);
         }
 
         return true;
@@ -160,24 +163,27 @@ public:
         ModeManager::activateMode(m_welcomeMode->id());
     }
 
-    WelcomeMode *m_welcomeMode = nullptr;
+    WelcomeMode* m_welcomeMode = nullptr;
 };
 
 class IconAndLink : public QWidget
 {
 public:
-    IconAndLink(const QString &iconSource,
-                const QString &title,
-                const QString &openUrl,
-                QWidget *parent)
-        : QWidget(parent), m_iconSource(iconSource), m_title(title), m_openUrl(openUrl)
+    IconAndLink(const QString& iconSource,
+                const QString& title,
+                const QString& openUrl,
+                QWidget*       parent)
+        : QWidget(parent)
+        , m_iconSource(iconSource)
+        , m_title(title)
+        , m_openUrl(openUrl)
     {
         setAutoFillBackground(true);
         setMinimumHeight(30);
         setToolTip(m_openUrl);
 
         const QString fileName = QString(":/welcome/images/%1.png").arg(iconSource);
-        const Icon icon({{fileName, Theme::Welcome_ForegroundPrimaryColor}}, Icon::Tint);
+        const Icon    icon({{fileName, Theme::Welcome_ForegroundPrimaryColor}}, Icon::Tint);
 
         m_icon = new QLabel;
         m_icon->setPixmap(icon.pixmap());
@@ -194,7 +200,7 @@ public:
         setLayout(layout);
     }
 
-    void enterEvent(QEvent *) override
+    void enterEvent(QEvent*) override
     {
         QPalette pal;
         pal.setColor(QPalette::Window, themeColor(Theme::Welcome_HoverColor));
@@ -203,7 +209,7 @@ public:
         update();
     }
 
-    void leaveEvent(QEvent *) override
+    void leaveEvent(QEvent*) override
     {
         QPalette pal;
         pal.setColor(QPalette::Window, themeColor(Theme::Welcome_BackgroundColor));
@@ -212,24 +218,24 @@ public:
         update();
     }
 
-    void mousePressEvent(QMouseEvent *) override
+    void mousePressEvent(QMouseEvent*) override
     {
         QDesktopServices::openUrl(m_openUrl);
     }
 
-    QString m_iconSource;
-    QString m_title;
+    QString       m_iconSource;
+    QString       m_title;
     const QString m_openUrl;
 
-    QLabel *m_icon;
-    QLabel *m_label;
+    QLabel* m_icon;
+    QLabel* m_label;
 };
 
 class SideBar : public QWidget
 {
     Q_OBJECT
 public:
-    SideBar(QWidget *parent)
+    SideBar(QWidget* parent)
         : QWidget(parent)
     {
         setAutoFillBackground(true);
@@ -257,14 +263,15 @@ public:
             auto newLabel = new QLabel(tr("New to Qt?"), this);
             newLabel->setFont(sizedFont(18, this));
             l->addWidget(newLabel);
-            
+
             auto newButton = new WelcomePageButton(this);
             newButton->setText(tr("NButton"));
             l->addWidget(newButton);
 
             auto learnLabel = new QLabel(tr("Learn how to develop your own applications "
                                             "and explore %1.")
-                                         .arg(Core::Constants::IDE_DISPLAY_NAME), this);
+                                             .arg(Core::Constants::IDE_DISPLAY_NAME),
+                                         this);
             learnLabel->setMaximumWidth(200);
             learnLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
             learnLabel->setWordWrap(true);
@@ -301,7 +308,7 @@ public:
         addWeakVerticalSpacerToLayout(vbox, vbox->contentsMargins().top());
     }
 
-    QVBoxLayout *m_pluginButtons = nullptr;
+    QVBoxLayout* m_pluginButtons = nullptr;
 };
 
 WelcomeMode::WelcomeMode()
@@ -326,7 +333,7 @@ WelcomeMode::WelcomeMode()
     m_modeWidget = new QWidget;
     m_modeWidget->setPalette(palette);
 
-    m_sideBar = new SideBar(m_modeWidget);
+    m_sideBar              = new SideBar(m_modeWidget);
     auto scrollableSideBar = new QScrollArea(m_modeWidget);
     scrollableSideBar->setWidget(m_sideBar);
     scrollableSideBar->setWidgetResizable(true);
@@ -360,83 +367,64 @@ WelcomeMode::WelcomeMode()
 
 WelcomeMode::~WelcomeMode()
 {
-    QSettings *settings = ICore::settings();
+    QSettings* settings = ICore::settings();
     settings->setValue(currentPageSettingsKeyC, m_activePage.toSetting());
     delete m_modeWidget;
 }
 
 void WelcomeMode::initPlugins()
 {
-    QSettings *settings = ICore::settings();
-    m_activePage = Id::fromSetting(settings->value(currentPageSettingsKeyC));
+    QSettings* settings = ICore::settings();
+    m_activePage        = Id::fromSetting(settings->value(currentPageSettingsKeyC));
 
-    for (IWelcomePage *page : IWelcomePage::allWelcomePages())
+    for (IWelcomePage* page : IWelcomePage::allWelcomePages())
         addPage(page);
 
-    if (!m_activePage.isValid() && !m_pageButtons.isEmpty()) {
+    if (!m_activePage.isValid() && !m_pageButtons.isEmpty())
+    {
         const int welcomeIndex = Utils::indexOf(m_pluginList,
                                                 Utils::equal(&IWelcomePage::id,
                                                              Core::Id("Examples")));
         const int defaultIndex = welcomeIndex >= 0 ? welcomeIndex : 0;
-        m_activePage = m_pluginList.at(defaultIndex)->id();
+        m_activePage           = m_pluginList.at(defaultIndex)->id();
         m_pageButtons.at(defaultIndex)->click();
     }
 }
 
-bool WelcomeMode::openDroppedFiles(const QList<QUrl> &urls)
-{
-//    DropArea {
-//        anchors.fill: parent
-//        keys: ["text/uri-list"]
-//        onDropped: {
-//            if ((drop.supportedActions & Qt.CopyAction != 0)
-//                    && welcomeMode.openDroppedFiles(drop.urls))
-//                drop.accept(Qt.CopyAction);
-//        }
-//    }
-    const QList<QUrl> localUrls = Utils::filtered(urls, &QUrl::isLocalFile);
-    if (!localUrls.isEmpty()) {
-        QTimer::singleShot(0, [localUrls]() {
-            ICore::openFiles(Utils::transform(localUrls, &QUrl::toLocalFile), ICore::SwitchMode);
-        });
-        return true;
-    }
-    return false;
-}
-
-void WelcomeMode::addPage(IWelcomePage *page)
+void WelcomeMode::addPage(IWelcomePage* page)
 {
     int idx;
     int pagePriority = page->priority();
-    for (idx = 0; idx != m_pluginList.size(); ++idx) {
+    for (idx = 0; idx != m_pluginList.size(); ++idx)
+    {
         if (m_pluginList.at(idx)->priority() >= pagePriority)
             break;
     }
     auto pageButton = new WelcomePageButton(m_sideBar);
-    auto pageId = page->id();
+    auto pageId     = page->id();
     pageButton->setText(page->title());
-    pageButton->setActiveChecker([this, pageId] { return m_activePage == pageId; });
+    pageButton->setActiveChecker([ this, pageId ] { return m_activePage == pageId; });
 
     m_pluginList.insert(idx, page);
     m_pageButtons.insert(idx, pageButton);
 
     m_sideBar->m_pluginButtons->insertWidget(idx, pageButton);
 
-    QWidget *stackPage = page->createWidget();
+    QWidget* stackPage = page->createWidget();
     stackPage->setAutoFillBackground(true);
     m_pageStack->insertWidget(idx, stackPage);
 
-    connect(page, &QObject::destroyed, this, [this, page, stackPage, pageButton] {
+    connect(page, &QObject::destroyed, this, [ this, page, stackPage, pageButton ] {
         m_pluginList.removeOne(page);
         m_pageButtons.removeOne(pageButton);
         delete pageButton;
         delete stackPage;
     });
 
-    auto onClicked = [this, pageId, stackPage] {
+    auto onClicked = [ this, pageId, stackPage ] {
         m_activePage = pageId;
         m_pageStack->setCurrentWidget(stackPage);
-        for (WelcomePageButton *pageButton : m_pageButtons)
+        for (WelcomePageButton* pageButton : m_pageButtons)
             pageButton->recheckActive();
     };
 

@@ -243,11 +243,6 @@ bool CorePlugin::delayedInitialize()
     return true;
 }
 
-void CorePlugin::fileOpenRequest(const QString& f)
-{
-    //remoteCommand(QStringList(), QString(), QStringList(f));
-}
-
 void CorePlugin::addToPathChooserContextMenu(Utils::PathChooser* pathChooser, QMenu* menu)
 {
     QList<QAction*> actions     = menu->actions();

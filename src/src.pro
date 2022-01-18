@@ -6,6 +6,7 @@ SUBDIRS += \
     app \
     plugins \
 
+
 # delegate deployqt target
 deployqt.CONFIG += recursive
 deployqt.recurse = shared libs app plugins tools

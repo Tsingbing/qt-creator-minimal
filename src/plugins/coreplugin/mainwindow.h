@@ -104,7 +104,6 @@ private:
     void aboutQtCreator();
     void aboutPlugins();
     void updateFocusWidget(QWidget* old, QWidget* now);
-    void setSidebarVisible(bool visible, Side side);
     void destroyVersionDialog();
     void openDroppedFiles(const QList<Utils::DropSupport::FileSpec>& files);
     void restoreWindowState();

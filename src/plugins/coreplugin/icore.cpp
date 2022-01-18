@@ -256,17 +256,6 @@ SettingsDatabase* ICore::settingsDatabase()
     return m_mainwindow->settingsDatabase();
 }
 
-/*!
-    Returns the application's printer object.
-
-    Always use this printer object for printing, so the different parts of the
-    application re-use its settings.
-*/
-QPrinter* ICore::printer()
-{
-    return m_mainwindow->printer();
-}
-
 QString ICore::userInterfaceLanguage()
 {
     return qApp->property("qtc_locale").toString();
@@ -523,17 +512,6 @@ void ICore::removeContextObject(IContext* context)
 void ICore::registerWindow(QWidget* window, const Context& context)
 {
     new WindowSupport(window, context); // deletes itself when widget is destroyed
-}
-
-/*!
-    Opens files using \a arguments and \a flags like it would be
-    done if they were given to \QC on the command line, or
-    they were opened via \uicontrol File > \uicontrol Open.
-*/
-
-void ICore::openFiles(const QStringList& arguments, ICore::OpenFilesFlags flags)
-{
-    //m_mainwindow->openFiles(arguments, flags);
 }
 
 /*!

@@ -1,2 +1,8 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/cantool">
+        <file>images/mode_wire.png</file>
+        <file>images/mode_wire@2x.png</file>
+        <file>images/mode_wire_mask.png</file>
+        <file>images/mode_wire_mask@2x.png</file>
+    </qresource>
+</RCC>

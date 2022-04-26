@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -80,7 +80,7 @@ VersionDialog::VersionDialog(QWidget *parent)
         "%4"
         "%5"
         "<br/>"
-        "Copyright 2008-%6 %7. All rights reserved.<br/>"
+        "Copyright 2022-%6 %7. All rights reserved.<br/>"
         "<br/>"
         "The program is provided AS IS with NO WARRANTY OF ANY KIND, "
         "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A "

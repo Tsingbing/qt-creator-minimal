@@ -1,4 +1,4 @@
-set(languages cs da de fr hr ja pl ru sl uk zh_CN zh_TW)
+set(languages zh_CN)
 set(bad_languages hu) # Fix these before including them in languages!
 
 find_package(PythonInterp)

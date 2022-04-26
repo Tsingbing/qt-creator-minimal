@@ -1,22 +1,29 @@
 DEFINES += CANTOOL_LIBRARY
 
+
 # CanTool files
 
-SOURCES +=         cantoolplugin.cpp
+SOURCES +=         cantoolplugin.cpp \
+    cantoolmode.cpp \
+    mainform.cpp \
+    #qcustomplot.cpp
 
-HEADERS +=         cantoolplugin.h         cantool_global.h         cantoolconstants.h
+HEADERS +=         cantoolplugin.h         cantool_global.h         cantoolconstants.h \
+    cantoolmode.h \
+    mainform.h \
+    #qcustomplot.h
 
 # Qt Creator linking
 
 ## Either set the IDE_SOURCE_TREE when running qmake,
 ## or set the QTC_SOURCE environment variable, to override the default setting
 isEmpty(IDE_SOURCE_TREE): IDE_SOURCE_TREE = $$(QTC_SOURCE)
-isEmpty(IDE_SOURCE_TREE): IDE_SOURCE_TREE = "C:/tage/pro/opensourceHub/QTC/qt-creator-minimal/qt-creator-minimal"
+isEmpty(IDE_SOURCE_TREE): IDE_SOURCE_TREE = "D:/tage/pro/qt-creator-minimal/qt-creator-minimal"
 
 ## Either set the IDE_BUILD_TREE when running qmake,
 ## or set the QTC_BUILD environment variable, to override the default setting
 isEmpty(IDE_BUILD_TREE): IDE_BUILD_TREE = $$(QTC_BUILD)
-isEmpty(IDE_BUILD_TREE): IDE_BUILD_TREE = "C:/tage/pro/opensourceHub/QTC/qt-creator-minimal/build-qt-creator-minimal-Desktop_Qt_5_14_2_MSVC2017_64bit-Debug"
+isEmpty(IDE_BUILD_TREE): IDE_BUILD_TREE = "D:/tage/pro/qt-creator-minimal/build-qt-creator-minimal-Desktop_Qt_5_14_2_MSVC2017_64bit-Release"
 
 ## uncomment to build plugin into user config directory
 ## <localappdata>/plugins/<ideversion>
@@ -40,3 +47,13 @@ QTC_PLUGIN_RECOMMENDS +=     # optional plugin dependencies. nothing here at thi
 ###### End _dependencies.pri contents ######
 
 include($$IDE_SOURCE_TREE/src/qtcreatorplugin.pri)
+
+FORMS += \
+    mainform.ui
+
+RESOURCES += \
+    cantool.qrc
+
+win32 {
+    LIBS += -lControlCAN  # 目录是build/lib/qtcreator/plugins
+}

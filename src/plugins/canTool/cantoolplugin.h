@@ -1,11 +1,14 @@
-#pragma once
+﻿#pragma once
 
 #include "cantool_global.h"
 
 #include <extensionsystem/iplugin.h>
 
+
 namespace CanTool {
 namespace Internal {
+
+class CanToolMode;
 
 class CanToolPlugin : public ExtensionSystem::IPlugin
 {
@@ -22,6 +25,8 @@ public:
 
 private:
     void triggerAction();
+
+    CanToolMode *m_cantoolMode = nullptr;
 };
 
 } // namespace Internal

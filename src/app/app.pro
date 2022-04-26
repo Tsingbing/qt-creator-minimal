@@ -17,6 +17,7 @@ include(../rpath.pri)
 
 include(../libs/qt-breakpad/qtbreakpad.pri)
 
+
 #依赖库
 LIBS *= -l$$qtLibraryName(ExtensionSystem) -l$$qtLibraryName(Aggregation) -l$$qtLibraryName(Utils)
 

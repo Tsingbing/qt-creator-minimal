@@ -2,7 +2,7 @@ TEMPLATE = aux
 
 include(../../../qtcreator.pri)
 
-LANGUAGES = cs da de fr hr ja pl ru sl uk zh_CN zh_TW
+LANGUAGES = zh_CN
 # *do not* re-enable these without a prior rework
 BAD_LANGUAGES = hu
 

@@ -1,21 +1,839 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>MainForm</class>
  <widget class="QWidget" name="MainForm">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>1126</width>
+    <height>615</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>连接设备</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_12">
+       <item row="0" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_14" stretch="2,6,1">
+         <item>
+          <widget class="QGroupBox" name="groupBox_9">
+           <property name="title">
+            <string/>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_15">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_15">
+              <item>
+               <widget class="QPushButton" name="OpenDev_Btn">
+                <property name="text">
+                 <string> 打开设备</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_11">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_16">
+                <property name="font">
+                 <font>
+                  <family>Bahnschrift SemiCondensed</family>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(197, 197, 197);</string>
+                </property>
+                <property name="text">
+                 <string>USBCAN-2A  USBCAN-2C  CANalyst-II</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_12">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="CloseDev_Btn">
+                <property name="text">
+                 <string> 关闭设备</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_11">
+              <property name="title">
+               <string> CAN 设置</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_13">
+               <item row="0" column="0">
+                <layout class="QHBoxLayout" name="horizontalLayout_16">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_17">
+                   <item>
+                    <layout class="QVBoxLayout" name="verticalLayout_16">
+                     <item>
+                      <widget class="QLabel" name="label_17">
+                       <property name="text">
+                        <string>  帧格式：</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_18">
+                       <property name="text">
+                        <string> CAN通道：</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QVBoxLayout" name="verticalLayout_17">
+                     <item>
+                      <widget class="QComboBox" name="FrameFormt_ComB">
+                       <item>
+                        <property name="text">
+                         <string>Standar</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Extended</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QComboBox" name="CanIndex_ComB">
+                       <item>
+                        <property name="text">
+                         <string>CAN1</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>CAN2</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_18">
+                   <item>
+                    <layout class="QVBoxLayout" name="verticalLayout_18">
+                     <item>
+                      <widget class="QLabel" name="label_19">
+                       <property name="text">
+                        <string>   帧类型：</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_20">
+                       <property name="text">
+                        <string>帧ID(hex)：</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QVBoxLayout" name="verticalLayout_19">
+                     <item>
+                      <widget class="QComboBox" name="FrameType_ComB">
+                       <property name="maximumSize">
+                        <size>
+                         <width>200</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <item>
+                        <property name="text">
+                         <string>Data</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Remote</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="FrameId_LineE">
+                       <property name="maximumSize">
+                        <size>
+                         <width>200</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_13">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+               <item row="0" column="1">
+                <layout class="QHBoxLayout" name="horizontalLayout_19">
+                 <item>
+                  <widget class="Line" name="line_3">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_20">
+                   <item>
+                    <widget class="QLabel" name="label_21">
+                     <property name="text">
+                      <string> 工作模式：</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_22">
+                     <property name="text">
+                      <string>   波特率：</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_21">
+                   <item>
+                    <widget class="QComboBox" name="WorkMode_ComB">
+                     <property name="minimumSize">
+                      <size>
+                       <width>100</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>正常模式</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>只听模式</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>自发自收</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="BaudRate_ComB">
+                     <property name="minimumSize">
+                      <size>
+                       <width>100</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>10Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>20Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>40Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>50Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>80Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>100Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>125Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>200Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>250Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>400Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>500Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>666Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>800Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>1000Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>33.33Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>66.66Kbps</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>83.33Kbps</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+               <item row="0" column="2">
+                <spacer name="horizontalSpacer_14">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="3">
+                <layout class="QVBoxLayout" name="verticalLayout_22">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_20">
+                   <item>
+                    <widget class="QLabel" name="label_23">
+                     <property name="text">
+                      <string>发送周期(ms)：</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="SendPeriod_LineE">
+                     <property name="maximumSize">
+                      <size>
+                       <width>100</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_21">
+                   <item>
+                    <spacer name="horizontalSpacer_15">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item>
+                    <widget class="QCheckBox" name="AutoSend_Chek">
+                     <property name="text">
+                      <string> 自动发送</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+               <item row="0" column="4">
+                <widget class="Line" name="line_4">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="5">
+                <spacer name="horizontalSpacer_16">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="6">
+                <layout class="QVBoxLayout" name="verticalLayout_23">
+                 <item>
+                  <widget class="QCheckBox" name="CanRecv_Chek">
+                   <property name="text">
+                    <string>CAN 接收</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="RealStore_Chek">
+                   <property name="text">
+                    <string>实时存储</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_12">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(186, 186, 186);</string>
+           </property>
+           <property name="title">
+            <string> 数据显示</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_14">
+            <item row="0" column="0">
+             <widget class="QTableView" name="RecvText"/>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_13">
+           <property name="title">
+            <string/>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_22">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_23">
+              <item>
+               <widget class="QLabel" name="label_24">
+                <property name="text">
+                 <string>    数据（hex)：</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="SendData_Text">
+                <property name="minimumSize">
+                 <size>
+                  <width>200</width>
+                  <height>0</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="Send_Btn">
+                <property name="text">
+                 <string> 发送</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_17">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_25">
+                <property name="text">
+                 <string>滤波方式：</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="filterMod">
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>接收所有类型</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>只接收标准帧</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>只接收扩展帧</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_18">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="clear_Btn_2">
+              <property name="text">
+               <string> 清空数据</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_5">
+      <attribute name="title">
+       <string>数据分析</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_15">
+       <item row="0" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_24" stretch="2,0,1">
+         <item>
+          <widget class="QGroupBox" name="groupBox_14">
+           <property name="title">
+            <string>波形</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_16"/>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_24">
+           <item>
+            <widget class="QCheckBox" name="checkBox_Rpm">
+             <property name="text">
+              <string>转速</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_Volt">
+             <property name="text">
+              <string>电压</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_Current">
+             <property name="text">
+              <string>电流</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_15">
+           <property name="title">
+            <string>GroupBox</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_17">
+            <item row="0" column="0">
+             <layout class="QHBoxLayout" name="horizontalLayout_25" stretch="0,0,0">
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_25">
+                <item>
+                 <widget class="QLabel" name="label_Current">
+                  <property name="text">
+                   <string>电流:Null</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_Volt">
+                  <property name="text">
+                   <string>电压:Null</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_Rpm">
+                  <property name="text">
+                   <string>转速:Null</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_19">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_26">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_26">
+                  <item>
+                   <widget class="QLabel" name="label_26">
+                    <property name="text">
+                     <string>电流</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSlider" name="horizontalSlider_4">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_27">
+                  <item>
+                   <widget class="QLabel" name="label_27">
+                    <property name="text">
+                     <string>电压</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSlider" name="horizontalSlider_5">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_28">
+                  <item>
+                   <widget class="QLabel" name="label_28">
+                    <property name="text">
+                     <string>转速</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSlider" name="horizontalSlider_6">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="1">
+             <spacer name="horizontalSpacer_20">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_6">
+      <attribute name="title">
+       <string>说明</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_18">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox_16">
+         <property name="title">
+          <string/>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_19">
+          <item row="0" column="0">
+           <widget class="QGroupBox" name="groupBox_17">
+            <property name="title">
+             <string/>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_20">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_29">
+               <property name="maximumSize">
+                <size>
+                 <width>1000</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="pixmap">
+                <pixmap>:/new/prefix1/icon/4.png</pixmap>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QGroupBox" name="groupBox_18">
+            <property name="title">
+             <string/>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_21">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_30">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="pixmap">
+                <pixmap>:/new/prefix1/icon/can.png</pixmap>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>

@@ -36,8 +36,8 @@ SOURCES += \
     $$PWD/qtcprocess.cpp \
     $$PWD/reloadpromptutils.cpp \
     $$PWD/settingsaccessor.cpp \
-    $$PWD/shellcommand.cpp \
-    $$PWD/shellcommandpage.cpp \
+#    $$PWD/shellcommand.cpp \
+#    $$PWD/shellcommandpage.cpp \
     $$PWD/settingsselector.cpp \
     $$PWD/stringutils.cpp \
     $$PWD/templateengine.cpp \
@@ -154,8 +154,8 @@ HEADERS += \
     $$PWD/reloadpromptutils.h \
     $$PWD/settingsaccessor.h \
     $$PWD/settingsselector.h \
-    $$PWD/shellcommand.h \
-    $$PWD/shellcommandpage.h \
+    #$$PWD/shellcommand.h \
+    #$$PWD/shellcommandpage.h \
     $$PWD/stringutils.h \
     $$PWD/templateengine.h \
     $$PWD/temporarydirectory.h \

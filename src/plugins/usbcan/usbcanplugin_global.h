@@ -1,0 +1,12 @@
+#ifndef USBCAN_GLOBAL_H
+#define USBCAN_GLOBAL_H
+
+#include <QtGlobal>
+
+#if defined(USBCANPLUGIN_LIBRARY)
+#  define USBCANPLUGINSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define USBCANPLUGINSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // USBCAN_GLOBAL_H

@@ -1,0 +1,11 @@
+{
+    \"Name\" : \"WireControlPlugin\",
+    \"Version\" : \"0.0.1\",
+    \"CompatVersion\" : \"0.0.1\",
+    \"Vendor\" : \"Tage\",
+    \"Copyright\" : \"(C) Tage\",
+    \"License\" : \"线控 wireControl\",
+    \"Description\" : \"线控 wireControl \",
+    \"Url\" : \"http://www.tage.com\",
+    $$dependencyList
+}

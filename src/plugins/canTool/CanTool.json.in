@@ -1,0 +1,11 @@
+{
+    \"Name\" : \"CanTool\",
+    \"Version\" : \"0.0.1\",
+    \"CompatVersion\" : \"0.0.1\",
+    \"Vendor\" : \"tage\",
+    \"Copyright\" : \"(C) tage\",
+    \"License\" : \"\",
+    \"Description\" : \"can 检测工具\",
+    \"Url\" : \"http://www.tage.com\",
+    $$dependencyList
+}

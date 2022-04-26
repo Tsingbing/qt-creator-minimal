@@ -103,7 +103,8 @@ MainWindow::MainWindow()
 
     HistoryCompleter::setSettings(PluginManager::settings());
 
-    setWindowTitle(Constants::IDE_DISPLAY_NAME);
+    //setWindowTitle(Constants::IDE_DISPLAY_NAME);
+    setWindowTitle(QString::fromLocal8Bit("基础软件平台"));
     //Remove title box
     //setWindowFlags(Qt::FramelessWindowHint);
     if (HostOsInfo::isLinuxHost())

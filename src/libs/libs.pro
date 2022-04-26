@@ -8,5 +8,4 @@ SUBDIRS  += \
     aggregation \
     extensionsystem \
 
-
 QMAKE_EXTRA_TARGETS += deployqt # dummy

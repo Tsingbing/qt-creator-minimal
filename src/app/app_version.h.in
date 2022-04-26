@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -47,7 +47,7 @@ const char IDE_CASED_ID[] = \"$${IDE_CASED_ID}\";
 const char IDE_VERSION_LONG[]      = IDE_VERSION_STR;
 const char IDE_VERSION_DISPLAY[]   = STRINGIFY(IDE_VERSION_DISPLAY_DEF);
 const char IDE_VERSION_COMPAT[]    = STRINGIFY(IDE_VERSION_COMPAT_DEF);
-const char IDE_AUTHOR[]            = \"The Qt Company Ltd\";
+const char IDE_AUTHOR[]            = \"The Tage Company Ltd\";
 const char IDE_YEAR[]              = \"$${QTCREATOR_COPYRIGHT_YEAR}\";
 
 #ifdef IDE_REVISION

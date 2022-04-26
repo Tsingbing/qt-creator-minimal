@@ -1,4 +1,4 @@
-#include "cantoolplugin.h"
+﻿#include "cantoolplugin.h"
 #include "cantoolconstants.h"
 
 #include <coreplugin/icore.h>
@@ -12,6 +12,8 @@
 #include <QMessageBox>
 #include <QMainWindow>
 #include <QMenu>
+
+#include "cantoolmode.h"
 
 namespace CanTool {
 namespace Internal {
@@ -49,6 +51,8 @@ bool CanToolPlugin::initialize(const QStringList &arguments, QString *errorStrin
     menu->menu()->setTitle(tr("CanTool"));
     menu->addAction(cmd);
     Core::ActionManager::actionContainer(Core::Constants::M_TOOLS)->addMenu(menu);
+
+    m_cantoolMode = new CanToolMode();
 
     return true;
 }

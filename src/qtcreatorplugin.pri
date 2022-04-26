@@ -66,6 +66,7 @@ isEmpty(USE_USER_DESTDIR) {
     DESTDIR = "$$DESTDIRBASE/QtProject/$$DESTDIRAPPNAME/plugins/$$QTCREATOR_VERSION"
 }
 LIBS += -L$$DESTDIR
+
 INCLUDEPATH += $$OUT_PWD
 
 # copy the plugin spec

@@ -1,9 +1,19 @@
-#pragma once
+﻿#pragma once
+#include <coreplugin/imode.h>
 
+#include <QString>
+#include <QIcon>
 
-class CanToolMode
+namespace CanTool {
+namespace Internal {
+
+class CanToolMode : public Core::IMode
 {
 public:
-    CanToolMode();
-};
+    CanToolMode(QObject *parent = nullptr);
 
+private:
+    QWidget* m_modeWidget = nullptr;
+};
+}
+}

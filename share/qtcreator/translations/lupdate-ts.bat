@@ -1,0 +1,1 @@
+lupdate .\  -ts qtcreator_zh_CN.ts

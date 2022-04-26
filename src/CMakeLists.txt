@@ -1,11 +1,10 @@
-add_library(app_version INTERFACE)
+﻿add_library(app_version INTERFACE)
 target_include_directories(app_version
   INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
   INTERFACE $<INSTALL_INTERFACE:include/src>)
 install(TARGETS app_version EXPORT QtCreator)
 
 add_subdirectory(libs)
-add_subdirectory(share)
 add_subdirectory(shared)
 add_subdirectory(app)
 add_subdirectory(plugins)

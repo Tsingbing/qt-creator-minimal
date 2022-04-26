@@ -12,7 +12,7 @@ isEmpty(QTC_SHOW_BUILD_DATE): QTC_SHOW_BUILD_DATE = $$(QTC_SHOW_BUILD_DATE)
 include(../../qtcreatorplugin.pri)
 msvc: QMAKE_CXXFLAGS += -wd4251 -wd4290 -wd4250
 SOURCES += mainwindow.cpp \
-    shellcommand.cpp \
+    #shellcommand.cpp \
     #editmode.cpp \
     fancyactionbar.cpp \
     fancytabwidget.cpp \
@@ -55,8 +55,7 @@ SOURCES += mainwindow.cpp \
     welcomepagehelper.cpp
 
 HEADERS += mainwindow.h \
-    shellcommand.h \
-    #editmode.h \
+    #shellcommand.h \
     fancyactionbar.h \
     fancytabwidget.h \
     generalsettings.h \

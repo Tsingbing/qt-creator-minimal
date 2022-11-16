@@ -271,3 +271,4 @@ tmp/
 # qbs builds
 /*-debug/
 /*-release/
+CMakeLists.txt.user

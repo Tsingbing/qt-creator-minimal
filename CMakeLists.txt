@@ -1,8 +1,11 @@
-﻿cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.9)
 
 ## Add paths to check for cmake modules:
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
+if (APPLE)
+  set(CMAKE_OSX_ARCHITECTURES "x86_64")
+endif()
 include(FeatureSummary)
 include(QtCreatorIDEBranding)
 include(QtCreatorTranslations)
@@ -128,11 +131,11 @@ if (WITH_TESTS)
 endif()
 
 if (UNIX)
-  add_subdirectory(bin)
+  #add_subdirectory(bin)
 endif()
 
 add_subdirectory(src)
-add_subdirectory(share)
+#add_subdirectory(share)
 
 if (WITH_TESTS)
   add_subdirectory(tests)
